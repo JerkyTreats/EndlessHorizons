@@ -11,25 +11,30 @@ namespace Character
 		//Used to reduce number of GetComponent calls.
 		private Character.Controller characterController; 
 		private List<Goal> goals; //goal name + weight
-		public Inventory inventory;
 		public Goal currentGoal; //characters current goal
+		public GameObject goalObject; //goal actualized into an object;
 		public string characterType; //characters type, limits the actions available to this character
-		private List<GameObject> worldObjects;
+		public List<Component> worldObjects;
+		private Goal idle;
 
 
 		// Use this for initialization
 		void Start () {
 			characterController = gameObject.GetComponent<Character.Controller>();
 			characterType = characterController.characterType;
-			inventory = characterController.inventory;
 			goals = new List<Goal>();
-			worldObjects = new List<GameObject>();
-
-			goals.Add(new Goal("Idle",5)); //Default goal
-			UpdateStatus(); //call the update status so that the initial behaviour is to Idle;
+			goalObject = new GameObject();
+			worldObjects = new List<Component>();
+			idle = ScriptableObject.CreateInstance<Goal>();
+			idle.Init("Idle", 5);
 
 			NotificationCenter.DefaultCenter().AddObserver(this, "AnnounceWorldLocation");
 			NotificationCenter.DefaultCenter().AddObserver(this, "UpdateStatus"); //receive "update status" notifications;
+			NotificationCenter.DefaultCenter().AddObserver(this, "CompleteGoal"); //receive "update status" notifications;
+
+			//this chincey shit is not optimal: send a notification to itself to inject a default "Idle" state;
+			currentGoal = idle;
+			NotificationCenter.DefaultCenter().PostNotification(this,"UpdateStatus",idle); 
 		}
 
 		//Add a world object that the character can interact with;
@@ -51,7 +56,7 @@ namespace Character
 
 				//Check the list if the goal to update exists, replace;
 				//Update the currentGoal if the newGoal has the highest weighting;
-				for(int i = 0; i<=goals.Count; i++)
+				for(int i = 0; i<goals.Count; i++)
 				{
 					if (newGoal.goalName.Equals(goals[i].goalName))
 					{
@@ -59,6 +64,7 @@ namespace Character
 						goalExists = true;
 					}	
 				}
+
 				//Add the goal to the list of goals if it does not exist, 
 				if (!goalExists)
 				{
@@ -68,6 +74,7 @@ namespace Character
 				//update the current goal if necessary;
 				if (newGoal.goalWeight > currentGoal.goalWeight)
 				{
+					//Debug.Log("CurrentGoal updated");
 					currentGoal = newGoal;
 					DoAction(); //Get the character to actions to satisfy the goal 
 				}
@@ -81,39 +88,37 @@ namespace Character
 		//Do all actions by cheapest action cost until the intended status is changed
 		void DoAction()
 		{
+			//Debug.Log("I will do an Action:");
 			switch (currentGoal.goalName)
 			{
 				case "ReduceHunger":
-					Debug.Log("I am hungry enough to eat!");
-					Meal meal = inventory.GetFoodFromInventory();
-					if (meal != null)
-					{
-						Hunger.Eat(meal.mealValue);
-						Destroy(meal);
-					} else
-					{
-						foreach(GameObject obj in worldObjects)
-						{
-							if (obj is Kitchen)
-							{
-								obj = (Kitchen)obj;
-								Kitchen test = obj;
-							}
-						}
-					}
+					goalObject.AddComponent<ReduceHunger>();
+					ReduceHunger rh = goalObject.GetComponent<ReduceHunger>();
+					rh.Init(characterController);
+					break;
+				case "Idle":
+					Debug.Log("\tNothing to do, I will Idle");
+					//do nothing ye lazy @#$%
 					break;
 			}	
+		}
+
+		void CompleteGoal(Notification notification)
+		{
+			currentGoal = idle;
 		}
 	}
 
 
+
+
 	//goal object to create, makes for easier (conceptually) goalWeight sorting;
-	public class Goal : MonoBehaviour
+	public class Goal : ScriptableObject
 	{
 		public string goalName;
 		public int goalWeight;
 
-		public Goal(string name, int weight)
+		public void Init(string name, int weight)
 		{
 			goalName = name;
 			goalWeight = weight;

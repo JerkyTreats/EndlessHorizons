@@ -4,23 +4,26 @@ using System.Collections;
 namespace Kitchen
 {
 	public class KitchenTrigger : MonoBehaviour {
-		public CircleCollider2D colliderTrigger;
-		public bool isActive = false;
+		public bool isActive;
+		public Character.Controller characterInTrigger;
 
 		void Start()
 		{
-			colliderTrigger = GetComponent<CircleCollider2D>();
+			characterInTrigger = null;
+			isActive = false;
 		}
 
-		void OnTriggerEnter2D()
+		void OnTriggerEnter2D(Collider2D other)
 		{
+			Debug.Log(other.gameObject.name + " has entered the kitchen trigger");
 			isActive = true;
-			//NotificationCenter.DefaultCenter().PostNotification(this, "KitchenNodeActive");
+			characterInTrigger = other.gameObject.GetComponent<Character.Controller>();
 		}
-		void OnTriggerExit2D()
+		void OnTriggerExit2D(Collider2D other)
 		{
+			Debug.Log(other.gameObject.name + " has entered the kitchen trigger");
 			isActive = false;
-			//NotificationCenter.DefaultCenter().PostNotification(this, "KitchenNodeInactive");
+			characterInTrigger = null;
 		}
 	}
 }

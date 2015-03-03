@@ -55,10 +55,12 @@
      <Compile Include="Assets\Scripts\Character\Hunger.cs" />
      <Compile Include="Assets\Scripts\Character\Inventory.cs" />
      <Compile Include="Assets\Scripts\Character\Planner.cs" />
+     <Compile Include="Assets\Scripts\Character\ReduceHunger.cs" />
      <Compile Include="Assets\Scripts\Door\Controller.cs" />
      <Compile Include="Assets\Scripts\Kitchen\Controller.cs" />
      <Compile Include="Assets\Scripts\Kitchen\KitchenTrigger.cs" />
      <Compile Include="Assets\Scripts\Kitchen\Meal.cs" />
+     <Compile Include="Assets\Scripts\Kitchen\PendingMeal.cs" />
      <Compile Include="Assets\Scripts\NotificationCenter.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>

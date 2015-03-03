@@ -5,7 +5,6 @@ namespace Character
 {
 	[RequireComponent(typeof(PolyNavAgent))]
 	public class Controller : MonoBehaviour{
-		public GameObject characterObject;
 		public string characterType = "character";
 		private PolyNavAgent _agent;
 		public Vector3 goal;
@@ -25,11 +24,10 @@ namespace Character
 
 
 		void Start(){
-			planner = new Planner();
-			hunger = new Hunger();
-			inventory = new Inventory();
+			inventory = GetComponent<Inventory>();
+			hunger = GetComponent<Hunger>();
+			planner = GetComponent<Planner>();
 			anim = GetComponent<Animator>();
-			characterObject = gameObject;
 		}
 
 		void Update() {
@@ -42,6 +40,7 @@ namespace Character
 
 		public void SetDestination(Vector3 goal)
 		{
+			Debug.Log(goal);
 			agent.SetDestination(goal);
 		}
 

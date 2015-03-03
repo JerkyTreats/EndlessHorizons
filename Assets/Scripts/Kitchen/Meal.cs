@@ -10,6 +10,10 @@ namespace Kitchen{
 		public int ingredientsNeeded;  //ingredients as a int for now, will probably have increased complexity later
 		public float minimumCookTime; //cook time with a "perfect" cook
 
+		public Meal(){
+			//default to allow pendingMeal class constructing
+		}
+
 		//constructor
 		public Meal(string mealName, int mealValue, List<int> kitchenNodeOrder,int ingredientsNeeded, float minimumCookTime){
 			this.mealName = mealName;
@@ -19,6 +23,7 @@ namespace Kitchen{
 			this.minimumCookTime=minimumCookTime;
 		}
 
+		//Temporary data init static methods
 		public static List<Meal> GetMealsAsList()
 		{
 			List<Meal> meals = new List<Meal>(); //to return
@@ -31,6 +36,7 @@ namespace Kitchen{
 			return meals;
 		}
 
+		//Temporary data init static methods
 		public static Meal GetMeal(string mealName)
 		{
 			List<Meal> meals = GetMealsAsList();

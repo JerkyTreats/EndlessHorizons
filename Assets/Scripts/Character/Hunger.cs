@@ -7,18 +7,20 @@ namespace Character
 {
 	public class Hunger : MonoBehaviour {
 		public Goal goal; //Associated goal for AI Planner
-		public int hungerRate; //rate at which hunger is increased
-		public float cookMultiplier; //will multiply the length of time to cook a meal. 
 		private int hungerLevel; //current hunger level as an int; decreases over time, increases on eat
+		public int hungerRate; //rate at which hungerLevel is decreased
+		public float cookMultiplier; //will multiply the length of time to cook a meal. 
 		private string currentState; //string stating what the current hunger level is;
 
 		// Use this for initialization
 		void Start () 
 	    {
-			goal = new Goal("ReduceHunger", 0);
+			goal = ScriptableObject.CreateInstance<Goal>();
+			goal.Init("ReduceHunger", 0);
 	        hungerLevel = 100;
+			hungerRate = 3;
 			cookMultiplier = 1f;
-	        InvokeRepeating("IncreaseHunger", 0,(1*60));
+	        InvokeRepeating("IncreaseHunger", 0,(1));
 			NotificationCenter.DefaultCenter().PostNotification(this, "AddAvailableAction", "FindFoodInInventory");
 		}
 		
@@ -30,6 +32,7 @@ namespace Character
 
 	    public void Eat(int mealValue)
 	    {
+			Debug.Log("Eat");
 	        hungerLevel += mealValue;
 	        SetCurrentState();
 	    }
@@ -44,69 +47,46 @@ namespace Character
 			} else if (hungerLevel >= 100 && hungerLevel <= 110)
 			{
 				newState ="Totally Satisfied";
-				if (currentState != newState){
-					Debug.Log(newState);
-				}
 				hungerLevel = 100;
 				goal.goalWeight = 0;
 			} else if (hungerLevel < 100 && hungerLevel >= 90)
 			{
 				newState = "Very Full";
-				if (currentState != newState){
-					Debug.Log(newState);
-				}
 				goal.goalWeight = 0;
 			} else if (hungerLevel < 90 && hungerLevel >= 80)
 			{
 				newState="Full";
-				if (currentState != newState){
-					Debug.Log(newState);
-				}
 				goal.goalWeight = 0;
 			} else if (hungerLevel < 80 && hungerLevel >= 70)
 			{
 				newState = "Satisfied";
-				if (currentState != newState){
-					Debug.Log(newState);
-				}
 				goal.goalWeight = 5;
 			} else if (hungerLevel < 70 && hungerLevel >= 60)
 			{
 				newState = "Peckish";
-				if (currentState != newState){
-					Debug.Log(newState);
-				}
 				goal.goalWeight = 8;
 	        } else if (hungerLevel < 60 && hungerLevel >= 30)
 	        {
 				newState = "Hungry";
-				if (currentState != newState){
-					Debug.Log(newState);
-				}
 				goal.goalWeight = 13;
 	        } else if (hungerLevel < 30 && hungerLevel >= 20)
 	        {
 				newState = "Starving";
-				if (currentState != newState){
-					Debug.Log(newState);
-				}
 				goal.goalWeight = 21;
 	        } else if (hungerLevel < 20 && hungerLevel >= 0)
 	        {
 				newState = "Dangerously Hungry";
-				if (currentState != newState){
-					Debug.Log(newState);
-				}
 				goal.goalWeight = 34;
 
 	        }
+
 			if (currentState != newState && newState != null)
 			{
 				currentState = newState;
-				Debug.Log(currentState);
+				//Debug.Log(currentState);
 				NotificationCenter.DefaultCenter().PostNotification(this, "UpdateStatus", goal); //Send a notification to listeners
-				CancelInvoke("IncreaseHunger"); //cancel the current invoke
-				InvokeRepeating("IncreaseHunger", (1*60),(1*60)); //reset the hunger timer to be every x minutes again
+				//CancelInvoke("IncreaseHunger"); //cancel the current invoke
+				//InvokeRepeating("IncreaseHunger", (15),(15)); //reset the hunger timer to be every x minutes again
 			}
 	    }
 	}

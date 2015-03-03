@@ -28,7 +28,13 @@ namespace Character
 		//Get the amount of an object the character has in their inventory
 		public int GetObjectAmount(Object obj)
 		{
-			return inventory [obj];
+			if (inventory.ContainsKey(obj))
+			{
+				return inventory [obj];
+			} else
+			{
+				return 0;
+			}
 		}
 
 		//Remove an amount of an object from the characters inventory
@@ -53,6 +59,7 @@ namespace Character
 
 		public Meal GetFoodFromInventory(string mealName)		
 		{
+			Debug.Log("GetFoodFromInventory");
 			Meal meal = Meal.GetMeal(mealName);
 			if (GetObjectAmount(meal) == 0)
 			{
