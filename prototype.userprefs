@@ -1,13 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Kitchen\Controller.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Character\Inventory.cs">
     <Files>
-      <File FileName="Assets\Scripts\Kitchen\PendingMeal.cs" Line="50" Column="4" />
-      <File FileName="Assets\Scripts\Character\ReduceHunger.cs" Line="51" Column="4" />
-      <File FileName="Assets\Scripts\Character\Planner.cs" Line="115" Column="23" />
-      <File FileName="Assets\Scripts\Kitchen\Controller.cs" Line="107" Column="31" />
-      <File FileName="Assets\PolyNav2D\Scripts\Runtime\PolyNav2D.cs" Line="291" Column="1" />
-      <File FileName="Assets\Scripts\Kitchen\Meal.cs" Line="35" Column="21" />
+      <File FileName="Assets\Scripts\Kitchen\PendingMeal.cs" Line="37" Column="19" />
+      <File FileName="Assets\Scripts\Character\ReduceHunger.cs" Line="38" Column="30" />
+      <File FileName="Assets\Scripts\Character\Planner.cs" Line="111" Column="3" />
+      <File FileName="Assets\Scripts\Kitchen\Controller.cs" Line="15" Column="32" />
+      <File FileName="Assets\Scripts\Character\Hunger.cs" Line="20" Column="26" />
+      <File FileName="Assets\Scripts\Character\Controller.cs" Line="34" Column="34" />
+      <File FileName="Assets\Scripts\Character\Inventory.cs" Line="10" Column="94" />
+      <File FileName="Assets\Scripts\Kitchen\Meal.cs" Line="51" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -12,7 +12,7 @@ namespace Kitchen{
 		private GameObject kitchenNode2;
 		private GameObject kitchenNode3;
 		private List<GameObject> kitchenNodes; 
-		private List<Meal>pendingMeals; //remove required ingredients, place in a temporary list, if cooking fails, return igredients, etc.
+		public List<Meal>pendingMeals; //remove required ingredients, place in a temporary list, if cooking fails, return igredients, etc.
 
 		// Use this for initialization
 		void Start () {

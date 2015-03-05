@@ -17,10 +17,10 @@ namespace Character
 	    {
 			goal = ScriptableObject.CreateInstance<Goal>();
 			goal.Init("ReduceHunger", 0);
-	        hungerLevel = 100;
+	        hungerLevel = 73;
 			hungerRate = 3;
 			cookMultiplier = 1f;
-	        InvokeRepeating("IncreaseHunger", 0,(1));
+	        InvokeRepeating("IncreaseHunger", 0,(15));
 			NotificationCenter.DefaultCenter().PostNotification(this, "AddAvailableAction", "FindFoodInInventory");
 		}
 		

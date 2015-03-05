@@ -30,7 +30,7 @@ namespace Character
 
 			NotificationCenter.DefaultCenter().AddObserver(this, "AnnounceWorldLocation");
 			NotificationCenter.DefaultCenter().AddObserver(this, "UpdateStatus"); //receive "update status" notifications;
-			NotificationCenter.DefaultCenter().AddObserver(this, "CompleteGoal"); //receive "update status" notifications;
+			NotificationCenter.DefaultCenter().AddObserver(this, "GoalComplete");
 
 			//this chincey shit is not optimal: send a notification to itself to inject a default "Idle" state;
 			currentGoal = idle;
@@ -103,14 +103,12 @@ namespace Character
 			}	
 		}
 
-		void CompleteGoal(Notification notification)
+		void GoalComplete(Notification notification)
 		{
-			currentGoal = idle;
+			Notification note = new Notification(this, "UpdateStatus", idle); 
+			UpdateStatus(note);
 		}
 	}
-
-
-
 
 	//goal object to create, makes for easier (conceptually) goalWeight sorting;
 	public class Goal : ScriptableObject

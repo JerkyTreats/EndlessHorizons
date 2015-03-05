@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Kitchen{
-	public class Meal : Object {
+	public class Meal : ScriptableObject {
 		public string mealName;  //name of the meal 
 		public int mealValue; //character.hunger mealValue 
 		public List<int> kitchenNodeOrder; //a kitchen has 3 nodes, how many nodes does character have to go to to cook meal
@@ -30,9 +30,13 @@ namespace Kitchen{
 			List<int> mealOrder = new List<int>(); 
 
 			mealOrder.Add(1);
-			meals.Add(new Meal("snack",8,mealOrder,1,34f));
+			meals.Add(new Meal("snack",8,mealOrder,1,18f));
 			mealOrder.Add(2);
-			meals.Add(new Meal("meal", 21, mealOrder,3,55f));
+			Meal test = new Meal("meal", 21, mealOrder, 3, 15f);
+			//Debug.Log(test.ToString());
+			Debug.Log(test.mealName + " " + test.mealValue + " " + test.ingredientsNeeded + " " + test.minimumCookTime + " " + test.kitchenNodeOrder);
+			meals.Add(test);
+
 			return meals;
 		}
 
@@ -44,6 +48,7 @@ namespace Kitchen{
 			{
 				if (meal.mealName == mealName)
 				{
+					Debug.Log(meal);
 					return meal;
 				}
 			}
