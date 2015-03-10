@@ -6,7 +6,7 @@ namespace Character
 {
 	public class ReduceHunger : MonoBehaviour {
 		public Kitchen.Controller kitchen;
-		Character.Controller owner;
+		Character.NPC owner;
 
 		public void Init(Character.Controller owner)
 		{
