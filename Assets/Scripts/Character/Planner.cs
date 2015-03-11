@@ -7,8 +7,6 @@ namespace Character
 {
 	//Determines what the character should do based on their needs 
 	public class Planner : MonoBehaviour {
-		//Controller component with references to all other components
-		//Used to reduce number of GetComponent calls.
 		private Character.NPC controller; 
 		private List<Goal> goals; //goal name + weight
 		public Goal currentGoal; //characters current goal
@@ -25,9 +23,13 @@ namespace Character
 			goals = new List<Goal>();
 			goalObject = new GameObject();
 			worldObjects = new List<Component>();
+
 			idle = ScriptableObject.CreateInstance<Goal>();
 			idle.Init("Idle", 5);
 
+            //These need to be refactored to be contained in the NPC. 
+            //Reducing functionality of the Observer pattern to only deal with unrelated objects
+            //Else increase observing methods to validate incoming message with high degree of confidence; 
 			NotificationCenter.DefaultCenter().AddObserver(this, "AnnounceWorldLocation");
 			NotificationCenter.DefaultCenter().AddObserver(this, "GoalComplete");
 
@@ -111,6 +113,8 @@ namespace Character
 			}	
 		}
 
+        //Complete a goal; a previous UpdateStatus should have already be run. 
+        //Honestly not sure why this is here;
 		void GoalComplete(Notification notification)
 		{
 			UpdateStatus();

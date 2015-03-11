@@ -4,11 +4,15 @@ using Kitchen;
 
 namespace Character
 {
+    //Action Object connecting an NPC with a Kitchen object
+    //Planner initiates a ReduceHunger object, which does the necessary actions to Reduce the NPCs hunger
 	public class ReduceHunger : MonoBehaviour {
 		public Kitchen.Controller kitchen;
 		Character.NPC owner;
 
-		public void Init(Character.Controller owner)
+
+        //Set variables as constructors are weird for MonoBehaviours
+		public void Init(Character.NPC owner)
 		{
 			Debug.Log("I am hungry enough to eat!");
 			this.owner = owner;
@@ -18,7 +22,8 @@ namespace Character
 			}
 		}
 
-
+        //Check the players inventory for a meal; 
+        //Eat the meal; returns true if eating was complete;
 		public bool CheckInventory()
 		{
 			if (owner.inventory.HasObjectNameInInventory("meal"))
@@ -31,6 +36,7 @@ namespace Character
 			return false;
 		}
 
+        //Find a kitchen, start cooking at that kitchen;
 		public void StartCooking()
 		{
 			foreach (Component comp in owner.planner.worldObjects)
@@ -45,6 +51,7 @@ namespace Character
 			}
 		}
 
+        //Remove the pending meal, add a True meal;
 		public void FinishCooking(){
 			if (CheckInventory())
 			{
@@ -56,7 +63,7 @@ namespace Character
 						break;
 					}
 				}
-				NotificationCenter.DefaultCenter().PostNotification(this, "GoalComplete");
+                owner.planner.completeGoal();
 			}
 		}
 	}
