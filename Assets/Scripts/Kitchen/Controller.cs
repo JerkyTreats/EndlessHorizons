@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using Character;
 
 namespace Kitchen{
-	public class Controller : MonoBehaviour {
+	public class Kitchen : MonoBehaviour {
 		public string goalName; //associated goalName for AI planning purposes
 		public List<Meal> meals;
 		public int ingredients;
-		private GameObject kitchenNode1;
+		private GameObject kitchenNode1; //kitchen triggers that will be the location of cooking
 		private GameObject kitchenNode2;
 		private GameObject kitchenNode3;
 		private List<GameObject> kitchenNodes; 
@@ -23,7 +23,8 @@ namespace Kitchen{
 			meals = Meal.GetMealsAsList();
 
 			NotificationCenter.DefaultCenter().PostNotification(this, "AnnounceWorldLocation");
-			//get the 3 circleCollider triggers in in the children
+            
+            //get the 3 circleCollider triggers in in the children
 			//assign the children colliders to a reference here.
 			foreach (Transform child in transform) //get all the children into a list
 			{
