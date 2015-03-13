@@ -5,7 +5,7 @@ namespace Kitchen
 {
 	public class KitchenTrigger : MonoBehaviour {
 		public bool isActive;
-		public Character.Controller characterInTrigger;
+		public Character.Character characterInTrigger;
 
 		void Start()
 		{
@@ -17,7 +17,7 @@ namespace Kitchen
 		{
 			Debug.Log(other.gameObject.name + " has entered the kitchen trigger");
 			isActive = true;
-			characterInTrigger = other.gameObject.GetComponent<Character.Controller>();
+			characterInTrigger = other.gameObject.GetComponent<Character.Character>();
 		}
 		void OnTriggerExit2D(Collider2D other)
 		{

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Character
 {
+	//Base class for NPC/Player 
     [RequireComponent(typeof(PolyNavAgent))]
     public class Character : MonoBehaviour
     {
@@ -10,13 +11,12 @@ namespace Character
         private PolyNavAgent _agent;
         private Animator anim;
         public Inventory inventory;
-        public Hunger hunger;
+        public NPC.Hunger hunger;
 
-        void Start()
+        public void Start()
         {
             inventory = GetComponent<Inventory>();
-            hunger = GetComponent<Hunger>();
-            planner = GetComponent<Planner>();
+			hunger = GetComponent<NPC.Hunger>();
             anim = GetComponent<Animator>();
         }
 
