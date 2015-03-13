@@ -7,9 +7,9 @@ namespace Kitchen
 	public class PendingMeal : Meal {
 		public float timeInNode;
 		public int currentNode;
-		public Character.Controller owner;
+		public NPC.NPC owner;
 
-		public PendingMeal(string mealName, Character.Controller owner) 
+		public PendingMeal(string mealName, NPC.NPC owner) 
 		{
 			Meal meal = Meal.GetMeal(mealName);
 			this.mealName = mealName;
@@ -31,7 +31,7 @@ namespace Kitchen
 			if (timeInNode <= 0)
 			{
 				Debug.Log(kitchenNodeOrder.Count);
-				ReduceHunger obj = owner.planner.goalObject.GetComponent<ReduceHunger>();
+				NPC.ReduceHunger obj = (NPC.ReduceHunger)owner.planner.goalObject; 
 				if (kitchenNodeOrder.Count <=1) //1 means this is the last node
 				{
 					Debug.Log("Finished Cooking!");

@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{93FDA6B2-70C3-C7E3-00B8-3BA81DB5C15A}</ProjectGuid>
+	<ProjectGuid>{B2CD5849-8568-4BF3-13A2-6DA2ED976D75}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -51,13 +51,16 @@
      <Compile Include="Assets\PolyNav2D\Scripts\Runtime\PolyNavAgent.cs" />
      <Compile Include="Assets\PolyNav2D\Scripts\Runtime\PolyNavObstacle.cs" />
      <Compile Include="Assets\Scripts\Camera\Controller.cs" />
-     <Compile Include="Assets\Scripts\Character\Controller.cs" />
-     <Compile Include="Assets\Scripts\Character\Hunger.cs" />
+     <Compile Include="Assets\Scripts\Character\Character.cs" />
      <Compile Include="Assets\Scripts\Character\Inventory.cs" />
-     <Compile Include="Assets\Scripts\Character\Planner.cs" />
-     <Compile Include="Assets\Scripts\Character\ReduceHunger.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Goal.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Hunger.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\NPC.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Planner.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\ReduceHunger.cs" />
+     <Compile Include="Assets\Scripts\Character\Player.cs" />
      <Compile Include="Assets\Scripts\Door\Controller.cs" />
-     <Compile Include="Assets\Scripts\Kitchen\Controller.cs" />
+     <Compile Include="Assets\Scripts\Kitchen\Kitchen.cs" />
      <Compile Include="Assets\Scripts\Kitchen\KitchenTrigger.cs" />
      <Compile Include="Assets\Scripts\Kitchen\Meal.cs" />
      <Compile Include="Assets\Scripts\Kitchen\PendingMeal.cs" />
