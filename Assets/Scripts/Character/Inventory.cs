@@ -91,32 +91,49 @@ namespace Character
 		//check if the inv name is in the inventory, return bool
 		public bool HasObjectNameInInventory(string toFind)		
 		{
-			Debug.Log("GetFoodFromInventory");
+			Debug.Log("HasObjectNameInInventory " + toFind);
 			if (GetObjectAmount(toFind) == 0)
 			{
 				return false;
 			} 
 			return true;
 		}
+
+		public object FetchObject(string name)
+		{
+			if (HasObjectNameInInventory (name)) 
+			{
+				InventoryItem toReturn = inventory.Find(i => i.name == name);
+				if (toReturn.obj.Count > 0)
+				{
+					return toReturn.obj[0]; //Only returns first, this will have to be more intelligent in the future
+				}
+			}
+			return null;
+		}
 	}
 
 	//inventory item, allows for a list of item variables to be stored.
 	public class InventoryItem : Object
 	{
+		public string name;
 		public int amount;
-		public object obj;
+		public List<object> obj;
 
 		public InventoryItem(string name, int amount, object obj)
 		{
 			this.name = name;
 			this.amount = amount;
-			this.obj = obj;
+			this.obj = new List<object> ();
+			this.obj.Add(obj);
+
 		}
 
 		public InventoryItem(string name, int amount)
 		{
 			this.name = name;
 			this.amount = amount;
+			obj = new List<object> ();
 		}
 	}
 }

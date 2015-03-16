@@ -8,6 +8,7 @@ namespace Kitchen
 		public float timeInNode;
 		public int currentNode;
 		public NPC.NPC owner;
+		public bool isMealComplete = false;
 
 		public PendingMeal(string mealName, NPC.NPC owner) 
 		{
@@ -36,7 +37,7 @@ namespace Kitchen
 				{
 					Debug.Log("Finished Cooking!");
 					owner.inventory.Add(mealName,1);
-					obj.FinishCooking();
+					isMealComplete = true;
 				} else 
 				{
 					Debug.Log("Next step!");

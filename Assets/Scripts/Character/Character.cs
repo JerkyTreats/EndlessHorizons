@@ -7,6 +7,7 @@ namespace Character
     [RequireComponent(typeof(PolyNavAgent))]
     public class Character : MonoBehaviour
     {
+		//public string name;
         public string characterType = "character";
         private PolyNavAgent _agent;
         private Animator anim;

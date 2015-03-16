@@ -7,7 +7,7 @@ namespace NPC
     {
 	    public Planner planner;
 
-		void Start()
+		new void Start()
 		{
 			base.Start();
 			planner = GetComponent<Planner>();

@@ -12,13 +12,13 @@ namespace Kitchen{
 		private GameObject kitchenNode2;
 		private GameObject kitchenNode3;
 		private List<GameObject> kitchenNodes; 
-		public List<Meal>pendingMeals; //remove required ingredients, place in a temporary list, if cooking fails, return igredients, etc.
+		public List<PendingMeal>pendingMeals; //remove required ingredients, place in a temporary list, if cooking fails, return igredients, etc.
 
 		// Use this for initialization
 		void Start () {
 			goalName = "ReduceHunger";
 			kitchenNodes = new List<GameObject>();
-			pendingMeals = new List<Meal>();
+			pendingMeals = new List<PendingMeal>();
 			//temporary meal list. Will find a better data implementation later;
 			meals = Meal.GetMealsAsList();
 
@@ -64,6 +64,17 @@ namespace Kitchen{
 			}
 		}
 
+		//get the meal in progress by the NPC. 
+		PendingMeal GetPendingMealByOwner(NPC.NPC owner)
+		{
+			for (int i =0;i<pendingMeals.Count;i++)
+			{
+				if (pendingMeals[i].owner == owner)
+					return pendingMeals[i];
+			}
+			return null;
+		}
+
 		//called from PendingMeal; continues the cooking by going to the next node in the process
 		public void ContinueCooking(PendingMeal meal)
 		{
@@ -103,20 +114,25 @@ namespace Kitchen{
 				KitchenTrigger trigger = node.GetComponent<KitchenTrigger>();
 				if (trigger.isActive)
 				{
-					Character.Character control = trigger.characterInTrigger;
-					foreach (PendingMeal meal in pendingMeals)
+					//Get the NPC in the kitchen. This will have to be refactored to allow player. 
+					//Get a pending meal "owned" by the NPC, continue cooking or ignore.
+					PendingMeal meal = GetPendingMealByOwner((NPC.NPC)trigger.characterInTrigger);
+					if (meal != null)
 					{
-						if(meal.owner == control)
+						if (meal.isMealComplete)
 						{
+							pendingMeals.Remove(meal);
+						} else {
 							meal.UpdateMealProgress(Time.deltaTime);
 						}
-					}
+					} 
 				}
 			}
 		}
 
 		void GetWorldLocations(Notification notification)
 		{
+			Debug.Log ("triggering Worldlocation");
 			NotificationCenter.DefaultCenter().PostNotification(this, "AnnounceWorldLocation");
 		}
 	}

@@ -31,6 +31,7 @@ namespace NPC
 				Debug.Log("I have food. I will eat!");
 				Meal toEat = Meal.GetMeal("meal");
 				owner.hunger.Eat(toEat.mealValue);
+				owner.planner.GoalComplete();
 				return true;
 			}
 			return false;
@@ -40,7 +41,11 @@ namespace NPC
 		public void StartCooking()
 		{
 			Debug.Log("Start Cooking");
-			Debug.Log(owner.planner.worldObjects.Count);
+			if (owner.planner.worldObjects.Count == 0) 
+			{
+				Debug.Log ("NPC cannot find kitchen. Annoucing kitchen objects now");
+				NotificationCenter.DefaultCenter().PostNotification(owner.planner, "GetWorldLocations");
+			}
 			foreach (Component comp in owner.planner.worldObjects)
 			{
 				Debug.Log(comp);
@@ -51,22 +56,6 @@ namespace NPC
 					kitchen.StartCooking(owner, "meal");
 					break;
 				}
-			}
-		}
-
-        //Remove the pending meal, add a True meal;
-		public void FinishCooking(){
-			if (CheckInventory())
-			{
-				foreach (PendingMeal toRemove in kitchen.pendingMeals)
-				{
-					if (toRemove.owner == owner)
-					{
-						kitchen.pendingMeals.Remove(toRemove);
-						break;
-					}
-				}
-				owner.planner.GoalComplete();
 			}
 		}
 	}
