@@ -5,86 +5,45 @@ using Kitchen;
 
 namespace NPC
 {
-	public class Hunger : MonoBehaviour {
+	public class Hunger : Character.Hunger {
 		public Goal goal; //Associated goal for AI Planner
-		private int hungerLevel; //current hunger level as an int; decreases over time, increases on eat
-		public int hungerRate; //rate at which hungerLevel is decreased
-		public float cookMultiplier; //will multiply the length of time to cook a meal. 
-		private string currentState; //string stating what the current hunger level is;
+		private Dictionary<string,int> hungerGoalMap; //Maps "hungry", "peckish" strings to a goal weight
+		Planner planner;
 
 		// Use this for initialization
-		void Start () 
+		new void Start () 
 	    {
+			Debug.Log("NPC Start");
 			goal = ScriptableObject.CreateInstance<Goal>();
+			hungerGoalMap = new Dictionary<string, int>();
+			MapHungerGoals ();
 			goal.Init("ReduceHunger", 0);
-	        hungerLevel = 73;
-			hungerRate = 3;
-			cookMultiplier = 1f;
-	        InvokeRepeating("IncreaseHunger", 0,(15));
-			NotificationCenter.DefaultCenter().PostNotification(this, "AddAvailableAction", "FindFoodInInventory");
+			planner = gameObject.GetComponent<Planner> ();
+			base.Start(); //trigger base class constructor (Character.Hunger);
 		}
-		
-		void IncreaseHunger()
-	    {
-	        hungerLevel -= hungerRate;
-	        SetCurrentState();
-	    }
 
-	    public void Eat(int mealValue)
-	    {
-			Debug.Log("Eat");
-	        hungerLevel += mealValue;
-	        SetCurrentState();
-	    }
+		void MapHungerGoals()
+		{
+			hungerGoalMap.Add ("Totally Satisfied", 0);
+			hungerGoalMap.Add ("Very Full", 0);
+			hungerGoalMap.Add ("Full", 0);
+			hungerGoalMap.Add ("Satisfied", 0);
+			hungerGoalMap.Add ("Peckish", 5);
+			hungerGoalMap.Add ("Hungry", 21);
+			hungerGoalMap.Add ("Starving", 34);
+			hungerGoalMap.Add ("Dangerously Hungry", 89);
 
-	    void SetCurrentState()
-	    {
-			string newState=null;
-	        if (hungerLevel > 110)
-			{
-				Debug.Log("Would totally throw up right now");
-				goal.goalWeight=0;
-			} else if (hungerLevel >= 100 && hungerLevel <= 110)
-			{
-				newState ="Totally Satisfied";
-				hungerLevel = 100;
-				goal.goalWeight = 0;
-			} else if (hungerLevel < 100 && hungerLevel >= 90)
-			{
-				newState = "Very Full";
-				goal.goalWeight = 0;
-			} else if (hungerLevel < 90 && hungerLevel >= 80)
-			{
-				newState="Full";
-				goal.goalWeight = 0;
-			} else if (hungerLevel < 80 && hungerLevel >= 70)
-			{
-				newState = "Satisfied";
-				goal.goalWeight = 5;
-			} else if (hungerLevel < 70 && hungerLevel >= 60)
-			{
-				newState = "Peckish";
-				goal.goalWeight = 8;
-	        } else if (hungerLevel < 60 && hungerLevel >= 30)
-	        {
-				newState = "Hungry";
-				goal.goalWeight = 13;
-	        } else if (hungerLevel < 30 && hungerLevel >= 20)
-	        {
-				newState = "Starving";
-				goal.goalWeight = 21;
-	        } else if (hungerLevel < 20 && hungerLevel >= 0)
-	        {
-				newState = "Dangerously Hungry";
-				goal.goalWeight = 34;
-	        }
+		}
 
-			if (currentState != newState && newState != null)
+	    //override class SetCurrentState to call the planner
+		protected override void SetCurrentState()
+		{
+			string oldState = currentState;
+			base.SetCurrentState ();  
+			if (currentState != oldState)
 			{
-				currentState = newState;
-                Planner planner = gameObject.GetComponent<Planner>();
+				goal.goalWeight = hungerGoalMap[currentState];
                 planner.UpdateStatus(goal);
-				//NotificationCenter.DefaultCenter().PostNotification(this, "UpdateStatus", goal); //Send a notification to listeners
 			}
 	    }
 	}
