@@ -27,8 +27,8 @@ namespace PrototypeCamera {
 			//move camera along x/y axis on input
 			float moveHorizontal = Input.GetAxis ("Horizontal"); //get current horizontal input
 			float moveVertical = Input.GetAxis ("Vertical"); //get current vertical input
-			rigidbody2D.AddForce (gameObject.transform.up * cameraSpeed * moveVertical * cameraZDistance);
-			rigidbody2D.AddForce (gameObject.transform.right * cameraSpeed * moveHorizontal * cameraZDistance);
+			GetComponent<Rigidbody2D>().AddForce (gameObject.transform.up * cameraSpeed * moveVertical * cameraZDistance);
+			GetComponent<Rigidbody2D>().AddForce (gameObject.transform.right * cameraSpeed * moveHorizontal * cameraZDistance);
 	}
 }
 }	

@@ -39,10 +39,10 @@ public class PolyNavObstacle : MonoBehaviour {
 		{
 			if (collider is BoxCollider2D){
 				var box = (BoxCollider2D)collider;
-				var tl = box.center + new Vector2(-box.size.x, box.size.y)/2;
-				var tr = box.center + new Vector2(box.size.x, box.size.y)/2;
-				var br = box.center + new Vector2(box.size.x, -box.size.y)/2;
-				var bl = box.center + new Vector2(-box.size.x, -box.size.y)/2;
+				var tl = box.offset + new Vector2(-box.size.x, box.size.y)/2;
+				var tr = box.offset + new Vector2(box.size.x, box.size.y)/2;
+				var br = box.offset + new Vector2(box.size.x, -box.size.y)/2;
+				var bl = box.offset + new Vector2(-box.size.x, -box.size.y)/2;
 				return new Vector2[]{tl, tr, br, bl};
 			}
 

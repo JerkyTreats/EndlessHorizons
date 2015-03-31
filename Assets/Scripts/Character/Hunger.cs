@@ -14,7 +14,7 @@ namespace Character
 		// Use this for initialization
 		protected void Start () 
 	    {
-	        hungerLevel = 73;
+	        hungerLevel = 59;
 			hungerRate = 3;
 			cookMultiplier = 1f;
 	        InvokeRepeating("IncreaseHunger", 0,(15));

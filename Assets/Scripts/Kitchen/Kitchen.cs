@@ -65,7 +65,7 @@ namespace Kitchen{
 		}
 
 		//get the meal in progress by the NPC. 
-		PendingMeal GetPendingMealByOwner(NPC.NPC owner)
+		PendingMeal GetPendingMealByOwner(Character.Character owner)
 		{
 			for (int i =0;i<pendingMeals.Count;i++)
 			{
@@ -112,11 +112,10 @@ namespace Kitchen{
 			foreach (GameObject node in kitchenNodes)
 			{
 				KitchenTrigger trigger = node.GetComponent<KitchenTrigger>();
-				if (trigger.isActive)
+				if (trigger.numberOfCooks == 1)
 				{
-					//Get the NPC in the kitchen. This will have to be refactored to allow player. 
-					//Get a pending meal "owned" by the NPC, continue cooking or ignore.
-					PendingMeal meal = GetPendingMealByOwner((NPC.NPC)trigger.characterInTrigger);
+					//Get the Character in the kitchen;
+					PendingMeal meal = GetPendingMealByOwner((Character.Character)trigger.characterInTrigger);
 					if (meal != null)
 					{
 						if (meal.isMealComplete)

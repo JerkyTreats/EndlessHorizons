@@ -174,10 +174,10 @@ public class PolyNav2D : MonoBehaviour {
 
 			} else if (masterCollider is BoxCollider2D){
 				var box = (BoxCollider2D)masterCollider;
-				var tl = box.center + new Vector2(-box.size.x, box.size.y)/2;
-				var tr = box.center + new Vector2(box.size.x, box.size.y)/2;
-				var br = box.center + new Vector2(box.size.x, -box.size.y)/2;
-				var bl = box.center + new Vector2(-box.size.x, -box.size.y)/2;
+				var tl = box.offset + new Vector2(-box.size.x, box.size.y)/2;
+				var tr = box.offset + new Vector2(box.size.x, box.size.y)/2;
+				var br = box.offset + new Vector2(box.size.x, -box.size.y)/2;
+				var bl = box.offset + new Vector2(-box.size.x, -box.size.y)/2;
 				var transformed = TransformPoints(new Vector2[]{tl, bl, br, tr}, masterCollider.transform);
 				var inflated = InflatePolygon(transformed, Mathf.Max(0.01f, inflateRadius));
 				masterPolys.Add(new Polygon(inflated) );
@@ -445,10 +445,10 @@ public class PolyNav2D : MonoBehaviour {
         
         } else if (masterCollider is BoxCollider2D){
         	var box = masterCollider as BoxCollider2D;
-			var tl = box.center + new Vector2(-box.size.x, box.size.y)/2;
-			var tr = box.center + new Vector2(box.size.x, box.size.y)/2;
-			var br = box.center + new Vector2(box.size.x, -box.size.y)/2;
-			var bl = box.center + new Vector2(-box.size.x, -box.size.y)/2;
+			var tl = box.offset + new Vector2(-box.size.x, box.size.y)/2;
+			var tr = box.offset + new Vector2(box.size.x, box.size.y)/2;
+			var br = box.offset + new Vector2(box.size.x, -box.size.y)/2;
+			var bl = box.offset + new Vector2(-box.size.x, -box.size.y)/2;
         	DebugDrawPolygon(TransformPoints(new Vector2[]{tl, tr, br, bl}, masterCollider.transform), Color.green);
         }
 
