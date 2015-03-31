@@ -13,7 +13,6 @@ namespace NPC
 		// Use this for initialization
 		new void Start () 
 	    {
-			Debug.Log("NPC Start");
 			goal = ScriptableObject.CreateInstance<Goal>();
 			hungerGoalMap = new Dictionary<string, int>();
 			MapHungerGoals ();

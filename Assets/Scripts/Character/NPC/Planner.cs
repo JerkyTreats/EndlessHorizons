@@ -40,7 +40,6 @@ namespace NPC
 		//This object should have a Goal or goalName associated with it or bad things WILL happen;
 		void AnnounceWorldLocation(Notification notification)
 		{
-			Debug.Log("AnnounceWorldLocation");
 			worldObjects.Add(notification.sender);
 		}
 		
@@ -49,7 +48,7 @@ namespace NPC
 		public void UpdateStatus(Goal newGoal)
 		{
 			bool goalExists = false;
-			Debug.Log("UpdateStatus recieved: " + newGoal.goalName + " " + newGoal.goalWeight); 
+			//Debug.Log("UpdateStatus recieved: " + newGoal.goalName + " " + newGoal.goalWeight); 
 
 			//Check the list if the goal to update exists, replace;
 			//Update the currentGoal if the newGoal has the highest weighting;

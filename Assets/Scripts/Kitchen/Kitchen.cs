@@ -131,7 +131,6 @@ namespace Kitchen{
 
 		void GetWorldLocations(Notification notification)
 		{
-			Debug.Log ("triggering Worldlocation");
 			NotificationCenter.DefaultCenter().PostNotification(this, "AnnounceWorldLocation");
 		}
 	}

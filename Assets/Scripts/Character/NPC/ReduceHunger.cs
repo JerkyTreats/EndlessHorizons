@@ -14,6 +14,7 @@ namespace NPC
         //Set variables as constructors are weird for MonoBehaviours
 		public void Init(NPC owner)
 		{
+			//Update to dialog box
 			Debug.Log("I am hungry enough to eat!");
 			this.owner = owner;
 			if (!CheckInventory())
