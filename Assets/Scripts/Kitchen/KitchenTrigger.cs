@@ -1,29 +1,53 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Kitchen
 {
 	public class KitchenTrigger : MonoBehaviour {
-		public Character.Character characterInTrigger;
-		public int numberOfCooks;
+//		public Character.Character characterInTrigger;
+//		public bool isActive;
+//		private int numberOfCooks = 0;
+		public List<Character.Character> charactersInTrigger;
 
 		void Start()
 		{
-			characterInTrigger = null;
-			numberOfCooks = 0;
+			charactersInTrigger = new List<Character.Character>();
+//			characterInTrigger = null;
+//			isActive = false;
 		}
 
 		void OnTriggerEnter2D(Collider2D other)
 		{
-			numberOfCooks += 1;
+			charactersInTrigger.Add (other.gameObject.GetComponent<Character.Character>());
+			//isActive = true;
 			Debug.Log(other.gameObject.name + " has entered the kitchen trigger");
-			characterInTrigger = other.gameObject.GetComponent<Character.Character>();
+//			if (characterInTrigger == null)
+//			{ 
+//				characterInTrigger = other.gameObject.GetComponent<Character.Character>();
+//			}
 		}
+
 		void OnTriggerExit2D(Collider2D other)
 		{
-			numberOfCooks -= 1;
-			Debug.Log(other.gameObject.name + " has entered the kitchen trigger");
-			characterInTrigger = null;
+			Character.Character obj = other.gameObject.GetComponent<Character.Character> ();
+			if (charactersInTrigger.Contains(obj))
+			{
+				charactersInTrigger.Remove(obj);
+			} else 
+			{
+				Debug.LogError ("Character " + other + " was not in charactersInTriggerList");
+			}
+
+//			numberOfCooks = - 1;
+//			if (numberOfCooks==0)
+//			{
+//				isActive = false;
+//				characterInTrigger = null;
+//			} else {
+//				characterInTrigger = other.gameObject.GetComponent<Character.Character>();
+//			}
+//			Debug.Log(other.gameObject.name + " has entered the kitchen trigger");
 		}
 	}
 }

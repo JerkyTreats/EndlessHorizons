@@ -107,15 +107,18 @@ namespace Kitchen{
 			control.SetDestination(destination.transform.position); //send the character to the kitchen
 		}
 
+		//Each update tick should update the PendingMeals for the character. 
+		//Only one cook per trigger allowed;
 		void Update()
 		{
 			foreach (GameObject node in kitchenNodes)
 			{
 				KitchenTrigger trigger = node.GetComponent<KitchenTrigger>();
-				if (trigger.numberOfCooks == 1)
+
+				//If there is only one cook in the trigger
+				if (trigger.charactersInTrigger.Count == 1)
 				{
-					//Get the Character in the kitchen;
-					PendingMeal meal = GetPendingMealByOwner((Character.Character)trigger.characterInTrigger);
+					PendingMeal meal = GetPendingMealByOwner(trigger.charactersInTrigger[0]);
 					if (meal != null)
 					{
 						if (meal.isMealComplete)
@@ -125,6 +128,8 @@ namespace Kitchen{
 							meal.UpdateMealProgress(Time.deltaTime);
 						}
 					} 
+				} else {
+					continue;
 				}
 			}
 		}
