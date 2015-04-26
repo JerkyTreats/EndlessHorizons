@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
+
 [CustomEditor(typeof(PolyNav2D))]
 public class PolyNav2DInspector : Editor {
 

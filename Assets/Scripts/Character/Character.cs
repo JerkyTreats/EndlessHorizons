@@ -12,13 +12,13 @@ namespace Character
         private PolyNavAgent _agent;
         private Animator anim;
         public Inventory inventory;
-        public NPC.Hunger hunger;
-
+        public Need.NeedContainer needs;
+    
         public void Start()
         {
             inventory = GetComponent<Inventory>();
-			hunger = GetComponent<NPC.Hunger>();
             anim = GetComponent<Animator>();
+            needs = Need.NeedFactory.BuildNeeds(this);
         }
 
         public PolyNavAgent agent

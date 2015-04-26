@@ -1,0 +1,83 @@
+﻿{
+    "need": {
+        "name": "sleep",
+        "startingValue": 0,
+        "valueDecrementRate": 3,
+        "timeToDecrement": 15,
+        "needStatus": [
+            {
+                "upperThreshold": "100",
+                "lowerThreshold": "81",
+                "text": "Hyper"
+            },
+            {
+                "upperThreshold": "80",
+                "lowerThreshold": "61",
+                "text": "Awake"
+            },
+            {
+                "upperThreshold": "60",
+                "lowerThreshold": "41",
+                "text": "Nappish"
+            },
+            {
+                "upperThreshold": "40",
+                "lowerThreshold": "21",
+                "text": "Sleepy"
+            },
+            {
+                "upperThreshold": "20",
+                "lowerThreshold": "11",
+                "text": "Tired"
+            },
+            {
+                "upperThreshold": "10",
+                "lowerThreshold": "0",
+                "text": "Exhaused"
+            }
+        ]
+    },
+        "need": {
+        "name": "hunger",
+        "startingValue": 0,
+        "valueDecrementRate": 3,
+        "timeToDecrement" :  15,
+        "needStatus": [
+            {
+                "upperThreshold": "100",
+                "lowerThreshold": "86",
+                "text": "Totally Satisfied"
+            },
+            {
+                "upperThreshold": "85",
+                "lowerThreshold": "76",
+                "text": "Very Full"
+            },
+            {
+                "upperThreshold": "75",
+                "lowerThreshold": "51",
+                "text": "Full"
+            },
+            {
+                "upperThreshold": "50",
+                "lowerThreshold": "38",
+                "text": "Satisfied"
+            },
+            {
+                "upperThreshold": "37",
+                "lowerThreshold": "31",
+                "text": "Peckish"
+            },
+            {
+                "upperThreshold": "30",
+                "lowerThreshold": "11",
+                "text": "Hungry"
+            },
+            {
+                "upperThreshold": "10",
+                "lowerThreshold": "0",
+                "text": "Starving"
+            }
+        ]
+    }
+}

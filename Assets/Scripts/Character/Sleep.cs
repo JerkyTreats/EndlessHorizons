@@ -31,7 +31,7 @@ namespace Character
 
 		void SetCurrentState()
 		{
-			string newState;
+			string newState=null;
 			if (tiredLevel > 100)
 			{
 				newState = "Hyper";
