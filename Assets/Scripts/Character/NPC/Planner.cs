@@ -10,7 +10,7 @@ namespace NPC
 		private NPC controller; 
 		private List<Goal> goals; //goal name + weight
 		public Goal currentGoal; //characters current goal
-		public ScriptableObject goalObject;
+        public Action.Action currentAction;
 		public string characterType; //characters type, limits the actions available to this character
 		public List<Component> worldObjects;
 		private Goal idle;
@@ -23,17 +23,16 @@ namespace NPC
 			goals = new List<Goal>();
 			worldObjects = new List<Component>();
 
-			idle = ScriptableObject.CreateInstance<Goal>();
-			idle.Init("Idle", 5);
-			currentGoal = idle; //start goal list with at least one goal 
-			UpdateStatus(idle); // tell NPC that the idle goal is their current
+			//We're adding Idle behaviour here as the default NPC behaviour, this is ripe for improvement
+			idle = new Goal("idle",5);
+            goals.Add(idle); 
+			currentGoal = idle;
 
-            //These need to be refactored to be contained in the NPC. 
-            //Reducing functionality of the Observer pattern to only deal with unrelated objects
-            //Else increase observing methods to validate incoming message with high degree of confidence; 
-			NotificationCenter.DefaultCenter().AddObserver(this, "AnnounceWorldLocation");
-			NotificationCenter.DefaultCenter().PostNotification(this, "GetWorldLocations");
-            
+            //Constantly evaluate the NPC goal to ensure NPC is doing the most important thing
+            InvokeRepeating("CalculateCurrentStatus",0,0);
+
+			//Sign up for world announcements (via the Notification Oberver handler)
+			NotificationCenter.DefaultCenter().AddObserver(this, "AnnounceWorldLocation"); 
 		}
 
 		//Add a world object that the character can interact with;
@@ -51,7 +50,6 @@ namespace NPC
 			//Debug.Log("UpdateStatus recieved: " + newGoal.goalName + " " + newGoal.goalWeight); 
 
 			//Check the list if the goal to update exists, replace;
-			//Update the currentGoal if the newGoal has the highest weighting;
 			for(int i = 0; i<goals.Count; i++)
 			{
 				if (newGoal.goalName.Equals(goals[i].goalName))
@@ -66,21 +64,13 @@ namespace NPC
 			{
 				goals.Add(newGoal);
 			}
-
-			//update the current goal if necessary;
-			if (newGoal.goalWeight > currentGoal.goalWeight)
-			{
-				//Debug.Log("CurrentGoal updated");
-				currentGoal = newGoal;
-				DoAction(); //Get the character to actions to satisfy the goal 
-			}
 		}
 
         //Overloaded UpdateStatus with no newGoal, recalculates top action
-        public void UpdateStatus()
+        public void CalculateCurrentStatus()
         {
             Goal highestGoal = idle;
-            //Get highest goal to do
+            //Determine the goal with the highest goalWeight
             for (int i = 0; i < goals.Count; i++)
             {
                 if (highestGoal.goalWeight > goals[i].goalWeight)
@@ -88,7 +78,7 @@ namespace NPC
                     highestGoal = goals[i];
                 }
             }
-
+            //Do the goal with the highest goalWeight if not already doing it;
             if (!currentGoal.goalName.Equals(highestGoal.goalName))
             {
                 DoAction();
@@ -102,22 +92,13 @@ namespace NPC
 			switch (currentGoal.goalName)
 			{
 				case "ReduceHunger":
-					ReduceHunger rh = ScriptableObject.CreateInstance<ReduceHunger>();
-					goalObject = rh;
-					rh.Init(controller);
+					currentAction = new Action.ReduceHunger(controller);
 					break;
 				case "Idle":
 					Debug.Log("\tNothing to do, I will Idle");
 					//would probably ping mechanim to idle at this point in the future
 					break;
 			}	
-		}
-
-        //Complete a goal; a previous UpdateStatus should have already be run. 
-        //Honestly not sure why this is here;
-		public void GoalComplete()
-		{
-			UpdateStatus();
 		}
 	}
 }

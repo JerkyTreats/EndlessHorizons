@@ -18,7 +18,6 @@ namespace Character
         {
             inventory = GetComponent<Inventory>();
             anim = GetComponent<Animator>();
-            needs = Need.NeedFactory.BuildNeeds(this);
         }
 
         public PolyNavAgent agent

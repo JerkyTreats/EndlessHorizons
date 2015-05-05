@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Character;
+using NPC.Action;
 
 namespace Kitchen
 {
+    //Pending meal is a meal that is currently in the process of being "cooked"
+    //It has an owner (Character), 
+    //if the owner is in the correct kitchen node with the Intent to cook, the PendingMeal will continue the cooking process
+    //Once the meal is complete, the PendingMeal is destroyed and a new Meal is added to Character.Inventory  
 	public class PendingMeal : Meal {
 		public float timeInNode;
 		public int currentNode;
@@ -32,7 +37,7 @@ namespace Kitchen
 			if (timeInNode <= 0)
 			{
 				Debug.Log(kitchenNodeOrder.Count);
-				NPC.ReduceHunger obj = (NPC.ReduceHunger)owner.planner.goalObject; 
+				ReduceHunger obj = (ReduceHunger)owner.planner.currentAction; 
 				if (kitchenNodeOrder.Count <=1) //1 means this is the last node
 				{
 					Debug.Log("Finished Cooking!");
@@ -48,10 +53,5 @@ namespace Kitchen
 				}
 			}
 		}
-
-		public int GetNextKitchenNode()
-		{
-			return currentNode;
-		}
-	}
+    }
 }

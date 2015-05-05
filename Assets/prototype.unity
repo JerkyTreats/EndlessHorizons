@@ -998,7 +998,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11482606, guid: 6af9710fe17f71b4ca627039eef3caca, type: 2}
+    - {fileID: 11482604, guid: 6af9710fe17f71b4ca627039eef3caca, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 6af9710fe17f71b4ca627039eef3caca, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &847584853
@@ -1123,14 +1125,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generateOnUpdate: 0
   navObstacles:
-  - {fileID: 1161907915}
   - {fileID: 115646690}
-  - {fileID: 1081454688}
-  - {fileID: 1397647483}
-  - {fileID: 1180324049}
   - {fileID: 438324869}
   - {fileID: 1908094672}
+  - {fileID: 1397647483}
   - {fileID: 2008739699}
+  - {fileID: 1081454688}
+  - {fileID: 1180324049}
+  - {fileID: 1161907915}
   inflateRadius: 1
   regenerateFlag: 1
   obstaclesLayer: 0
@@ -1830,7 +1832,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: character
   inventory: {fileID: 0}
-  hunger: {fileID: 0}
 --- !u!1 &1397647480
 GameObject:
   m_ObjectHideFlags: 0

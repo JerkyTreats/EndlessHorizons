@@ -58,7 +58,7 @@ namespace Kitchen{
 					Debug.Log("I will make a " + mealName);
 					PendingMeal newMeal = new PendingMeal(mealName, control);
 					pendingMeals.Add(newMeal);
-					GoToNode(DetermineKitchenNode(newMeal.GetNextKitchenNode()),control);
+					GoToNode(DetermineKitchenNode(newMeal.currentNode),control);
 					break; //mealName == meal[i], we don't need to loop anymore
 				}
 			}
@@ -79,7 +79,7 @@ namespace Kitchen{
 		public void ContinueCooking(PendingMeal meal)
 		{
 			Character.Character owner = meal.owner;
-			GoToNode(DetermineKitchenNode(meal.GetNextKitchenNode()),owner);
+			GoToNode(DetermineKitchenNode(meal.currentNode),owner);
 		}
 		
 		GameObject DetermineKitchenNode(int nodeOrderNumber)

@@ -4,15 +4,17 @@ using System;
 namespace NPC
 {
     //goal object to create, makes for easier (conceptually) goalWeight sorting;
-    public class Goal : ScriptableObject
+    public class Goal
     {
         public string goalName;
         public int goalWeight;
 
-        public void Init(string name, int weight)
+        public Goal(string name, int weight)
         {
             goalName = name;
             goalWeight = weight;
         }
+
+        public Goal() {}
     }
 }
