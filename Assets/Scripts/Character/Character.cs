@@ -17,6 +17,7 @@ namespace Character
         public void Start()
         {
             inventory = GetComponent<Inventory>();
+			Debug.Log("Start Inventory: " + inventory);
             anim = GetComponent<Animator>();
         }
 

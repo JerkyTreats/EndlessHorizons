@@ -29,10 +29,11 @@ namespace NPC
 			currentGoal = idle;
 
             //Constantly evaluate the NPC goal to ensure NPC is doing the most important thing
-            InvokeRepeating("CalculateCurrentStatus",0,0);
+            InvokeRepeating("CalculateCurrentStatus",0,1);
 
 			//Sign up for world announcements (via the Notification Oberver handler)
 			NotificationCenter.DefaultCenter().AddObserver(this, "AnnounceWorldLocation"); 
+
 		}
 
 		//Add a world object that the character can interact with;
@@ -47,13 +48,14 @@ namespace NPC
 		public void UpdateStatus(Goal newGoal)
 		{
 			bool goalExists = false;
-			//Debug.Log("UpdateStatus recieved: " + newGoal.goalName + " " + newGoal.goalWeight); 
-
+			//Debug.Log("UpdateStatus recieved: " + newGoal.goalName + " " + newGoal.goalWeight);
+			//Debug.Log("Count: " + goals.Count);
 			//Check the list if the goal to update exists, replace;
 			for(int i = 0; i<goals.Count; i++)
 			{
 				if (newGoal.goalName.Equals(goals[i].goalName))
 				{
+					//Debug.Log("Goal exists");
 					goals[i] = newGoal;
 					goalExists = true;
 				}	
@@ -63,24 +65,33 @@ namespace NPC
 			if (!goalExists)
 			{
 				goals.Add(newGoal);
+				//Debug.Log("New Goal Count " + goals.Count);
+
 			}
 		}
 
-        //Overloaded UpdateStatus with no newGoal, recalculates top action
+        //Should be invokeRepeating by Start, constantly determining the most important thing to do
         public void CalculateCurrentStatus()
         {
-            Goal highestGoal = idle;
+            Goal highestGoal = currentGoal;
+			//Debug.Log("Current highest goal: " + currentGoal.goalName + " " + currentGoal.goalWeight);
             //Determine the goal with the highest goalWeight
             for (int i = 0; i < goals.Count; i++)
             {
-                if (highestGoal.goalWeight > goals[i].goalWeight)
+                if (highestGoal.goalWeight < goals[i].goalWeight)
                 {
                     highestGoal = goals[i];
+					//Debug.Log("New highest goal: " + highestGoal.goalName + " " + highestGoal.goalWeight);
                 }
             }
+
+			
+			
+
             //Do the goal with the highest goalWeight if not already doing it;
             if (!currentGoal.goalName.Equals(highestGoal.goalName))
             {
+				currentGoal = highestGoal;
                 DoAction();
             }
         }
@@ -89,9 +100,10 @@ namespace NPC
 		//Do all actions by cheapest action cost until the intended status is changed
 		void DoAction()
 		{
+			Debug.Log("Do Action: " + currentGoal.goalName);
 			switch (currentGoal.goalName)
 			{
-				case "ReduceHunger":
+				case "hunger":
 					currentAction = new Action.ReduceHunger(controller);
 					break;
 				case "Idle":
