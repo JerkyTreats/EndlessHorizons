@@ -1,0 +1,98 @@
+﻿{
+	"NPCNeed": [
+		{
+			"needName": "sleep",
+			"startingValue": 100,
+			"valueDecrementRate": 3,
+			"timeToDecrement": 15,
+			"needStatus": [
+				{
+					"upperThreshold": 100,
+					"lowerThreshold": 81,
+					"text": "Hyper",
+					"goalWeight": 0
+				},
+				{
+					"upperThreshold": 80,
+					"lowerThreshold": 61,
+					"text": "Awake",
+					"goalWeight": 0
+				},
+				{
+					"upperThreshold": 60,
+					"lowerThreshold": 41,
+					"text": "Nappish",
+					"goalWeight": 0
+				},
+				{
+					"upperThreshold": 40,
+					"lowerThreshold": 21,
+					"text": "Sleepy",
+					"goalWeight": 15
+				},
+				{
+					"upperThreshold": 20,
+					"lowerThreshold": 11,
+					"text": "Tired",
+					"goalWeight": 50
+				},
+				{
+					"upperThreshold": 10,
+					"lowerThreshold": 0,
+					"text": "Exhausted",
+					"goalWeight": 89
+				}
+			]
+		},
+		{
+			"needName": "hunger",
+			"startingValue": 0,
+			"valueDecrementRate": 3,
+			"timeToDecrement": 15,
+			"needStatus": [
+				{
+					"upperThreshold": 100,
+					"lowerThreshold": 86,
+					"text": "Totally Satisfied",
+					"goalWeight": 0
+				},
+				{
+					"upperThreshold": 85,
+					"lowerThreshold": 76,
+					"text": "Very Full",
+					"goalWeight": 0
+				},
+				{
+					"upperThreshold": 75,
+					"lowerThreshold": 51,
+					"text": "Full",
+					"goalWeight": 0
+				},
+				{
+					"upperThreshold": 50,
+					"lowerThreshold": 38,
+					"text": "Satisfied",
+					"goalWeight": 0
+				},
+				{
+					"upperThreshold": 37,
+					"lowerThreshold": 31,
+					"text": "Peckish",
+					"goalWeight": 18
+				},
+				{
+					"upperThreshold": 30,
+					"lowerThreshold": 11,
+					"text": "Peckish",
+					"goalWeight": 34
+				},
+				{
+					"upperThreshold": 10,
+					"lowerThreshold": 0,
+					"text": "Starving",
+					"goalWeight": 55
+				}
+			]
+		}
+	]
+}

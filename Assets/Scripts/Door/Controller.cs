@@ -4,10 +4,14 @@ using System.Collections;
 namespace Door
 {
 	public class Controller : MonoBehaviour {
+		//public int startingRotation;
 		private Animator anim;
 		// Use this for initialization
 		void Start () {
 			anim = GetComponent<Animator>();
+			//Quaternion q = new Quaternion();
+			//q.z = startingRotation;
+			//gameObject.transform.rotation = q;
 		}
 
 		
