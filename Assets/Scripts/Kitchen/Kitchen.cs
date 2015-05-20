@@ -124,13 +124,12 @@ namespace Kitchen{
 						if (meal.isMealComplete)
 						{
 							pendingMeals.Remove(meal);
+							meal.FinishCooking();
 						} else {
 							meal.UpdateMealProgress(Time.deltaTime);
 						}
 					} 
-				} else {
-					continue;
-				}
+				} 
 			}
 		}
 

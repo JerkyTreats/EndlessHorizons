@@ -22,7 +22,7 @@ namespace Character
 		{
 			for (int i=0; i<inventory.Count; i++)
 			{
-				if (inventory [i].name == name)
+				if (inventory [i].itemName == name)
 				{
 					inventory[i].amount+=amount;
 					return;
@@ -38,7 +38,7 @@ namespace Character
 		{
 			for (int i=0; i<inventory.Count; i++)
 			{
-				if (inventory [i].name == name)
+				if (inventory [i].itemName == name)
 				{
 					inventory[i].amount+=amount;
 					return;
@@ -53,7 +53,7 @@ namespace Character
 		{
 			for (int i =0; i<inventory.Count; i++)
 			{
-				if (inventory[i].name == name)
+				if (inventory[i].itemName == name)
 				{
 					return inventory[i].amount;
 				}
@@ -69,7 +69,7 @@ namespace Character
 			int i;
 			for (i=0;i<inventory.Count;i++)
 			{
-				if (inventory[i].name == name)
+				if (inventory[i].itemName == name)
 				{
 					break; //we now know the index of the matching item; there should never be duplicates
 				}
@@ -103,7 +103,7 @@ namespace Character
 		{
 			if (HasObjectNameInInventory (name)) 
 			{
-				InventoryItem toReturn = inventory.Find(i => i.name == name);
+				InventoryItem toReturn = inventory.Find(i => i.itemName == name);
 				if (toReturn.obj.Count > 0)
 				{
 					return toReturn.obj[0]; //Only returns first, this will have to be more intelligent in the future
@@ -114,15 +114,15 @@ namespace Character
 	}
 
 	//inventory item, allows for a list of item variables to be stored.
-	public class InventoryItem : Object
+	public class InventoryItem 
 	{
-		public string name;
+		public string itemName;
 		public int amount;
 		public List<object> obj;
 
 		public InventoryItem(string name, int amount, object obj)
 		{
-			this.name = name;
+			this.itemName = name;
 			this.amount = amount;
 			this.obj = new List<object> ();
 			this.obj.Add(obj);
@@ -131,7 +131,7 @@ namespace Character
 
 		public InventoryItem(string name, int amount)
 		{
-			this.name = name;
+			this.itemName = name;
 			this.amount = amount;
 			obj = new List<object> ();
 		}

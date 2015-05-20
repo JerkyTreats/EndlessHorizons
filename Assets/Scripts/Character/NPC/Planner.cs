@@ -72,29 +72,35 @@ namespace NPC
 
         //Should be invokeRepeating by Start, constantly determining the most important thing to do
         public void CalculateCurrentStatus()
-        {
-            Goal highestGoal = currentGoal;
+		{
+			if (currentGoal == null)
+			{
+				currentGoal = idle;
+			}
+
+			Goal highestGoal = currentGoal;
+
 			//Debug.Log("Current highest goal: " + currentGoal.goalName + " " + currentGoal.goalWeight);
-            //Determine the goal with the highest goalWeight
-            for (int i = 0; i < goals.Count; i++)
-            {
-                if (highestGoal.goalWeight < goals[i].goalWeight)
-                {
-                    highestGoal = goals[i];
+			//Determine the goal with the highest goalWeight
+			for (int i = 0; i < goals.Count; i++)
+			{
+				if (highestGoal.goalWeight < goals[i].goalWeight)
+				{
+					highestGoal = goals[i];
 					//Debug.Log("New highest goal: " + highestGoal.goalName + " " + highestGoal.goalWeight);
-                }
-            }
+				}
+			}
 
-			
-			
 
-            //Do the goal with the highest goalWeight if not already doing it;
-            if (!currentGoal.goalName.Equals(highestGoal.goalName))
-            {
+
+
+			//Do the goal with the highest goalWeight if not already doing it;
+			if (!currentGoal.goalName.Equals(highestGoal.goalName))
+			{
 				currentGoal = highestGoal;
-                DoAction();
-            }
-        }
+				DoAction();
+			}
+		}
 
 		//Armed with the current Intent, find a list of actions available to satisfy the intent
 		//Do all actions by cheapest action cost until the intended status is changed
@@ -111,6 +117,14 @@ namespace NPC
 					//would probably ping mechanim to idle at this point in the future
 					break;
 			}	
+		}
+
+		//Called by an Action once a goal is complete to deref the current Action and Goal
+		//This solves the case if an action is completed but is still the most important action
+		public void FinishGoal()
+		{
+			currentAction = null;
+			currentGoal = null;
 		}
 	}
 }

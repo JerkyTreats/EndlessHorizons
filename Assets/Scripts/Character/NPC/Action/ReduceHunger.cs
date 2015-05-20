@@ -32,9 +32,19 @@ namespace NPC.Action
 			if (owner.inventory.HasObjectNameInInventory("meal"))
 			{
 				Debug.Log("I have food. I will eat!");
-				Meal toEat = Meal.GetMeal("meal");
-                hunger.IncreaseCurrentValue(toEat.mealValue);
-				return true;
+				Meal toEat = (Meal)owner.inventory.FetchObject("meal");
+				Debug.Log("toEat: " + toEat.mealName + " " + toEat.mealValue);
+				if (toEat != null)
+				{
+					owner.inventory.RemoveAmountFromInventory("meal", 1);
+					hunger.IncreaseCurrentValue(toEat.mealValue);
+					toEat = null;
+					return true;
+				}
+				else
+				{
+					Debug.Log("Meal toEat is null");
+				}
 			}
 			return false;
 		}
@@ -59,6 +69,14 @@ namespace NPC.Action
 					break;
 				}
 			}
+		}
+
+		public void FinishCooking()
+		{
+			Debug.Log("rh FinishedCooking");
+			owner.inventory.Add("meal", 1, Meal.GetMeal("meal"));
+			owner.planner.FinishGoal();
+			CheckInventory();
 		}
 	}
 }

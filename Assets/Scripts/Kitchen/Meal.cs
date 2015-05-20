@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Kitchen{
-	public class Meal : ScriptableObject {
+	public class Meal {
 		public string mealName;  //name of the meal 
 		public int mealValue; //character.hunger mealValue 
 		public List<int> kitchenNodeOrder; //a kitchen has 3 nodes, how many nodes does character have to go to to cook meal
