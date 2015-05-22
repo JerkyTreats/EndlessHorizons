@@ -55,7 +55,8 @@
      <Compile Include="Assets\Scripts\Character\Hunger.cs" />
      <Compile Include="Assets\Scripts\Character\Inventory.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Action\Action.cs" />
-     <Compile Include="Assets\Scripts\Character\NPC\Action\ReduceHunger.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Action\ActionFactory.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Action\HungerAction.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Goal.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\NPC.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Planner.cs" />

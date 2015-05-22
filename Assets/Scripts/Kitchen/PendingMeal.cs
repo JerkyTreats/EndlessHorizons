@@ -37,7 +37,7 @@ namespace Kitchen
 		//Called during a kitchen update, handles how to use the progress for the cooking.
 		public void UpdateMealProgress(float timeAmountToRemove)
 		{
-			ReduceHunger rh = (ReduceHunger)owner.planner.currentAction;
+			HungerAction rh = (HungerAction)owner.planner.currentAction;
 			Debug.Log("Cooking!");
 			timeInNode -= timeAmountToRemove;
 			if (timeInNode <= 0)
@@ -66,7 +66,7 @@ namespace Kitchen
 		//Pending meal just sends the message up to the ReduceHunger Object for proper deconstruction.
 		public void FinishCooking()
 		{
-			ReduceHunger rh = (ReduceHunger)owner.planner.currentAction;
+			HungerAction rh = (HungerAction)owner.planner.currentAction;
 			rh.FinishCooking();
 		}
 	}

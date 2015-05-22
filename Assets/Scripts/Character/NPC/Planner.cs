@@ -107,16 +107,7 @@ namespace NPC
 		void DoAction()
 		{
 			Debug.Log("Do Action: " + currentGoal.goalName);
-			switch (currentGoal.goalName)
-			{
-				case "hunger":
-					currentAction = new Action.ReduceHunger(controller);
-					break;
-				case "Idle":
-					Debug.Log("\tNothing to do, I will Idle");
-					//would probably ping mechanim to idle at this point in the future
-					break;
-			}	
+			currentAction = Action.ActionFactory.GetAction(currentGoal.goalName, controller);
 		}
 
 		//Called by an Action once a goal is complete to deref the current Action and Goal

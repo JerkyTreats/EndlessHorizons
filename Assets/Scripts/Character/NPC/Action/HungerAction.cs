@@ -5,18 +5,16 @@ using Kitchen;
 namespace NPC.Action
 {
     //Action Object connecting an NPC with a Kitchen object
-    //Planner initiates a ReduceHunger object, which does the necessary actions to Reduce the NPCs hunger
-	public class ReduceHunger : Action {
+    //Planner initiates a HungerAction object, which does the necessary actions to Reduce the NPCs hunger
+	public class HungerAction : Action {
 		public Kitchen.Kitchen kitchen;
         Need.NPCNeed hunger; 
 
         
-		public ReduceHunger(NPC owner) : base(owner)
+		public HungerAction(NPC owner) : base(owner, "hunger")
 		{
-			//Turn debug.log into a popup text.
-			Debug.Log("I am hungry enough to eat!");
-			this.owner = owner;
-            hunger = (Need.NPCNeed)owner.needs.LookUp("hunger");
+			Debug.Log("I am hungry enough to eat!"); //Turn debug.log into a popup text.
+            hunger = (Need.NPCNeed)owner.needs.LookUp("hunger"); //find the data class hunger for this NPC
 			if (!CheckInventory()) //Eat any food in inventory, else start cooking; 
 			{
 				StartCooking();
