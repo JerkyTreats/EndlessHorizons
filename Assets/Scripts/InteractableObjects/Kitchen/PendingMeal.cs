@@ -3,7 +3,7 @@ using System.Collections;
 using Character;
 using NPC.Action;
 
-namespace Kitchen
+namespace InteractableObjects.Kitchen
 {
     //Pending meal is a meal that is currently in the process of being "cooked"
     //It has an owner (Character), 
@@ -37,7 +37,8 @@ namespace Kitchen
 		//Called during a kitchen update, handles how to use the progress for the cooking.
 		public void UpdateMealProgress(float timeAmountToRemove)
 		{
-			HungerAction rh = (HungerAction)owner.planner.currentAction;
+			HungerAction ha = (HungerAction)owner.planner.CurrentAction;
+			Kitchen k = (Kitchen)ha.IO;
 			Debug.Log("Cooking!");
 			timeInNode -= timeAmountToRemove;
 			if (timeInNode <= 0)
@@ -54,9 +55,7 @@ namespace Kitchen
 					kitchenNodeOrder.RemoveAt(0);
 					timeInNode = minimumCookTime;
 					currentNode = kitchenNodeOrder[0];
-					Debug.Log(rh);
-					Debug.Log(rh.kitchen);
-					rh.kitchen.ContinueCooking(this);
+					k.ContinueCooking(this);
 				}
 			}
 		}
@@ -66,7 +65,7 @@ namespace Kitchen
 		//Pending meal just sends the message up to the ReduceHunger Object for proper deconstruction.
 		public void FinishCooking()
 		{
-			HungerAction rh = (HungerAction)owner.planner.currentAction;
+			HungerAction rh = (HungerAction)owner.planner.CurrentAction;
 			rh.FinishCooking();
 		}
 	}

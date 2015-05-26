@@ -1,46 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Kitchen;
+using InteractableObjects;
 
 namespace NPC
 {
 	//Determines what the character should do based on their needs 
 	public class Planner : MonoBehaviour {
-		private NPC controller; 
-		private List<Goal> goals; //goal name + weight
-		public Goal currentGoal; //characters current goal
-        public Action.Action currentAction;
-		public string characterType; //characters type, limits the actions available to this character
-		public List<Component> worldObjects;
-		private Goal idle;
+		private NPC Controller; 
+		private List<Goal> Goals; //goal name + weight
+		public Goal CurrentGoal; //characters current goal
+        public Action.Action CurrentAction;
+		public string CharacterType; //characters type, limits the actions available to this character
+		public List<InteractableObject> WorldObjects;
+		private Goal Idle;
 
 
 		// Use this for initialization
 		void Start () {
-			controller = gameObject.GetComponent<NPC>();
-			characterType = controller.characterType;
-			goals = new List<Goal>();
-			worldObjects = new List<Component>();
+			Controller = gameObject.GetComponent<NPC>();
+			CharacterType = Controller.characterType;
+			Goals = new List<Goal>();
+			WorldObjects = new List<InteractableObject>();
 
 			//We're adding Idle behaviour here as the default NPC behaviour, this is ripe for improvement
-			idle = new Goal("idle",5);
-            goals.Add(idle); 
-			currentGoal = idle;
+			Idle = new Goal("idle",5);
+            Goals.Add(Idle); 
+			CurrentGoal = Idle;
 
             //Constantly evaluate the NPC goal to ensure NPC is doing the most important thing
             InvokeRepeating("CalculateCurrentStatus",0,1);
 
-			//Sign up for world announcements (via the Notification Oberver handler)
-			NotificationCenter.DefaultCenter().AddObserver(this, "AnnounceWorldLocation"); 
+			//Sign up for InteractableObjects announcements. See method AnnounceInteractableObjects();
+			NotificationCenter.DefaultCenter().AddObserver(this, "AnnounceInteractableObjects"); 
 
 		}
 
-		//Add a world object that the character can interact with;
-		//This object should have a Goal or goalName associated with it or bad things WILL happen;
-		void AnnounceWorldLocation(Notification notification)
+		//When called, all InteractableObjects announce themselves
+		//This allows the planner to know what objects to interact with to acheive goals
+		//ie. Kitchen announces itself, Planner will know to go to Kitchen to do a HungerAction;
+		void AnnounceInteractableObjects(Notification notification)
 		{
-			worldObjects.Add(notification.sender);
+			Debug.Log("IO Notification recieved by planner");
+			WorldObjects.Add((InteractableObject)notification.sender);
 		}
 		
 		//Update/Add an entry in the Goal list; determine if the current Intent has changed
@@ -51,12 +53,12 @@ namespace NPC
 			//Debug.Log("UpdateStatus recieved: " + newGoal.goalName + " " + newGoal.goalWeight);
 			//Debug.Log("Count: " + goals.Count);
 			//Check the list if the goal to update exists, replace;
-			for(int i = 0; i<goals.Count; i++)
+			for(int i = 0; i<Goals.Count; i++)
 			{
-				if (newGoal.goalName.Equals(goals[i].goalName))
+				if (newGoal.goalName.Equals(Goals[i].goalName))
 				{
 					//Debug.Log("Goal exists");
-					goals[i] = newGoal;
+					Goals[i] = newGoal;
 					goalExists = true;
 				}	
 			}
@@ -64,7 +66,7 @@ namespace NPC
 			//Add the goal to the list of goals if it does not exist, 
 			if (!goalExists)
 			{
-				goals.Add(newGoal);
+				Goals.Add(newGoal);
 				//Debug.Log("New Goal Count " + goals.Count);
 
 			}
@@ -73,31 +75,28 @@ namespace NPC
         //Should be invokeRepeating by Start, constantly determining the most important thing to do
         public void CalculateCurrentStatus()
 		{
-			if (currentGoal == null)
+			if (CurrentGoal == null)
 			{
-				currentGoal = idle;
+				CurrentGoal = Idle;
 			}
 
-			Goal highestGoal = currentGoal;
+			Goal highestGoal = CurrentGoal;
 
 			//Debug.Log("Current highest goal: " + currentGoal.goalName + " " + currentGoal.goalWeight);
 			//Determine the goal with the highest goalWeight
-			for (int i = 0; i < goals.Count; i++)
+			for (int i = 0; i < Goals.Count; i++)
 			{
-				if (highestGoal.goalWeight < goals[i].goalWeight)
+				if (highestGoal.goalWeight < Goals[i].goalWeight)
 				{
-					highestGoal = goals[i];
+					highestGoal = Goals[i];
 					//Debug.Log("New highest goal: " + highestGoal.goalName + " " + highestGoal.goalWeight);
 				}
 			}
 
-
-
-
 			//Do the goal with the highest goalWeight if not already doing it;
-			if (!currentGoal.goalName.Equals(highestGoal.goalName))
+			if (!CurrentGoal.goalName.Equals(highestGoal.goalName))
 			{
-				currentGoal = highestGoal;
+				CurrentGoal = highestGoal;
 				DoAction();
 			}
 		}
@@ -106,16 +105,29 @@ namespace NPC
 		//Do all actions by cheapest action cost until the intended status is changed
 		void DoAction()
 		{
-			Debug.Log("Do Action: " + currentGoal.goalName);
-			currentAction = Action.ActionFactory.GetAction(currentGoal.goalName, controller);
+			Debug.Log("Do Action: " + CurrentGoal.goalName);
+			CurrentAction = Action.ActionFactory.GetAction(CurrentGoal.goalName, Controller);
 		}
 
 		//Called by an Action once a goal is complete to deref the current Action and Goal
 		//This solves the case if an action is completed but is still the most important action
 		public void FinishGoal()
 		{
-			currentAction = null;
-			currentGoal = null;
+			CurrentAction = null;
+			CurrentGoal = null;
+		}
+
+		public InteractableObject GetWorldObject(string ActionType)
+		{
+			foreach (InteractableObject io in WorldObjects)
+			{
+				if (io.ActionType == ActionType)
+				{
+					return io;
+				}
+			}
+			Debug.LogError("Planner.GetWorldObject() error: " + ActionType + " does not exist");
+			return null;
 		}
 	}
 }

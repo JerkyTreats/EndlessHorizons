@@ -3,46 +3,44 @@ using System.Collections;
 using System.Collections.Generic; 
 using Character;
 
-namespace Kitchen{
-	public class Kitchen : MonoBehaviour {
-		public string goalName; //associated goalName for AI planning purposes
-		public List<Meal> meals;
-		public int ingredients;
-		private GameObject kitchenNode1; //kitchen triggers that will be the location of cooking
-		private GameObject kitchenNode2;
-		private GameObject kitchenNode3;
-		private List<GameObject> kitchenNodes; 
-		public List<PendingMeal>pendingMeals; //remove required ingredients, place in a temporary list, if cooking fails, return igredients, etc.
+namespace InteractableObjects.Kitchen{
+	public class Kitchen : InteractableObject {
+		public List<Meal> Meals;
+		public int Ingredients;
+		private GameObject KitchenNode1; //kitchen triggers that will be the location of cooking
+		private GameObject KitchenNode2;
+		private GameObject KitchenNode3;
+		private List<GameObject> KitchenNodes; 
+		public List<PendingMeal>PendingMeals; //remove required ingredients, place in a temporary list, if cooking fails, return igredients, etc.
 
 		// Use this for initialization
-		void Start () {
-			goalName = "ReduceHunger";
-			kitchenNodes = new List<GameObject>();
-			pendingMeals = new List<PendingMeal>();
+		override public void Start()
+		{
+			base.Start();
+			ActionType = "hunger";
+			KitchenNodes = new List<GameObject>();
+			PendingMeals = new List<PendingMeal>();
 			//temporary meal list. Will find a better data implementation later;
-			meals = Meal.GetMealsAsList();
+			Meals = Meal.GetMealsAsList();
 
-			NotificationCenter.DefaultCenter().AddObserver(this, "GetWorldLocations");
-
-            
             //get the 3 circleCollider triggers in in the children
 			//assign the children colliders to a reference here.
 			foreach (Transform child in transform) //get all the children into a list
 			{
 				if (child.name.Equals("Kitchen Trigger 1"))
 				{
-					kitchenNode1=child.gameObject;
-					kitchenNodes.Add(kitchenNode1);
+					KitchenNode1=child.gameObject;
+					KitchenNodes.Add(KitchenNode1);
 				}
 				if (child.name.Equals("Kitchen Trigger 2"))
 				{
-					kitchenNode2=child.gameObject;
-					kitchenNodes.Add(kitchenNode2);				
+					KitchenNode2=child.gameObject;
+					KitchenNodes.Add(KitchenNode2);				
 				}
 				if (child.name.Equals("Kitchen Trigger 3"))
 				{
-					kitchenNode3=child.gameObject;
-					kitchenNodes.Add(kitchenNode3);
+					KitchenNode3=child.gameObject;
+					KitchenNodes.Add(KitchenNode3);
 				}
 			}
 		}
@@ -51,13 +49,13 @@ namespace Kitchen{
 		//takes a character controller componenet and the mealName to cook
 		public void StartCooking(NPC.NPC control, string mealName)
 		{
-			for (int i = 0; i<meals.Count; i++) //iterate through the meals
+			for (int i = 0; i<Meals.Count; i++) //iterate through the meals
 			{
-				if (meals [i].mealName == mealName) //if the meal matches
+				if (Meals [i].mealName == mealName) //if the meal matches
 				{
 					Debug.Log("I will make a " + mealName);
 					PendingMeal newMeal = new PendingMeal(mealName, control);
-					pendingMeals.Add(newMeal);
+					PendingMeals.Add(newMeal);
 					GoToNode(DetermineKitchenNode(newMeal.currentNode),control);
 					break; //mealName == meal[i], we don't need to loop anymore
 				}
@@ -67,10 +65,10 @@ namespace Kitchen{
 		//get the meal in progress by the NPC. 
 		PendingMeal GetPendingMealByOwner(Character.Character owner)
 		{
-			for (int i =0;i<pendingMeals.Count;i++)
+			for (int i =0;i<PendingMeals.Count;i++)
 			{
-				if (pendingMeals[i].owner == owner)
-					return pendingMeals[i];
+				if (PendingMeals[i].owner == owner)
+					return PendingMeals[i];
 			}
 			return null;
 		}
@@ -88,13 +86,13 @@ namespace Kitchen{
 			switch (nodeOrderNumber)
 			{
 				case 1:
-					kitchenNode = kitchenNode1;
+					kitchenNode = KitchenNode1;
 					break;
 				case 2:
-					kitchenNode = kitchenNode2;
+					kitchenNode = KitchenNode2;
 					break;
 				case 3:
-					kitchenNode = kitchenNode3;
+					kitchenNode = KitchenNode3;
 					break;
 			}
 			return kitchenNode;
@@ -111,19 +109,19 @@ namespace Kitchen{
 		//Only one cook per trigger allowed;
 		void Update()
 		{
-			foreach (GameObject node in kitchenNodes)
+			foreach (GameObject node in KitchenNodes)
 			{
 				KitchenTrigger trigger = node.GetComponent<KitchenTrigger>();
 
 				//If there is only one cook in the trigger
-				if (trigger.charactersInTrigger.Count == 1)
+				if (trigger.CharactersInTrigger.Count == 1)
 				{
-					PendingMeal meal = GetPendingMealByOwner(trigger.charactersInTrigger[0]);
+					PendingMeal meal = GetPendingMealByOwner(trigger.CharactersInTrigger[0]);
 					if (meal != null)
 					{
 						if (meal.isMealComplete)
 						{
-							pendingMeals.Remove(meal);
+							PendingMeals.Remove(meal);
 							meal.FinishCooking();
 						} else {
 							meal.UpdateMealProgress(Time.deltaTime);
@@ -131,11 +129,6 @@ namespace Kitchen{
 					} 
 				} 
 			}
-		}
-
-		void GetWorldLocations(Notification notification)
-		{
-			NotificationCenter.DefaultCenter().PostNotification(this, "AnnounceWorldLocation");
 		}
 	}
 }

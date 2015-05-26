@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Kitchen{
+namespace InteractableObjects.Kitchen
+{
 	public class Meal {
 		public string mealName;  //name of the meal 
 		public int mealValue; //character.hunger mealValue 

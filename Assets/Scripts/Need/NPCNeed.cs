@@ -5,7 +5,7 @@ using NPC;
 namespace Need
 {
     //NPC takes the base class Need and implements communication with the AI planner
-    class NPCNeed : Need
+    public class NPCNeed : Need
     {
         private Planner planner;
 		public int goalWeight { get; set; }
