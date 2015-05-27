@@ -19,5 +19,18 @@ namespace InteractableObjects
 		{
 			NotificationCenter.DefaultCenter().PostNotification(this, "AnnounceInteractableObjects", ActionType);
 		}
+
+		//Go to the object location. Define where to go and who should go there. 
+		protected void GoToObjectLocation(GameObject destination, Characters.Character owner)
+		{
+			Debug.Log("I am going to the " + destination);
+			owner.SetDestination(destination.transform.position); //send the character to the kitchen
+		}
+
+		//Overloaded method to go to this objects location. 
+		protected void GoToObjectLocation(Characters.Character owner)
+		{
+			owner.SetDestination(this.transform.position); //send the character to the kitchen
+		}
 	}
 }

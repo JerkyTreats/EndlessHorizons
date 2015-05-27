@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NPC;
 
-namespace Need
+namespace Needs
 {
     //NPC takes the base class Need and implements communication with the AI planner
     public class NPCNeed : Need

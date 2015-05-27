@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Character
+namespace Characters
 {
 	//REFACTOR: Add an object[][] that allows [[name,amount,objectref]]
 	//If possible, map the dictionary<name,index> to the objarr name@index

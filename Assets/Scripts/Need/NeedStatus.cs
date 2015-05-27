@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Need
+namespace Needs
 {
     public class NeedStatus : Object
     {

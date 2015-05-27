@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace Character
+namespace Characters
 {
 	//Base class for NPC/Player 
     [RequireComponent(typeof(PolyNavAgent))]
@@ -12,7 +12,7 @@ namespace Character
         private PolyNavAgent _agent;
         private Animator anim;
         public Inventory inventory;
-        public Need.NeedContainer needs;
+        public Needs.NeedContainer Needs;
     
         public void Start()
         {

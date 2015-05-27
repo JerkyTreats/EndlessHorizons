@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Character
+namespace Characters
 {	
 	public class Player : Character{
 

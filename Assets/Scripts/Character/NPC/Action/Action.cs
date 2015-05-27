@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using NPC;
-using Need;
+using Needs;
 using InteractableObjects;
 
 namespace NPC.Action
@@ -17,7 +17,7 @@ namespace NPC.Action
 		{
 			Owner = controller;
 			this.ActionType = actionType;
-			Need = (Need.NPCNeed)Owner.needs.LookUp(ActionType); //find the data class hunger for this NPC
+			Need = (Needs.NPCNeed)Owner.Needs.LookUp(ActionType); //find the data class hunger for this NPC
 		}
 
 		//Looks for a Planner.WorldObject (is a Dictionary) by the ActionType (which would be key)

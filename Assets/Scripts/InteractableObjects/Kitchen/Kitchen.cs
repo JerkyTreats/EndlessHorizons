@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic; 
-using Character;
+using Characters;
 
 namespace InteractableObjects.Kitchen{
 	public class Kitchen : InteractableObject {
@@ -56,14 +56,14 @@ namespace InteractableObjects.Kitchen{
 					Debug.Log("I will make a " + mealName);
 					PendingMeal newMeal = new PendingMeal(mealName, control);
 					PendingMeals.Add(newMeal);
-					GoToNode(DetermineKitchenNode(newMeal.currentNode),control);
+					GoToObjectLocation(DetermineKitchenNode(newMeal.currentNode),control);
 					break; //mealName == meal[i], we don't need to loop anymore
 				}
 			}
 		}
 
 		//get the meal in progress by the NPC. 
-		PendingMeal GetPendingMealByOwner(Character.Character owner)
+		PendingMeal GetPendingMealByOwner(Characters.Character owner)
 		{
 			for (int i =0;i<PendingMeals.Count;i++)
 			{
@@ -76,8 +76,8 @@ namespace InteractableObjects.Kitchen{
 		//called from PendingMeal; continues the cooking by going to the next node in the process
 		public void ContinueCooking(PendingMeal meal)
 		{
-			Character.Character owner = meal.owner;
-			GoToNode(DetermineKitchenNode(meal.currentNode),owner);
+			Characters.Character owner = meal.owner;
+			GoToObjectLocation(DetermineKitchenNode(meal.currentNode),owner);
 		}
 		
 		GameObject DetermineKitchenNode(int nodeOrderNumber)
@@ -96,13 +96,6 @@ namespace InteractableObjects.Kitchen{
 					break;
 			}
 			return kitchenNode;
-		}
-		
-		//for the meal to cook, set the location to the the kitchen nodes
-		void GoToNode(GameObject destination, Character.Character control)
-		{
-			Debug.Log("I need to go to the " + destination + " to cook!");
-			control.SetDestination(destination.transform.position); //send the character to the kitchen
 		}
 
 		//Each update tick should update the PendingMeals for the character. 

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Character;
+using Characters;
+using Needs;
 
 namespace NPC
 {
-    public class NPC : Character.Character
+    public class NPC : Characters.Character
     {
 	    public Planner planner;
 
@@ -12,7 +13,7 @@ namespace NPC
 		{
 			base.Start();
 			planner = GetComponent<Planner>();
-			needs = Need.NeedFactory.NPCNeedFactory(this);
+			Needs = NeedFactory.NPCNeedFactory(this);
 		}
     }
 }
