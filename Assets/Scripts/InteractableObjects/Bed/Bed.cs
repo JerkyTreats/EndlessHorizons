@@ -9,19 +9,30 @@ namespace InteractableObjects.Bed
 	class Bed : InteractableObject
 	{
 		public Characters.Character Occupant { get; set; }
+		private Need OccupantNeed;
+		private int OccupantValueDecrementRate;
+		private float SleepTime;
 
-		public override void Start()
+		override public void Start()
 		{
-			base.Start();
 			ActionType = "sleep";
+			base.Start();
 		}
 
-		//Add the occupant and state that it's occupied
+		//What happens when the character enters the Bed;
 		void OnTriggerEnter2D(Collider2D other)
 		{
 			if (Occupant != null) //determine if someone is already in bed
 			{
 				Occupant = other.gameObject.GetComponent<Characters.Character>();
+				OccupantNeed = GetOccupantNeed();
+				if (OccupantNeed.NeedName == ActionType)
+				{
+					SleepTime = Time.realtimeSinceStartup;
+					OccupantValueDecrementRate = OccupantNeed.ValueDecrementRate;
+					OccupantNeed.ValueDecrementRate = 0; //Dont become more sleepy when sleeping
+				}
+
 			}
 			else
 			{
@@ -29,18 +40,12 @@ namespace InteractableObjects.Bed
 			}
 		}
 
-		//Null the occupant, bed should be empty.
+		//Define what happens with the Character leaves the bed;
 		void OnTriggerExit2D(Collider2D other)
 		{
-			if (Occupant != null) //Ensure that the bed was occupied
-			{
-				Occupant = null;
-			}
-			else
-			{
-				Debug.LogError("Bed.OnTriggerExit2D: Occupant left trigger but was already null!");
-				Occupant = null; //Just in case, right?
-			}
+			OccupantNeed.ValueDecrementRate = OccupantValueDecrementRate; //Return sleepiness decrement to previous
+			Occupant = null;
+			OccupantNeed = null;
 		}
 
 		//Publically accessable method to go to this objects location.
@@ -50,12 +55,31 @@ namespace InteractableObjects.Bed
 			GoToObjectLocation(owner);
 		}
 
+		private Need GetOccupantNeed()
+		{
+			if (Occupant != null)
+			{
+				Need OccupantNeed = Occupant.Needs.LookUp(ActionType);
+				return OccupantNeed;
+			}
+			Debug.LogError("Bed.GetOccupantNeed => No Occupant");
+			return null;
+		}
+
 		public void Update()
 		{
 			if (Occupant != null)
 			{
-				Need toUpdate = Occupant.Needs.LookUp(ActionType);
-				toUpdate.IncreaseCurrentValue(Mathf.RoundToInt(Time.deltaTime));
+				if (OccupantNeed != null)
+				{
+					float currentTime = Time.realtimeSinceStartup; //Get the time since startup
+					float newTime = currentTime - SleepTime; //calculate how much time has passed since SleepTime last updated
+					if (newTime >= 1) //Need.IncreaseCurrentValue only takes int, don't want to update it with zeros
+					{
+						OccupantNeed.IncreaseCurrentValue(Mathf.RoundToInt(newTime)); //Will be at least >= 1
+						SleepTime = currentTime; //Update SleepTime with the current time, avoids exponential sleep growth
+					}
+				}
 			}
 		}
 	}

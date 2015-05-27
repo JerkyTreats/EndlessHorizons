@@ -17,8 +17,7 @@ namespace NPC.Action
 			}
 			else if (actionName.Equals("sleep"))
 			{
-				throw new NotImplementedException();
-				//return new SleepAction(owner);
+				return new SleepAction(owner);
 			}
 			else if (actionName.Equals("idle"))
 			{

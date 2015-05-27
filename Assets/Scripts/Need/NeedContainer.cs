@@ -25,7 +25,7 @@ namespace Needs
         {
             foreach(Need need in needs)
             {
-                map.Add(need.needName,need);
+                map.Add(need.NeedName,need);
             }
         }
 

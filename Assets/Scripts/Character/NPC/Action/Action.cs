@@ -17,13 +17,13 @@ namespace NPC.Action
 		{
 			Owner = controller;
 			this.ActionType = actionType;
-			Need = (Needs.NPCNeed)Owner.Needs.LookUp(ActionType); //find the data class hunger for this NPC
+			Need = (Needs.NPCNeed)Owner.Needs.LookUp(ActionType); //find the data class for this NPC
 		}
 
-		//Looks for a Planner.WorldObject (is a Dictionary) by the ActionType (which would be key)
+		//Looks for a Planner.WorldObject by the ActionType 
 		protected void DetermineInteractableObject()
 		{
-			if (Owner.planner.WorldObjects.Count == 0)
+			if (Owner.planner.GetWorldObject(ActionType)==null)
 			{
 				Debug.Log("NPC cannot find InteractableObject. Announcing all IO's now");
 				NotificationCenter.DefaultCenter().PostNotification(Owner.planner, "AnnounceAllInteractableObjects");

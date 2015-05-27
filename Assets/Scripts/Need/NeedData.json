@@ -2,7 +2,7 @@
 	"NPCNeed": [
 		{
 			"needName": "sleep",
-			"startingValue": 100,
+			"startingValue": 44,
 			"valueDecrementRate": 3,
 			"timeToDecrement": 15,
 			"needStatus": [
@@ -46,7 +46,7 @@
 		},
 		{
 			"needName": "hunger",
-			"startingValue": 0,
+			"startingValue": 100,
 			"valueDecrementRate": 3,
 			"timeToDecrement": 15,
 			"needStatus": [

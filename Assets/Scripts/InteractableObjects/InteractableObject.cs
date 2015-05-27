@@ -17,6 +17,7 @@ namespace InteractableObjects
 
 		void AnnounceAllInteractableObjects(Notification notification)
 		{
+			Debug.Log("AnnounceAllInteractableObjects: " + ActionType);
 			NotificationCenter.DefaultCenter().PostNotification(this, "AnnounceInteractableObjects", ActionType);
 		}
 

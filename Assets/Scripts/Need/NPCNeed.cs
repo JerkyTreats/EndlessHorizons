@@ -19,7 +19,7 @@ namespace Needs
         //override class SetCurrentState to call the planner
         protected override void SetCurrentStatus()
         {
-            NeedStatus oldStatus = currentStatus;
+            NeedStatus oldStatus = CurrentStatus;
             base.SetCurrentStatus();
 			if (oldStatus==null)
 			{
@@ -27,11 +27,11 @@ namespace Needs
 				{
 					Start(); 
 				}
-				planner.UpdateStatus(new Goal(needName, currentStatus.goalWeight));
+				planner.UpdateStatus(new Goal(NeedName, CurrentStatus.goalWeight));
 			}
-			else if (!currentStatus.text.Equals(oldStatus.text))
+			else if (!CurrentStatus.text.Equals(oldStatus.text))
             {
-                planner.UpdateStatus(new Goal(needName, currentStatus.goalWeight));
+                planner.UpdateStatus(new Goal(NeedName, CurrentStatus.goalWeight));
             }
         }
     }

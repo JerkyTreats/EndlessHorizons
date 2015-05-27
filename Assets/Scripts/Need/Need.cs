@@ -7,46 +7,46 @@ namespace Needs
 {
     public abstract class Need : MonoBehaviour
     {
-        public string needName { get; set; }
-        public NeedStatus currentStatus { get; set; }
-        public int valueDecrementRate { get; set; }
-        public int timeToDecrement { get; set; }
-        private int currentValue;
-        private List<NeedStatus> needStatuses;
+        public string NeedName { get; set; } //match to ActionType/GoalName
+        public NeedStatus CurrentStatus { get; set; }
+        public int ValueDecrementRate { get; set; }
+        public int TimeToDecrement { get; set; }
+		public int CurrentValue { get; set; }
+        private List<NeedStatus> NeedStatuses;
 
         //Constructor for MonoBehaviour object
         //Will have to resolve the Start method invoking an empty object
         public void Init(string needName, List<NeedStatus> needStatuses, int startingValue, int valueDecrementRate, int timeToDecrement)
         {
-            this.needName = needName;
-            this.needStatuses = needStatuses;
-            this.valueDecrementRate = valueDecrementRate;
-            this.timeToDecrement = timeToDecrement;
-            currentValue = startingValue;
+            this.NeedName = needName;
+            this.NeedStatuses = needStatuses;
+            this.ValueDecrementRate = valueDecrementRate;
+            this.TimeToDecrement = timeToDecrement;
+            CurrentValue = startingValue;
 			SetCurrentStatus();
             InvokeRepeating("DecrementCurrentValue", 0, timeToDecrement);
 
-			Debug.Log(this.needName + " Init Completed");
+			Debug.Log(this.NeedName + " Init Completed");
         }
         
         //Overloaded for no assignment, just start the value decrementation
         public void Init()
         {
-            InvokeRepeating("DecrementCurrentValue",0,timeToDecrement);
+            InvokeRepeating("DecrementCurrentValue",0,TimeToDecrement);
         }
 
         //Continuously reduce the currentValue of the characters need. Update the status. 
         //This should be called via InvokeRepeating
         public void DecrementCurrentValue()
         {
-			Debug.Log(currentValue + " " + valueDecrementRate);
-            currentValue -= valueDecrementRate;
+			Debug.Log(CurrentValue + " " + ValueDecrementRate);
+            CurrentValue -= ValueDecrementRate;
             SetCurrentStatus();
         }
 
         public void IncreaseCurrentValue(int amount)
         {
-            currentValue+=amount;
+            CurrentValue+=amount;
             SetCurrentStatus();
         }
         
@@ -56,18 +56,18 @@ namespace Needs
         //Player.Need will likely overload this method to send updates to UI
         virtual protected void SetCurrentStatus()
         {
-            for (int i = 0; i < needStatuses.Count; i++)
+            for (int i = 0; i < NeedStatuses.Count; i++)
             {
-                if (currentValue >= needStatuses[i].lowerThreshold &&
-                    currentValue <= needStatuses[i].upperThreshold)
+                if (CurrentValue >= NeedStatuses[i].lowerThreshold &&
+                    CurrentValue <= NeedStatuses[i].upperThreshold)
                 {
-                    if(currentStatus==null) 
+                    if(CurrentStatus==null) 
 					{
-						currentStatus = needStatuses[i];
+						CurrentStatus = NeedStatuses[i];
 					}
-					else if (!currentStatus.text.Equals(needStatuses[i].text))
+					else if (!CurrentStatus.text.Equals(NeedStatuses[i].text))
 					{
-						currentStatus = needStatuses[i];
+						CurrentStatus = NeedStatuses[i];
 					}
                     break;
                 }
