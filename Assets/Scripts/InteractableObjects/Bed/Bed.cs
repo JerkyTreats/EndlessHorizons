@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Needs;
+using NPC.Action;
 
 namespace InteractableObjects.Bed
 {
 	class Bed : InteractableObject
 	{
-		public Characters.Character Occupant { get; set; }
-		private Need OccupantNeed;
-		private int OccupantValueDecrementRate;
-		private float SleepTime;
+		public NPC.NPC Occupant { get; set; }
+		private SleepAction sa;
 
 		override public void Start()
 		{
@@ -22,13 +21,13 @@ namespace InteractableObjects.Bed
 		//What happens when the character enters the Bed;
 		void OnTriggerEnter2D(Collider2D other)
 		{
-			Occupant = other.gameObject.GetComponent<Characters.Character>();
-			OccupantNeed =  Occupant.Needs.LookUp(ActionType);
-			if (OccupantNeed.NeedName == ActionType)
+			Occupant = other.gameObject.GetComponent<NPC.NPC>();
+
+			//if the actiontype of the NPC's current action matches IO actiontype, assume the Action can be successfully cast to a SleepAction
+			if (Occupant.planner.CurrentAction.ActionType.Equals(ActionType)) 
 			{
-				SleepTime = Time.realtimeSinceStartup;
-				OccupantValueDecrementRate = OccupantNeed.ValueDecrementRate;
-				OccupantNeed.ValueDecrementRate = 0; //Dont become more sleepy when sleeping
+				sa = (SleepAction)Occupant.planner.CurrentAction;
+				sa.StartSleep();
 			}
 			else
 			{
@@ -39,9 +38,16 @@ namespace InteractableObjects.Bed
 		//Define what happens with the Character leaves the bed;
 		void OnTriggerExit2D(Collider2D other)
 		{
-			OccupantNeed.ValueDecrementRate = OccupantValueDecrementRate; //Return sleepiness decrement to previous
+			if (sa != null)
+			{
+				sa.FinishSleep();
+			}
+			else
+			{
+				Debug.LogError("Bed.OnTriggerExit2D => SleepAction was null!");
+			}
 			Occupant = null;
-			OccupantNeed = null;
+			sa = null;
 		}
 
 		//Publically accessable method to go to this objects location.
@@ -51,25 +57,14 @@ namespace InteractableObjects.Bed
 			GoToObjectLocation(owner);
 		}
 
+		//Called per frame(ish)
 		public void Update()
 		{
 			if (Occupant != null)
 			{
-				Debug.Log(ActionType + " " + OccupantNeed.NeedName);
-				if (OccupantNeed.NeedName.Equals(ActionType) || OccupantNeed == null)
+				if (sa != null)
 				{
-					float currentTime = Time.realtimeSinceStartup; //Get the time since startup
-					float newTime = currentTime - SleepTime; //calculate how much time has passed since SleepTime last updated
-					if (newTime >= 1) //Need.IncreaseCurrentValue only takes int, don't want to update it with zeros
-					{
-						OccupantNeed.IncreaseCurrentValue(Mathf.RoundToInt(newTime)); //Will be at least >= 1
-						SleepTime = currentTime; //Update SleepTime with the current time, avoids exponential sleep growth
-						Debug.Log(OccupantNeed.CurrentValue);
-					}
-				}
-				else
-				{
-					Debug.LogError("Bed.Update => OccupantNeed does not match Bed.ActionType");
+					sa.UpdateSleep();
 				}
 			}
 		}
