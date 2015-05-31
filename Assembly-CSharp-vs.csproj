@@ -75,7 +75,6 @@
      <Compile Include="Assets\Scripts\Need\NeedStatus.cs" />
      <Compile Include="Assets\Scripts\NotificationCenter.cs" />
      <Compile Include="Assets\Scripts\SimpleJSON.cs" />
-     <None Include="Assets\Plugins\Newtonsoft.Json.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -84,9 +83,6 @@
  </Reference>
  <Reference Include="ICSharpCode.SharpZipLib">
  <HintPath>C:/SpaceshipPrototype/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
- </Reference>
- <Reference Include="Newtonsoft.Json">
- <HintPath>C:/SpaceshipPrototype/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iossupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

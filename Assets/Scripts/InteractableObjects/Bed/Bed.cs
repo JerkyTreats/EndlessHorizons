@@ -22,21 +22,17 @@ namespace InteractableObjects.Bed
 		//What happens when the character enters the Bed;
 		void OnTriggerEnter2D(Collider2D other)
 		{
-			if (Occupant != null) //determine if someone is already in bed
+			Occupant = other.gameObject.GetComponent<Characters.Character>();
+			OccupantNeed =  Occupant.Needs.LookUp(ActionType);
+			if (OccupantNeed.NeedName == ActionType)
 			{
-				Occupant = other.gameObject.GetComponent<Characters.Character>();
-				OccupantNeed = GetOccupantNeed();
-				if (OccupantNeed.NeedName == ActionType)
-				{
-					SleepTime = Time.realtimeSinceStartup;
-					OccupantValueDecrementRate = OccupantNeed.ValueDecrementRate;
-					OccupantNeed.ValueDecrementRate = 0; //Dont become more sleepy when sleeping
-				}
-
+				SleepTime = Time.realtimeSinceStartup;
+				OccupantValueDecrementRate = OccupantNeed.ValueDecrementRate;
+				OccupantNeed.ValueDecrementRate = 0; //Dont become more sleepy when sleeping
 			}
 			else
 			{
-				Debug.Log("Bed is already occupied");
+				Debug.Log("Bed.OnTriggerEnter => Occupant Current Action differs from Beds");
 			}
 		}
 
@@ -55,22 +51,12 @@ namespace InteractableObjects.Bed
 			GoToObjectLocation(owner);
 		}
 
-		private Need GetOccupantNeed()
-		{
-			if (Occupant != null)
-			{
-				Need OccupantNeed = Occupant.Needs.LookUp(ActionType);
-				return OccupantNeed;
-			}
-			Debug.LogError("Bed.GetOccupantNeed => No Occupant");
-			return null;
-		}
-
 		public void Update()
 		{
 			if (Occupant != null)
 			{
-				if (OccupantNeed != null)
+				Debug.Log(ActionType + " " + OccupantNeed.NeedName);
+				if (OccupantNeed.NeedName.Equals(ActionType) || OccupantNeed == null)
 				{
 					float currentTime = Time.realtimeSinceStartup; //Get the time since startup
 					float newTime = currentTime - SleepTime; //calculate how much time has passed since SleepTime last updated
@@ -78,7 +64,12 @@ namespace InteractableObjects.Bed
 					{
 						OccupantNeed.IncreaseCurrentValue(Mathf.RoundToInt(newTime)); //Will be at least >= 1
 						SleepTime = currentTime; //Update SleepTime with the current time, avoids exponential sleep growth
+						Debug.Log(OccupantNeed.CurrentValue);
 					}
+				}
+				else
+				{
+					Debug.LogError("Bed.Update => OccupantNeed does not match Bed.ActionType");
 				}
 			}
 		}
