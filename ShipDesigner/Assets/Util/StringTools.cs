@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-namespace Common.Util
+namespace Util
 {
 	public static class StringTools
 	{
