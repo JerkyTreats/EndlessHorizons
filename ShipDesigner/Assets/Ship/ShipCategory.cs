@@ -1,5 +1,5 @@
 using System;
-using System.Colletions.Generic;
+using System.Collections.Generic;
 
 namespace Ship
 {

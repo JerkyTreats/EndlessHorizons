@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Ship;
 
-namespace DealershipCompany
+namespace Company
 {
 	class DealershipCompany
 	{

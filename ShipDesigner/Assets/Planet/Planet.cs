@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic; 
+using Company;
 
 namespace Planet
 {
@@ -11,6 +12,6 @@ namespace Planet
 		
 		//public TODO GalacticLocation {get; set; }
 		
-		public List<ShipDealership> ShipDealerships { get; set; }
+		public List<Company.Dealership> ShipDealerships { get; set; }
 	}
 }

@@ -7,6 +7,6 @@ namespace Ship
 	{
 		public float Weight { get; set; }
 		public int Durability { get; set; }
-		public Cost Cost { get; set; }
+		public int Cost { get; set; }
 	}
 }

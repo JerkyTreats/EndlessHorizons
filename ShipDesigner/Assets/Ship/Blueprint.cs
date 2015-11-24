@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ship.Components;
 
 namespace Ship
 {
@@ -12,7 +13,7 @@ namespace Ship
 		public int Durability {get; set; }
 		public ShipCategory Category {get; set;}
 		public int Crew {get; set;}
-		public Cost Cost { get; set; }
+		public int Cost { get; set; }
 		
 	}
 }
