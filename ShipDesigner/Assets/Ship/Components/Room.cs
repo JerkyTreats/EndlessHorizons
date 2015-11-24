@@ -2,7 +2,7 @@ using System;
 using System.Collection.Generic;
 using UnityEngine;
 
-namespace Ship.Room
+namespace Ship.Components
 {
 	class Room
 	{
@@ -13,6 +13,6 @@ namespace Ship.Room
 		public float Weight { get; set; }
 		public int Power { get; set; }
 		public int Crew { get; set; }
-		public int ConstructionCost { get; set; }
+		public Cost Cost { get; set; }
 	}
 }
