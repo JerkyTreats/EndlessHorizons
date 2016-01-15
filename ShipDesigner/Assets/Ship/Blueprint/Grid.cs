@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace Ship.Blueprint
+namespace Ship
 {
 	class Grid
 	{
@@ -9,11 +11,11 @@ namespace Ship.Blueprint
 		public Vector3	GridStartLocation { get; set; }
 		public int GridCountX { get; set; }
 		public int GridCountY { get; set; }
-		public ArrayList<int[]> GridList {get; set;}
+		public List<int[]> GridList {get; set;}
 		
 		public Grid (int xUnitCount, int yUnitCount, int zUnitCount)
 		{
-			GridList = new ArrayList<int>;
+			GridList = new List<int[]>();
 			var xRange = Enumerable.Range(0,xUnitCount).ToList();
 			var yRange = Enumerable.Range(0,yUnitCount).ToList();
 			var zRange = Enumerable.Range(0,zUnitCount).ToList();
@@ -22,12 +24,14 @@ namespace Ship.Blueprint
 			{
 				foreach (int y in yRange )
 				{
-						foreach (int z in zRange)
-						{
-							GridList.Add(new int[3] {x,y,z});
-						}
+					foreach (int z in zRange)
+					{
+						GridList.Add(new int[3] {x,y,z});
+					}
 				}
 			}
+			
+			
 		}
 	}
 }

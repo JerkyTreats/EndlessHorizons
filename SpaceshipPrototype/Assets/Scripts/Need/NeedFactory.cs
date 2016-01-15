@@ -10,11 +10,24 @@ namespace Needs
     {
 		static JSONNode Connect(string fileName)
 		{
-			string path = @"C:/SpaceshipPrototype/Assets/Scripts/Need/" + fileName + ".json";
+			string path = GetPath(fileName);
 			StreamReader file = File.OpenText(path);
 			string jsonString = file.ReadToEnd();
 			Debug.Log(jsonString);
 			return JSON.Parse(jsonString);
+		}
+
+		private static string GetPath(string fileName)
+		{
+			string file = fileName + ".json";
+			string[] folders = new string[] {"Assets", "Scripts", "Need", file};
+			string dir = Directory.GetCurrentDirectory();
+
+			foreach (string folder in folders)
+			{
+				dir = Path.Combine(dir, folder);
+			}			
+			return dir;
 		}
 
 		public static NeedContainer NPCNeedFactory(NPC.NPC character)
