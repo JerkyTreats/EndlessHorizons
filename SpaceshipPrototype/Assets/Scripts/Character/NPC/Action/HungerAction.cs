@@ -8,52 +8,79 @@ namespace NPC.Action
     //Planner initiates a HungerAction object, which does the necessary actions to Reduce the NPCs hunger
 	public class HungerAction : Action {
         private Kitchen Kitchen;
+        private bool ActionCompleted = false;
+        private string Step;
 
 		public HungerAction(NPC owner, Kitchen kitchen) : base(owner, "hunger")
 		{
 			Kitchen = kitchen;
 			Debug.Log("I am hungry enough to eat!"); //Turn debug.log into a popup text.
-			if (!CheckInventory()) //Eat any food in inventory, else start cooking; 
+			Step = "eat";
+			while (!ActionCompleted)
 			{
-				StartCooking();
+				DetermineAction();
 			}
+		}
+
+		void DetermineAction()
+		{
+			switch (Step)
+			{
+				case "eat" :
+				{
+					EatMeal();
+					break;
+				}
+				case "cook" :
+				{
+					StartCooking();
+					break;
+				}
+			}
+			Debug.Log("HungerAction.DetermineAction: [" + Step + "] is not a valid step");
 		}
 
         //Check the players inventory for a meal; 
         //Eat the meal; returns true if eating was complete;
-		public bool CheckInventory()
+		Meal GetMealFromInventory()
 		{
-			if (Owner.inventory.HasObjectNameInInventory("meal"))
+			return (Meal)Owner.Inventory.PopItem("meal");
+		}
+
+		void EatMeal()
+		{
+			Meal toEat = GetMealFromInventory();
+			if (toEat != null)
 			{
-				Meal toEat = (Meal)Owner.inventory.FetchObject("meal");
-				if (toEat != null)
-				{
-					Owner.inventory.RemoveAmountFromInventory("meal", 1);
-					Need.IncreaseCurrentValue(toEat.mealValue);
-					toEat = null;
-					return true;
-				}
-				else
-				{
-					Debug.Log("Meal toEat is null");
-				}
+				Need.IncreaseCurrentValue(toEat.NeedValue);
+				FinishAction();
 			}
-			return false;
+			else 
+			{
+				Step = "cook";
+			}
 		}
 
         //Find a kitchen, start cooking at that kitchen;
 		public void StartCooking()
 		{
 			Debug.Log("Start Cooking");
-			Kitchen.StartCooking(Owner, "mealValueal"); //Start cooking
+			// Owner.SetDestination(Kitchen.)
+			Kitchen.StartCooking(Owner, "mealValue"); //Start cooking
 
 		}
 
 		public void FinishCooking()
 		{
 			Debug.Log("Finished Cooking");
-			Owner.inventory.Add("meal", 1, Meal.GetMeal("meal"));
-			CheckInventory();
+			Owner.Inventory.Add("meal", 1, Meal.GetMeal("meal"));
+			Step = "eat";
+		}
+
+		void FinishAction()
+		{
+			ActionCompleted = true;
+			Owner.Planner.CurrentAction = null; //Leaves this object to wither and die?
 		}
 	}
 }

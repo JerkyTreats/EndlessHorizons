@@ -63,7 +63,7 @@ namespace Characters
 		//Remove an amount of an object from the characters inventory
 		//Returns -1 if object does not exist or does not have enough of the amount
 		//Will not remove the amount if the amount is less than zero
-		public int RemoveAmountFromInventory(string name, int amount)
+		public int RemoveAmountFrominventory(string name, int amount)
 		{
 			int i;
 			for (i=0;i<inventory.Count;i++)
@@ -88,9 +88,9 @@ namespace Characters
 		}
 
 		//check if the inv name is in the inventory, return bool
-		public bool HasObjectNameInInventory(string toFind)		
+		public bool HasObjectNameIninventory(string toFind)		
 		{
-			Debug.Log("HasObjectNameInInventory " + toFind);
+			Debug.Log("HasObjectNameIninventory " + toFind);
 			if (GetObjectAmount(toFind) == 0)
 			{
 				return false;
@@ -98,18 +98,20 @@ namespace Characters
 			return true;
 		}
 
-		public object FetchObject(string name)
+		public object PopItem(string name)
 		{
-			if (HasObjectNameInInventory (name)) 
+			if (HasObjectNameIninventory (name)) 
 			{
 				InventoryItem toReturn = inventory.Find(i => i.itemName == name);
 				if (toReturn.obj.Count > 0)
 				{
-					return toReturn.obj[0]; //Only returns first, this will have to be more intelligent in the future
+					RemoveAmountFrominventory(name, 1);
+					return toReturn.obj[0]; //Only returns first, this may have to be more intelligent in the future
 				}
 			}
 			return null;
 		}
+
 	}
 
 	//inventory item, allows for a list of item variables to be stored.

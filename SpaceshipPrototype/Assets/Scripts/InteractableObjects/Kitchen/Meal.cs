@@ -6,7 +6,7 @@ namespace InteractableObjects
 {
 	public class Meal {
 		public string mealName;  //name of the meal 
-		public int mealValue; //character.hunger mealValue 
+		public int NeedValue; //character.hunger NeedValue 
 		public List<int> kitchenNodeOrder; //a kitchen has 3 nodes, how many nodes does character have to go to to cook meal
 		public int ingredientsNeeded;  //ingredients as a int for now, will probably have increased complexity later
 		public float minimumCookTime; //cook time with a "perfect" cook
@@ -16,9 +16,9 @@ namespace InteractableObjects
 		}
 
 		//constructor
-		public Meal(string mealName, int mealValue, List<int> kitchenNodeOrder,int ingredientsNeeded, float minimumCookTime){
+		public Meal(string mealName, int NeedValue, List<int> kitchenNodeOrder,int ingredientsNeeded, float minimumCookTime){
 			this.mealName = mealName;
-			this.mealValue=mealValue;
+			this.NeedValue=NeedValue;
 			this.kitchenNodeOrder=kitchenNodeOrder;
 			this.ingredientsNeeded=ingredientsNeeded;
 			this.minimumCookTime=minimumCookTime;
@@ -35,7 +35,7 @@ namespace InteractableObjects
 			mealOrder.Add(2);
 			Meal test = new Meal("meal", 21, mealOrder, 3, 15f);
 			//Debug.Log(test.ToString());
-			Debug.Log(test.mealName + " " + test.mealValue + " " + test.ingredientsNeeded + " " + test.minimumCookTime + " " + test.kitchenNodeOrder);
+			Debug.Log(test.mealName + " " + test.NeedValue + " " + test.ingredientsNeeded + " " + test.minimumCookTime + " " + test.kitchenNodeOrder);
 			meals.Add(test);
 
 			return meals;

@@ -12,15 +12,14 @@ namespace Characters
         public string characterType = "character";
         private PolyNavAgent _agent;
         private Animator anim;
-        public Inventory inventory;
+        public Inventory Inventory;
         public Needs.NeedContainer Needs;
         public InteractableObject CurrentInteractableObject {get; set;}
 
     
         public void Start()
         {
-            inventory = GetComponent<Inventory>();
-			Debug.Log("Start Inventory: " + inventory);
+            Inventory = GetComponent<Inventory>();
             anim = GetComponent<Animator>();
         }
 

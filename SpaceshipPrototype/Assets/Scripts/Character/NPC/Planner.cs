@@ -10,10 +10,14 @@ namespace NPC
 	public class Planner : MonoBehaviour {
 		private NPC Controller; 
         public Action.Action CurrentAction;
+		public string CharacterType; //characters type, limits the actions available to this character
 		public List<InteractableObject> WorldObjects;
 
+
+		// Use this for initialization
 		void Start () {
 			Controller = gameObject.GetComponent<NPC>();
+			CharacterType = Controller.characterType;
 			WorldObjects = new List<InteractableObject>();
 
 			//Sign up for InteractableObjects announcements. See method AnnounceInteractableObjects();
@@ -27,6 +31,11 @@ namespace NPC
 		{
 			Debug.Log("IO Notification recieved by planner");
 			WorldObjects.Add((InteractableObject)notification.sender);
+		}
+
+		public void InvokeDetermineHighestGoal()
+		{
+            InvokeRepeating("DetermineHighestGoal",0,1);
 		}
 
         //Should be invokeRepeating by Start, constantly determining the most important thing to do

@@ -8,11 +8,14 @@ namespace NPC
 	//"Non Player Character"
     public class NPC : Character
     {
+    	public Planner Planner;
+    	
 		new void Start()
 		{
 			base.Start();
-			Planner planner = gameObject.GetComponent<Planner>();
 			Needs = NeedFactory.NPCNeedFactory(this);
+			Planner = gameObject.GetComponent<Planner>();
+			Planner.InvokeDetermineHighestGoal();
 		}
     }
 }
