@@ -3,7 +3,7 @@ using System.Collections;
 using Characters;
 using NPC.Action;
 
-namespace InteractableObjects.Kitchen
+namespace InteractableObjects
 {
     //Pending meal is a meal that is currently in the process of being "cooked"
     //It has an owner (Character), 

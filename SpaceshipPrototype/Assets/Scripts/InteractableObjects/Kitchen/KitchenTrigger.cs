@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace InteractableObjects.Kitchen
+namespace InteractableObjects
 {
 	/// <summary>
 	/// Trigger for the Kitchen. 

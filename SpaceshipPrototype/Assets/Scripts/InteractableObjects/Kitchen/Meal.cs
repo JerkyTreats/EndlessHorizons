@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace InteractableObjects.Kitchen
+namespace InteractableObjects
 {
 	public class Meal {
 		public string mealName;  //name of the meal 

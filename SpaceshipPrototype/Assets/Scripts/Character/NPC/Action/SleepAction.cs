@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using InteractableObjects.Bed;
 using Needs;
 using UnityEngine;
+using InteractableObjects;
 
 namespace NPC.Action
 {
@@ -11,39 +11,38 @@ namespace NPC.Action
 	class SleepAction : Action
 	{
 		private float SleepTime;
-		private Need OwnerNeed;
-		private int OccupantValueDecrementRate;
+		private int OriginalDecrementRate; 
+		private bool IsInBed;
+		private Bed Bed;
 
 		//Get the need of the NPC, determine which object to go to, init the process to go to sleep;
-		public SleepAction(NPC owner)
+		public SleepAction(NPC owner, Bed bed)
 			: base(owner, "sleep")
 		{
 			Debug.Log("I need to go to sleep!");
-
-			OwnerNeed = Owner.Needs.LookUp(ActionType);
-
-			DetermineInteractableObject();
-			Bed bed = (Bed)IO;
-			bed.GoToBed(owner);
+			Bed = bed;
+			owner.SetDestination(bed.GetLocation());
 		}
 
 		public void StartSleep()
 		{
 			SleepTime = Time.realtimeSinceStartup;
-			OccupantValueDecrementRate = OwnerNeed.ValueDecrementRate;
-			OwnerNeed.ValueDecrementRate = 0; //Dont become more sleepy when sleeping
+
+			//Dont become more sleepy when sleeping
+			OriginalDecrementRate = Need.ValueDecrementRate;
+			Need.ValueDecrementRate = 0; 
 		}
 
 		//Essentially called every frame when conditions in IO.Bed have been met.
 		public void UpdateSleep()
 		{
-			if (OwnerNeed.CurrentValue <= 75)
+			if (Need.CurrentValue <= 75)
 			{
 				float currentTime = Time.realtimeSinceStartup; //Get the time since startup
 				float newTime = currentTime - SleepTime; //calculate how much time has passed since SleepTime last updated
 				if (newTime >= 1) //Need.IncreaseCurrentValue only takes int, don't want to update it with zeros
 				{
-					OwnerNeed.IncreaseCurrentValue(Mathf.RoundToInt(newTime)); //Will be at least >= 1
+					Need.IncreaseCurrentValue(Mathf.RoundToInt(newTime)); //Will be at least >= 1
 					SleepTime = currentTime; //Update SleepTime with the current time, avoids exponential sleep growth
 				}
 			}
@@ -55,8 +54,9 @@ namespace NPC.Action
 
 		public void FinishSleep()
 		{
-			OwnerNeed.ValueDecrementRate = OccupantValueDecrementRate; //Return sleepiness decrement to previous
-			Owner.planner.FinishGoal();
+			Need.ValueDecrementRate = OriginalDecrementRate; //Return sleepiness decrement to previous
+			// Owner.planner.FinishGoal();
+			// WakeUp()
 		}
 	}
 }

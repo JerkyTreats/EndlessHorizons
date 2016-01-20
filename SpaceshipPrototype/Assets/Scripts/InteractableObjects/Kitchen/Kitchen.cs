@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic; 
 using Characters;
 
-namespace InteractableObjects.Kitchen{
+namespace InteractableObjects{
 	public class Kitchen : InteractableObject {
 		public List<Meal> Meals;
 		public int Ingredients;
@@ -82,20 +82,16 @@ namespace InteractableObjects.Kitchen{
 		
 		GameObject DetermineKitchenNode(int nodeOrderNumber)
 		{
-			GameObject kitchenNode = null; 
 			switch (nodeOrderNumber)
 			{
 				case 1:
-					kitchenNode = KitchenNode1;
-					break;
+					return KitchenNode1;
 				case 2:
-					kitchenNode = KitchenNode2;
-					break;
+					return KitchenNode2;
 				case 3:
-					kitchenNode = KitchenNode3;
-					break;
+					return KitchenNode3;
 			}
-			return kitchenNode;
+			return null;
 		}
 
 		//Each update tick should update the PendingMeals for the character. 

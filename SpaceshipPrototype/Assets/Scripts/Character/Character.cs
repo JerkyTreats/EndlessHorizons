@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using InteractableObjects;
 
 namespace Characters
 {
@@ -13,6 +14,8 @@ namespace Characters
         private Animator anim;
         public Inventory inventory;
         public Needs.NeedContainer Needs;
+        public InteractableObject CurrentInteractableObject {get; set;}
+
     
         public void Start()
         {
@@ -44,13 +47,6 @@ namespace Characters
             anim.SetBool("isMoving", true);
         }
 
-        //Message from Agent: When a corner point has been reached
-        void OnNavigationPointReached()
-        {
-
-            //do something here...		
-        }
-
         //Message from Agent: When the destination has been reached
         void OnDestinationReached()
         {
@@ -62,6 +58,13 @@ namespace Characters
         {
 
             //do something here...
+        }
+
+        //Message from Agent: When a corner point has been reached
+        void OnNavigationPointReached()
+        {
+
+            //do something here...      
         }
     }
 }

@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using InteractableObjects;
 
 namespace NPC.Action
 {
 	public static class ActionFactory
 	{
-		public static Action GetAction(string actionName, NPC owner)
+		public static Action StartAction(string actionName, NPC owner, InteractableObject io)
 		{
 			actionName = actionName.ToLower();
 
 			if (actionName.Equals("hunger"))
 			{
-				return new HungerAction(owner);
+				Kitchen k = (Kitchen)io;
+				return new HungerAction(owner, k);
 			}
 			else if (actionName.Equals("sleep"))
 			{
-				return new SleepAction(owner);
+				Bed b = (Bed)io;
+				return new SleepAction(owner, b);
 			}
 			else if (actionName.Equals("idle"))
 			{

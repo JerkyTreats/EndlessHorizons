@@ -5,14 +5,13 @@ using Needs;
 
 namespace NPC
 {
-    public class NPC : Characters.Character
+	//"Non Player Character"
+    public class NPC : Character
     {
-	    public Planner planner;
-
 		new void Start()
 		{
 			base.Start();
-			planner = GetComponent<Planner>();
+			Planner planner = gameObject.GetComponent<Planner>();
 			Needs = NeedFactory.NPCNeedFactory(this);
 		}
     }
