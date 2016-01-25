@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.IO;
 using System.Collections.Generic;
 using SimpleJSON;
 
@@ -8,33 +7,11 @@ namespace Needs
     // Static class to create Need objects
     public static class NeedFactory
     {
-		static JSONNode Connect(string fileName)
-		{
-			string path = GetPath(fileName);
-			StreamReader file = File.OpenText(path);
-			string jsonString = file.ReadToEnd();
-			Debug.Log(jsonString);
-			return JSON.Parse(jsonString);
-		}
-
-		private static string GetPath(string fileName)
-		{
-			string file = fileName + ".json";
-			string[] folders = new string[] {"Assets", "Scripts", "Need", file};
-			string dir = Directory.GetCurrentDirectory();
-
-			foreach (string folder in folders)
-			{
-				dir = Path.Combine(dir, folder);
-			}			
-			return dir;
-		}
-
 		public static NeedContainer NPCNeedFactory(NPC.NPC character)
 		{
 			Debug.Log("In NPCNeedFactory");
 			NeedContainer nc = new NeedContainer();
-			JSONNode j = Connect("NeedData");
+			JSONNode j = Connect.GetJSONNode(new List<string> { "Need", "NeedData.json" });
 
 			for (int i = 0; i < j["NPCNeed"].Count; i++)
 			{

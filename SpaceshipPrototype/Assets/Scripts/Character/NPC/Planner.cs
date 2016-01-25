@@ -47,11 +47,10 @@ namespace NPC
 
 		void DoAction(Need need)
 		{
-			InteractableObject obj = GetInteractableObjectByNeed(need);
-			CurrentAction = Action.ActionFactory.StartAction(need.NeedName, Controller, obj);
-		}
+            Action.ActionFactory.StartAction(need.NeedName, gameObject.GetComponent<NPC>(), GetInteractableObjectByNeed(need));
+        }
 
-		public Need GetMostImportantNeed()
+        public Need GetMostImportantNeed()
 		{
 			List<Need> needs = Controller.Needs.needs;
 			int mostImportantGoal = 0;

@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Needs
 {
@@ -18,10 +16,10 @@ namespace Needs
         //Will have to resolve the Start method invoking an empty object
         public void Init(string needName, List<NeedStatus> needStatuses, int startingValue, int valueDecrementRate, int timeToDecrement)
         {
-            this.NeedName = needName;
-            this.NeedStatuses = needStatuses;
-            this.ValueDecrementRate = valueDecrementRate;
-            this.TimeToDecrement = timeToDecrement;
+            NeedName = needName;
+            NeedStatuses = needStatuses;
+            ValueDecrementRate = valueDecrementRate;
+            TimeToDecrement = timeToDecrement;
             CurrentValue = startingValue;
 			SetCurrentStatus();
             InvokeRepeating("DecrementCurrentValue", 0, timeToDecrement);

@@ -8,19 +8,19 @@ namespace NPC.Action
 {
 	public static class ActionFactory
 	{
-		public static Action StartAction(string actionName, NPC owner, InteractableObject io)
+		public static void StartAction(string actionName, NPC owner, InteractableObject io)
 		{
 			actionName = actionName.ToLower();
 
 			if (actionName.Equals("hunger"))
 			{
-				Kitchen k = (Kitchen)io;
-				return new HungerAction(owner, k);
+               Hunger h = owner.gameObject.AddComponent<Hunger>();
+                h.Init((Kitchen)io);
 			}
 			else if (actionName.Equals("sleep"))
 			{
-				Bed b = (Bed)io;
-				return new SleepAction(owner, b);
+				Sleep s = owner.gameObject.AddComponent<Sleep>();
+                s.Init((Bed)io);
 			}
 			else if (actionName.Equals("idle"))
 			{

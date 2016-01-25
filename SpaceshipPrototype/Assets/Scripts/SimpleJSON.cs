@@ -46,7 +46,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
- 
+using System.IO;
  
 namespace SimpleJSON
 {
@@ -1065,6 +1065,30 @@ namespace SimpleJSON
         public static JSONNode Parse(string aJSON)
         {
             return JSONNode.Parse(aJSON);
+        }
+    }
+
+    public static class Connect
+    {
+        public static JSONNode GetJSONNode(List<string> pathAsFolderList)
+        {
+            string path = GetPath(pathAsFolderList);
+            StreamReader file = File.OpenText(path);
+            string jsonString = file.ReadToEnd();
+            return JSON.Parse(jsonString);
+        }
+
+        private static string GetPath(List<string> pathAsFolderList)
+        {
+            List<string> folders = new List<string> { "Assets", "Scripts"};
+            List<string> path = folders.Concat(pathAsFolderList).ToList();
+            string dir = Directory.GetCurrentDirectory();
+
+            foreach (string folder in folders)
+            {
+                dir = Path.Combine(dir, folder);
+            }
+            return dir;
         }
     }
 }
