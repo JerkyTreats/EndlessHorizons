@@ -7,32 +7,30 @@ namespace Needs
     // Static class to create Need objects
     public static class NeedFactory
     {
-		public static NeedContainer NPCNeedFactory(NPC.NPC character)
+		public static void NPCNeedFactory(Characters.Character character)
 		{
 			Debug.Log("In NPCNeedFactory");
-			NeedContainer nc = new NeedContainer();
 			JSONNode j = Connect.GetJSONNode(new List<string> { "Need", "NeedData.json" });
 
 			for (int i = 0; i < j["NPCNeed"].Count; i++)
 			{
-				NPCNeed charNeed = character.gameObject.AddComponent<NPCNeed>();
-			
-				//Debug.Log("name " + j["NPCNeed"][i]["needName"].Value);
-				//Debug.Log("stati " + NeedStatusFactory(j, i));
-				//Debug.Log("starting " + j["NPCNeed"][i]["startingValue"].AsInt);
-				//Debug.Log("decrementvalue " + j["NPCNeed"][i]["valueDecrementRate"].AsInt);
-				//Debug.Log("time " + j["NPCNeed"][i]["timeToDecrement"].AsInt);
+                Need charNeed = character.gameObject.AddComponent<Need>();
 
-				charNeed.Init(
+                //Debug.Log("name " + j["NPCNeed"][i]["needName"].Value);
+                //Debug.Log("stati " + NeedStatusFactory(j, i));
+                //Debug.Log("starting " + j["NPCNeed"][i]["startingValue"].AsInt);
+                //Debug.Log("decrementvalue " + j["NPCNeed"][i]["valueDecrementRate"].AsInt);
+                //Debug.Log("time " + j["NPCNeed"][i]["timeToDecrement"].AsInt);
+
+                NeedData need = new NeedData(
 					j["NPCNeed"][i]["needName"].Value,
 					NeedStatusFactory(j, i),
 					j["NPCNeed"][i]["startingValue"].AsInt,
 					j["NPCNeed"][i]["valueDecrementRate"].AsInt, 
 					j["NPCNeed"][i]["timeToDecrement"].AsInt
 					);
-				nc.needs.Add(charNeed);
+                charNeed.Init(need);
 			}
-			return nc;
 		}
 
 		static List<NeedStatus> NeedStatusFactory(JSONNode j, int i)

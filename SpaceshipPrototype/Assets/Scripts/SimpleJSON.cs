@@ -1073,6 +1073,7 @@ namespace SimpleJSON
         public static JSONNode GetJSONNode(List<string> pathAsFolderList)
         {
             string path = GetPath(pathAsFolderList);
+            File.SetAttributes(path, FileAttributes.Normal);
             StreamReader file = File.OpenText(path);
             string jsonString = file.ReadToEnd();
             return JSON.Parse(jsonString);
@@ -1080,8 +1081,9 @@ namespace SimpleJSON
 
         private static string GetPath(List<string> pathAsFolderList)
         {
-            List<string> folders = new List<string> { "Assets", "Scripts"};
-            List<string> path = folders.Concat(pathAsFolderList).ToList();
+            List<string> path = new List<string> { "Assets", "Scripts" };
+            var result = path.Concat(pathAsFolderList);
+            List<string> folders = result.ToList();
             string dir = Directory.GetCurrentDirectory();
 
             foreach (string folder in folders)

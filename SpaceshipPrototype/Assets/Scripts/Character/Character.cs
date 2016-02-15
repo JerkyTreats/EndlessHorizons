@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using Needs;
 using InteractableObjects;
 
 namespace Characters
@@ -13,12 +13,12 @@ namespace Characters
         private PolyNavAgent _agent;
         private Animator anim;
         public Inventory Inventory;
-        public Needs.NeedContainer Needs;
         public InteractableObject CurrentInteractableObject {get; set;}
 
     
         public void Start()
         {
+            NeedFactory.NPCNeedFactory(this);
             Inventory = GetComponent<Inventory>();
             anim = GetComponent<Animator>();
         }

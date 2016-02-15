@@ -13,7 +13,6 @@ namespace NPC
 		new void Start()
 		{
 			base.Start();
-			Needs = NeedFactory.NPCNeedFactory(this);
 			Planner = gameObject.GetComponent<Planner>();
 			Planner.InvokeDetermineHighestGoal();
 		}

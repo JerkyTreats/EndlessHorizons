@@ -52,12 +52,12 @@
      <Compile Include="Assets\Scripts\Camera\Controller.cs" />
      <Compile Include="Assets\Scripts\Character\Character.cs" />
      <Compile Include="Assets\Scripts\Character\Inventory.cs" />
-     <Compile Include="Assets\Scripts\Character\NPC\Action\Action.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Action\ActionFactory.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Action\Cook.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Action\Eat.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Action\Hunger.cs" />
-     <Compile Include="Assets\Scripts\Character\NPC\Action\SleepAction.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Action\Idle.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Action\Sleep.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Goal.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\NPC.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Planner.cs" />

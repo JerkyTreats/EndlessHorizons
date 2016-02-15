@@ -6,11 +6,10 @@ namespace NPC.Action
 {
     public class Eat : MonoBehaviour
     {
-        NPCNeed Need;
-        void Start()
+        Need Need;
+        void Init(Need Need)
         {
-            NeedContainer nc = gameObject.GetComponent<NeedContainer>();
-            Need = (NPCNeed)nc.LookUp("hunger");
+            this.Need = Need; 
         }
 
         public bool EatMeal()
@@ -29,5 +28,5 @@ namespace NPC.Action
             Characters.Inventory i = gameObject.GetComponent<Characters.Inventory>();
             return (Meal)i.PopItem("meal");
         }
-    },
+    }
 }

@@ -8,17 +8,11 @@ namespace NPC
 {
 	//Determines what the character should do based on their needs 
 	public class Planner : MonoBehaviour {
-		private NPC Controller; 
-        public Action.Action CurrentAction;
-		public string CharacterType; //characters type, limits the actions available to this character
 		public List<InteractableObject> WorldObjects;
-
 
 		// Use this for initialization
 		void Start () {
-			Controller = gameObject.GetComponent<NPC>();
-			CharacterType = Controller.characterType;
-			WorldObjects = new List<InteractableObject>();
+            WorldObjects = new List<InteractableObject>();
 
 			//Sign up for InteractableObjects announcements. See method AnnounceInteractableObjects();
 			NotificationCenter.DefaultCenter().AddObserver(this, "AnnounceInteractableObjects"); 
@@ -52,7 +46,7 @@ namespace NPC
 
         public Need GetMostImportantNeed()
 		{
-			List<Need> needs = Controller.Needs.needs;
+			var needs = gameObject.GetComponents<Need>();
 			int mostImportantGoal = 0;
 			Need mostImportantNeed= null;
 

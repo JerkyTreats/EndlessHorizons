@@ -14,15 +14,15 @@ namespace Needs
 
         //Constructor for MonoBehaviour object
         //Will have to resolve the Start method invoking an empty object
-        public void Init(string needName, List<NeedStatus> needStatuses, int startingValue, int valueDecrementRate, int timeToDecrement)
+        public void Init(NeedData needData)
         {
-            NeedName = needName;
-            NeedStatuses = needStatuses;
-            ValueDecrementRate = valueDecrementRate;
-            TimeToDecrement = timeToDecrement;
-            CurrentValue = startingValue;
+            NeedName = needData.NeedName;
+            NeedStatuses = needData.NeedStatuses;
+            ValueDecrementRate = needData.ValueDecrementRate;
+            TimeToDecrement = needData.TimeToDecrement;
+            CurrentValue = needData.StartingValue;
 			SetCurrentStatus();
-            InvokeRepeating("DecrementCurrentValue", 0, timeToDecrement);
+            InvokeRepeating("DecrementCurrentValue", 0, needData.TimeToDecrement);
 
 			Debug.Log(this.NeedName + " Init Completed");
         }

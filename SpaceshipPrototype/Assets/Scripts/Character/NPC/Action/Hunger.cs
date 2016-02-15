@@ -11,14 +11,11 @@ namespace NPC.Action
     public class Hunger : MonoBehaviour {
         private static float ACTION_DELAY_TIME = 1.0f;
         public Kitchen Kitchen { get; set; }
-        public NPC Owner;
-        public NPCNeed Need { get; set; }
         public string ActionType = "hunger";
 
 
         void Start()
         {
-            Owner = gameObject.GetComponent<NPC>();
             JSONNode j = Connect.GetJSONNode(new List<string> { "Character", "NPC", "Action", "Hunger.json" });
             for (int i = 0; i < j["Action"].Count; i++)
             {
@@ -27,7 +24,7 @@ namespace NPC.Action
             Destroy(this);
         }
 
-        public void Init(Kitchen k)
+        public void Init(Kitchen k, Need Need)
         {
             Kitchen = k;
         }
@@ -47,11 +44,12 @@ namespace NPC.Action
         {
             Cook cookAction = gameObject.AddComponent<Cook>();
             cookAction.Init(Kitchen);
+            Destroy(this);
         }
 
 		void FinishAction()
 		{
-			Owner.Planner.FinishAction(); //Leaves this object to wither and die?
+			//Owner.Planner.FinishAction(); //Leaves this object to wither and die?
 		}
 	}
 }

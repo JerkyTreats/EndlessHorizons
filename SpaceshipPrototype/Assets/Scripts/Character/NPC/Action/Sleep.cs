@@ -10,21 +10,19 @@ namespace NPC.Action
 	//Ties Bed InteractableObject to NPC.
 	class Sleep : MonoBehaviour
 	{
-        NPCNeed Need;
-        NPC Owner;
+        Need Need;
 		float SleepTime;
 		int OriginalDecrementRate; 
 		bool IsInBed;
 		Bed Bed;
 
 
-		public void Init(Bed bed)
+		public void Init(Bed bed, Need Need)
 		{
 			Bed = bed;
+            NPC owner = gameObject.GetComponent<NPC>();
 			owner.SetDestination(bed.GetLocation());
-
-            NeedContainer nc = gameObject.GetComponent<NeedContainer>();
-            Need = (NPCNeed)nc.LookUp("sleep");
+            this.Need = Need;
 		}
 
 		public void StartSleep()
