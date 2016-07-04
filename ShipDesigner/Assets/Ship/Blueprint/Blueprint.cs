@@ -4,7 +4,7 @@ using Ship.Components;
 
 namespace Ship
 {
-	class Blueprint
+	public class Blueprint
 	{
 		public List<Room> Rooms { get; set; }
 		public bool IsComplete { get; set; }

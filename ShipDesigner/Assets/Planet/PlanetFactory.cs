@@ -1,14 +1,24 @@
-using System;
+using System.Collections.Generic; 
+using System.IO;
+using Util;
+using Company;
 
-namespace DB.Planet
+namespace Planet
 {
-	class PlanetFactory
+	public static class PlanetFactory
 	{
-		public string name;
-		public int miningPercent;
-		public int manufacturingPercent;
-		public int intellectualPercent;
-		//public ToDo galacticLocation;
-		//public List<ShipDealership> shipDealerships;
+		public static Planet GenerateRandomPlanet()
+		{
+			string name = NameGenerator.GenerateName(GetPlanetNameInputFile());
+			PlanetResourceFactory resources = new PlanetResourceFactory();
+			List<Dealership> dealerships = null;
+
+			return new Planet(name, resources.Mining, resources.Manufacturing, resources.Intellectual, dealerships);
+		}
+
+		private static string GetPlanetNameInputFile()
+		{
+			return Path.Combine(Directory.GetCurrentDirectory(), ("planet_input.json"));
+		}
 	}
 }

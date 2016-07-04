@@ -4,7 +4,7 @@ using Ship;
 
 namespace Company
 {
-	class DealershipCompany
+	public class DealershipCompany
 	{
 		public float GlobalMarkup { get; set; }
 		

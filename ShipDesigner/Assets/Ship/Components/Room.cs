@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ship.Components
 {
-	class Room
+	public class Room
 	{
 		public List<Equipment> Equipment { get; set; }
 		public List<Tile> Tiles { get; set;}

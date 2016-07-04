@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Ship
 {
-	class Tile
+	public class Tile
 	{
 		public float Weight { get; set; }
 		public int Durability { get; set; }

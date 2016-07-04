@@ -4,7 +4,7 @@ using Ship;
 
 namespace Company
 {
-	class Dealership
+	public class Dealership
 	{
 		public List<Ship.Ship> AvailableStock { get; set; }
 		public DealershipCompany Company {get; set;}

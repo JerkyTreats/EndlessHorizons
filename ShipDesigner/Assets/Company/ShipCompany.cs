@@ -6,7 +6,7 @@ using Company.Personel;
 
 namespace Company
 {
-	class ShipCompany
+	public class ShipCompany
 	{
 		public List<Ship.Ship> Prototypes { get; set; }
 		public List<Ship.Blueprint> Blueprints { get; set; }

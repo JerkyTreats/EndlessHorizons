@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Ship.Components
 {
-	class Equipment
+	public class Equipment
 	{
 		public string Purpose { get; set; }
 		public int Cost {get; set;}

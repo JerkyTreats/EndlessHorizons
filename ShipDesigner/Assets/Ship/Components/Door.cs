@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ship.Components
 {
-	class Door
+	public class Door
 	{
 		public Door(){}
 	}
