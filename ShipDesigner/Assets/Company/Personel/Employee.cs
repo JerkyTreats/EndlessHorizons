@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Company.Personel
 {
-	class Employee
+	public class Employee
 	{
 		public List<Role> Roles { get; set; }
 		public float Experience { get; set; }

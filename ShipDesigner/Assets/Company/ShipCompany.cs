@@ -12,6 +12,6 @@ namespace Company
 		public List<Ship.Blueprint> Blueprints { get; set; }
 		public Planet.Planet Headquarters { get; set; }
 		public int Credits { get; set; }
-		public List<Company.Personel.Employee> Employees { get; set; }
+		public List<Employee> Employees { get; set; }
 	}
 }
