@@ -9,7 +9,7 @@ namespace Planet
 	{
 		public static Planet GenerateRandomPlanet()
 		{
-			string name = NameGenerator.GenerateName(GetPlanetNameInputFile());
+			string name = NameGenerator.GenerateRandomName(GetPlanetNameInputFile(),"Name");
 			PlanetResourceFactory resources = new PlanetResourceFactory();
 			List<Dealership> dealerships = null;
 
@@ -18,7 +18,8 @@ namespace Planet
 
 		private static string GetPlanetNameInputFile()
 		{
-			return Path.Combine(Directory.GetCurrentDirectory(), ("planet_input.json"));
+			string currentDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+			return Path.Combine(currentDir, @"planet\planet_input.json");
 		}
 	}
 }

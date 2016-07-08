@@ -1,4 +1,3 @@
-using SimpleJSON;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -7,21 +6,38 @@ namespace Util
 {
 	public static class NameGenerator
 	{
-		public static string GenerateName(string inputFileName)
+		public static string GenerateMarkovName(string inputFile, string identifier)
 		{
-			string inputFilePath = Path.Combine( Directory.GetCurrentDirectory(), (inputFileName + ".json"));
-			string input  = GetRandomJSONNode(inputFilePath);
-			string name = StringTools.RandomizeString(input);
-			return name;
+			if (File.Exists(inputFile))
+			{
+				var inputNames = JSONTools.GetJsonFileArray(inputFile, identifier);
+				
+			}
+
+			return null;
+		}
+
+
+		public static string GenerateRandomName(string inputFile, string identifier)
+		{
+			if (File.Exists(inputFile))
+			{
+				string input  = GetRandomJSONNode(inputFile, identifier);
+				string name = StringTools.RandomizeString(input);
+				return name;
+			}
+			return null;
 		}
 		
-		private static string GetRandomJSONNode(string JSONFilePath)
+		private static string GetRandomJSONNode(string JSONFilePath, string identifier)
 		{
-			JSONNode json = JSONTools.GetJSONNode(JSONFilePath);
+			var names = JSONTools.GetJsonFileArray(JSONFilePath, identifier);
+
 			Random rnd = new Random();
-			var names = json["Names"][0]["name"];
-			int next = rnd.Next(0, names.Count);
-			return names[next];
+			int next = rnd.Next(0, (names.Count-1));
+
+			string text = names[next][identifier].Value;
+			return text;
 		}		
 	}
 }

@@ -1,54 +1,60 @@
-using System.Collections;
+using System.Threading;
 using System.Collections.Generic;
 using System;
+using System.Text;
 
 namespace Util
 {
 	public static class StringTools
 	{
-		static string consonants = "bcdfghjklmnpqrstvwxyz";
-		static string vowels = "aeiou";
-		
-		///	Takes a string and randomizes each character
+		static string consonants = "bcdfghjklmnpqrstvwxz";
+		static string vowels = "aeiouy";
+
+		/// <summary>
+		/// Takes a string and randomizes each character, consonants and vowels keeping their type
+		/// </summary>
 		public static string RandomizeString(string inString)
 		{
-			string[] arr = inString.Split();
-			List<string> returnArr  = new List<string>();
+			char[] arr = inString.ToLower().ToCharArray();
+			StringBuilder randomizedString = new StringBuilder();
+			Random rnd = new Random();
+
+			List<char> returnArr  = new List<char>();
 		
-			foreach (string letter in arr)
+			foreach (char letter in arr)
 			{
 				if(vowels.IndexOf(letter)!=-1)
 				{
-					string l = ShiftString(vowels, letter);
-					returnArr.Add(l);
+					char c = ShiftChar(rnd, vowels, letter);
+					randomizedString.Append(c);
 				} 
 				else if (consonants.IndexOf(letter)!=-1)
 				{
-					string l = ShiftString(consonants, letter);
-					returnArr.Add(l);
+					char c = ShiftChar(rnd, consonants, letter);
+					randomizedString.Append(c);
 				}
 				else
 				{
-					returnArr.Add(letter);
+					randomizedString.Append(letter);
 				}
 			}
-			string toReturn = string.Join("",returnArr.ToArray());
-			return toReturn;
+			return randomizedString.ToString();
 		}
 		
-		private static string ShiftString(string strLibrary, string letter)
+		private static char ShiftChar(Random rnd, string strLibrary, char letter)
 		{
-			int indexLimit = strLibrary.Length;
-			Random rnd = new Random(); 
-			int shift = rnd.Next(1,(indexLimit -1));
-			int startIndex = strLibrary.IndexOf(letter);
+			char[] charLib = strLibrary.ToCharArray();
+			int indexLimit = (charLib.Length -1);
+			int startIndex = Array.IndexOf(charLib, letter);
+
+			int shift = rnd.Next(1,indexLimit); //start at 1 to enforce at least one letter offset
 			
 			if ((startIndex + shift) > indexLimit)
 			{
 				shift = shift - (indexLimit - startIndex);
 			}
 			
-			return strLibrary.Substring(shift,0);
+			return charLib[shift];
 		}
 	}
 }
