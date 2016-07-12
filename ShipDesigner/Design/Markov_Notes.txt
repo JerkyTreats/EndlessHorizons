@@ -1,0 +1,39 @@
+
+	-Weight each input by letter
+		- A = 17/256
+		- B = 12/256
+		- C = 5/256 
+		- etc.
+
+
+	ORDER OF OPERATIONS 
+		- Determine first letter on probability of beginning letters
+		- Determine subsequent letters on probability of letters before it
+		- Determine whitespace probability
+		- Determine second word probability 
+
+
+	- Determine first letter based on weighted probability
+		- "A" 
+
+	- Determine probability of next letter
+		- A -> A = 0
+		- A -> B = .01
+		- A -> C = .01 
+	- Choose letter based on weighted probability
+	- Handling case of no probabilities
+		- Remove first letter from determiniation until probability can be established; continue removing index 0 until probability can be established
+
+
+	- Determine probability of next letter based on last two
+		- AU -> A = 0
+		- AU -> B = 0.01
+		- AU -> C = 0.17
+	- Choose letter based on weighted probability
+
+	- Continue choosing letters until whitespace chosen 
+		- To determine whitespace probability:
+			- Determine length of input names 
+			- 4 letters = 7/256
+			- 5 letters = 125/256
+			- 6 letters = 32/256

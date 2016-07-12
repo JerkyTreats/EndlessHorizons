@@ -9,7 +9,7 @@ namespace Util
 	public class GetJSONNode_Test
 	{
 		[TestMethod]
-		public void NullValueForNullInput()
+		public void JSONTools_NullValueForNullInput()
 		{
 			string emptyString = null;
 			JSONNode node = JSONTools.GetJSONNode(emptyString);
@@ -17,7 +17,7 @@ namespace Util
 		}
 
 		[TestMethod]
-		public void NullValueForBadFilePathInput()
+		public void JSONTools_NullValueForBadFilePathInput()
 		{
 			string badFilePath = "This is a bad file path";
 			JSONNode node = JSONTools.GetJSONNode(badFilePath);
@@ -25,7 +25,7 @@ namespace Util
 		}
 
 		[TestMethod]
-		public void NotNullValueForWellFormedJSON()
+		public void JSONTools_NotNullValueForWellFormedJSON()
 		{
 			string inputFile = Path.Combine(Directory.GetCurrentDirectory(), "Util", "TestNameInputFile.json");
 

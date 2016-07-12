@@ -13,13 +13,13 @@ namespace ShipDesignerUnitTests
 		[TestMethod]
 		public void NameGenerator_TestInputFileExists()
 		{
-			Assert.IsTrue(File.Exists(GetInputFile()));
+			Assert.IsTrue(File.Exists(Helpers.GetInputFile()));
 		}
 
 		[TestMethod]
 		public void NameGenerator_ReturnsNotNullForWellFormedData()
 		{
-			string generatedName = Util.NameGenerator.GenerateRandomName(GetInputFile(),"Name");
+			string generatedName = Util.NameGenerator.GenerateRandomName(Helpers.GetInputFile(),"Name");
 			Trace.WriteLine(generatedName);
 			Assert.IsNotNull(generatedName);
 		}
@@ -28,7 +28,7 @@ namespace ShipDesignerUnitTests
 		public void NameGenerator_ReturnStringDifferentFromInputString()
 		{
 			string inputName = "Azeby"; //Found in TestNameInputFile.json
-			string generatedName = Util.NameGenerator.GenerateRandomName(GetInputFile(),"Name");
+			string generatedName = Util.NameGenerator.GenerateRandomName(Helpers.GetInputFile(),"Name");
 			Assert.AreNotEqual(inputName, generatedName);
 		}
 
@@ -46,24 +46,12 @@ namespace ShipDesignerUnitTests
 			{
 				for (int i = 0; i <= 100; i++)
 				{
-					string generatedName = Util.NameGenerator.GenerateRandomName(GetInputFile("planet_input"), "Name");
+					string generatedName = Util.NameGenerator.GenerateRandomName(Helpers.GetInputFile("planet_input"), "Name");
 					Trace.WriteLine(generatedName);
 					outputFile.WriteLine(generatedName);
 					Thread.Sleep(20);
 				}
 			}
-		}
-
-		private string GetInputFile()
-		{
-			return Path.Combine(Directory.GetCurrentDirectory(), "Util", "TestNameInputFile.json");
-		}
-
-		private string GetInputFile(string fileName)
-		{
-			string path = Path.Combine(Directory.GetCurrentDirectory(), "Util", (fileName + ".json"));
-			Trace.WriteLine(path);
-			return path;
 		}
 	}
 }
