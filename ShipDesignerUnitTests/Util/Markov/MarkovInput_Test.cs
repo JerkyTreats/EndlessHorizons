@@ -138,5 +138,15 @@ namespace ShipDesignerUnitTests
 			Assert.AreEqual(expected['n'], occurances['n']);
 
 		}
+
+		[TestMethod]
+		public void MarkovInput_WordLengthsDontIncludeWhitespaces()
+		{
+			MarkovInput mi = new MarkovInput(new List<string>() { "bads word","bads","word"});
+			int fourCharacterWordCount= 4;
+			Dictionary<int, int> wordLengths = mi.WordLengths;
+
+			Assert.AreEqual(fourCharacterWordCount, wordLengths[4]);
+		}
 	}
 }

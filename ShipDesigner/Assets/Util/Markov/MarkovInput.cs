@@ -132,13 +132,17 @@ namespace Markov
 			get
 			{
 				Dictionary<int, int> occurances = new Dictionary<int, int>();
-
+				
 				for (int i = 0; i < Count; i++)
 				{
-					int wordLength = m_input[i].ToCharArray().Length;
-					if (!occurances.ContainsKey(wordLength))
-						occurances[wordLength] = 0;
-					occurances[wordLength]++;
+					string[] words = m_input[i].Split();
+					foreach (string word in words)
+					{
+						int wordLength = word.Length;
+						if (!occurances.ContainsKey(wordLength))
+							occurances[wordLength] = 0;
+						occurances[wordLength]++;
+					}
 				}
 
 				return occurances;
@@ -153,7 +157,6 @@ namespace Markov
 			get
 			{
 				Dictionary<int, int> occurances = new Dictionary<int, int>();
-
 				for(int i = 0; i< Count; i++)
 				{
 					int wordCount = (m_input[i].Split()).Length;
