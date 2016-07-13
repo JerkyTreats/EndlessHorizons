@@ -1,20 +1,36 @@
 using System;
 using System.IO;
+using Markov;
 using System.Collections.Generic;
 
 namespace Util
 {
 	public static class NameGenerator
 	{
-		public static string GenerateMarkovName(string inputFile, string identifier)
+		public static string GenerateMarkovName(string inputFile, string identifier, Random rnd)
 		{
+			string name = null;
 			if (File.Exists(inputFile))
 			{
 				var inputNames = JSONTools.GetJsonFileArray(inputFile, identifier);
-				
+				List<string> inputList = new List<string>();
+				for (int i =0; i< inputNames.Count; i++)
+				{
+					inputList.Add(inputNames[i][identifier]);
+				}
+				MarkovGenerator mg = new MarkovGenerator(inputList, rnd);
+				string lowerName = mg.GenerateName();
+				string[] words = lowerName.Trim().Split();
+				for (int i = 0; i < words.Length; i++)
+				{
+					string firstLetter = words[i][0].ToString().ToUpper();
+					if (i == 0)
+						name += string.Format("{0}{1}", firstLetter, words[i].Substring(1));
+					else 
+						name += string.Format(" {0}{1}",firstLetter,words[i].Substring(1));
+				}
 			}
-
-			return null;
+			return name;
 		}
 
 

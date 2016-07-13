@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Markov;
 using System;
+using System.Diagnostics;
 
 namespace ShipDesignerUnitTests
 {
@@ -35,7 +36,7 @@ namespace ShipDesignerUnitTests
 			List<string> freqInput = new List<string>() { "mad", "map", "dam" };
 			MarkovInput mi = new MarkovInput(freqInput);
 
-			Assert.AreEqual(2, mi.LetterFrequency(0, letterToFind));
+			Assert.AreEqual(2, mi.GetLetterFrequencyByPosition(0, letterToFind));
 		}
 
 		[TestMethod]
@@ -79,6 +80,63 @@ namespace ShipDesignerUnitTests
 			string lower = "map";
 			MarkovInput mi = new MarkovInput(new List<string>() { "MaP" });
 			Assert.AreEqual(lower, mi.Values[0]);
+		}
+
+		[TestMethod]
+		public void MarkovInput_CapitalizedInputsSanitizedBeforeAdded()
+		{
+			string test = "TEST";
+			MarkovInput mi = new MarkovInput(new List<string>() { "Test" });
+			mi.Add(test);
+			Assert.AreEqual(test.ToLower(), mi.Values[0]);
+		}
+
+		[TestMethod]
+		public void MarkovInput_CorrectLetterFrequenciesReturnedByStringPattern()
+		{
+			List<string> input = new List<string>() { "map", "man", "tap", "woman" };
+			char p = 'p';
+			char n = 'n';
+			MarkovInput mi = new MarkovInput(input);
+
+			Dictionary<char,int> toCompare = mi.GetLetterFrequencyByStringPattern("ma");
+
+			Assert.IsTrue(toCompare[p] == 1);
+			Assert.IsTrue(toCompare[n] == 2);
+		}
+
+		[TestMethod]
+		public void MarkovInput_LetterFrequenciesByStringPatternObserveFrequencyThreshold()
+		{
+			MarkovInput mi = new MarkovInput(new List<string>() { "map" });
+			Dictionary<char, int> occurances = mi.GetLetterFrequencyByStringPattern("chma",1m);
+			Assert.IsTrue(occurances['p'] == 1);
+		}
+
+		[TestMethod]
+		public void MarkovInput_FullPatternMatchReturnsNonNullResult()
+		{
+			string fullPattern = "test";
+			List<string> input = new List<string>() { fullPattern };
+			MarkovInput mi = new MarkovInput(input);
+			Dictionary<char, int> occurances = mi.GetLetterFrequencyByStringPattern("test", 1m);
+
+			foreach (KeyValuePair<char, int> pair in occurances) { Trace.WriteLine(string.Format("Key = [{0}] | Value = [{1}]", pair.Key, pair.Value)); };
+			Assert.IsNotNull(occurances);
+		}
+
+		[TestMethod]
+		public void MarkovInput_StringPatternMatchToleranceBasedOnOccurances()
+		{
+			List<string> inputs = new List<string>() { "man", "mana", "ana" };
+			MarkovInput mi = new MarkovInput(inputs);
+			Dictionary<char, int> expected = new Dictionary<char, int>();
+			expected['n'] = 2;
+
+			Dictionary<char, int> occurances = mi.GetLetterFrequencyByStringPattern("ma", 1m);
+
+			Assert.AreEqual(expected['n'], occurances['n']);
+
 		}
 	}
 }

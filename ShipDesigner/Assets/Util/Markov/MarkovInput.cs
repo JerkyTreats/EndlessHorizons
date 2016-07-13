@@ -34,8 +34,8 @@ namespace Markov
 		/// </summary>
 		/// <param name="letterPosition">Letter position to get frequency (0 = first letter)</param>
 		/// <param name="letterToMatch"> Character to find the frequency of</param>
-		/// <returns>less than zero decimal</returns>
-		public int LetterFrequency(int letterPosition, char letterToMatch)
+		/// <returns>Number of times the letterToMatch occurs </returns>
+		public int GetLetterFrequencyByPosition(int letterPosition, char letterToMatch)
 		{
 			int occurances = 0;
 			for (int i = 0; i < Count; i++)
@@ -47,6 +47,51 @@ namespace Markov
 
 			return occurances;
 		}
+
+		public Dictionary<char, int> GetLetterFrequencyByStringPattern(string pattern, decimal minimumResultsAsPercentageOfTotal)
+		{
+			Dictionary<char, int> chosen = new Dictionary<char, int>();
+			int count = 0;
+			while (count < pattern.Length)
+			{
+				string patternToTest = pattern.Substring(count);
+				chosen = GetLetterFrequencyByStringPattern(patternToTest);
+
+				decimal totalOccurancesFound = 0;
+				foreach(KeyValuePair<char,int> pair in chosen)
+				{
+					totalOccurancesFound += pair.Value;
+				}
+
+				if ((totalOccurancesFound / Count) >= (minimumResultsAsPercentageOfTotal / 10m))
+					return chosen;
+				count++;
+			}
+			return chosen;
+		}
+
+		public Dictionary<char,int> GetLetterFrequencyByStringPattern(string pattern)
+		{
+			Dictionary<char, int> occurances = new Dictionary<char, int>();
+			for(int i = 0; i < Count; i++)
+			{
+				string input = m_input[i];
+				if (input.Contains(pattern))
+				{
+					int index = (input.IndexOf(pattern) + pattern.Length);
+					if (index < input.Length)
+					{
+						char c = (input.Substring(index, 1).ToCharArray())[0];
+						if (!occurances.ContainsKey(c))
+							occurances[c] = 0;
+						occurances[c]++;
+					}
+				}
+			}
+
+			return occurances;
+		}
+
 
 		/// <summary>
 		/// Add a string to the list of inputs 
