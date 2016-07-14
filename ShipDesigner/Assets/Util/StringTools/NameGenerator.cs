@@ -14,25 +14,16 @@ namespace Util
 			{
 				var inputNames = JSONTools.GetJsonFileArray(inputFile, identifier);
 				List<string> inputList = new List<string>();
-				for (int i =0; i< inputNames.Count; i++)
+				for (int i = 0; i < inputNames.Count; i++)
 				{
 					inputList.Add(inputNames[i][identifier]);
 				}
 				MarkovGenerator mg = new MarkovGenerator(inputList, rnd);
-				string lowerName = mg.GenerateName();
-				string[] words = lowerName.Trim().Split();
-				for (int i = 0; i < words.Length; i++)
-				{
-					string firstLetter = words[i][0].ToString().ToUpper();
-					if (i == 0)
-						name += string.Format("{0}{1}", firstLetter, words[i].Substring(1));
-					else 
-						name += string.Format(" {0}{1}",firstLetter,words[i].Substring(1));
-				}
+				string lowerName = mg.GenerateString();
+				name = StringTools.CaptializeString(lowerName);
 			}
 			return name;
 		}
-
 
 		public static string GenerateRandomName(string inputFile, string identifier)
 		{

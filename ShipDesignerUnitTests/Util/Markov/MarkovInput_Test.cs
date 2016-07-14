@@ -99,7 +99,7 @@ namespace ShipDesignerUnitTests
 			char n = 'n';
 			MarkovInput mi = new MarkovInput(input);
 
-			Dictionary<char,int> toCompare = mi.GetLetterFrequencyByStringPattern("ma");
+			Dictionary<char,int> toCompare = mi.GetLetterFrequencyByStringPattern("ma",0);
 
 			Assert.IsTrue(toCompare[p] == 1);
 			Assert.IsTrue(toCompare[n] == 2);

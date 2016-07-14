@@ -48,6 +48,13 @@ namespace Markov
 			return occurances;
 		}
 
+		/// <summary>
+		/// Given a string, generate a Dictionary of letters that appear after the string, and the times they occur. Has additional specification for how many results to be returned.  
+		/// <para>Ie. if string "aus" doesn't generate enough results, keep dropping the first letter and try again until the number of results are found. Will return the results of a single character string even if below the minimum</para>
+		/// </summary>
+		/// <param name="pattern">string to look for in the input list</param>
+		/// <param name="minimumResultsAsPercentageOfTotal"></param>
+		/// <returns>Dictionary of the characters that appear after the string pattern, and the number of times that letter occurred</returns>
 		public Dictionary<char, int> GetLetterFrequencyByStringPattern(string pattern, decimal minimumResultsAsPercentageOfTotal)
 		{
 			Dictionary<char, int> chosen = new Dictionary<char, int>();
@@ -55,24 +62,19 @@ namespace Markov
 			while (count < pattern.Length)
 			{
 				string patternToTest = pattern.Substring(count);
-				chosen = GetLetterFrequencyByStringPattern(patternToTest);
+				PatternResult result = GetLetterFrequencyByStringPattern(patternToTest);
+				bool enoughResults = MinimumResultsFound(result.TotalOccurances, minimumResultsAsPercentageOfTotal);
 
-				decimal totalOccurancesFound = 0;
-				foreach(KeyValuePair<char,int> pair in chosen)
-				{
-					totalOccurancesFound += pair.Value;
-				}
-
-				if ((totalOccurancesFound / Count) >= (minimumResultsAsPercentageOfTotal / 10m))
-					return chosen;
+				if (enoughResults | patternToTest.Length == 1)
+					return result.Occurances;
 				count++;
 			}
 			return chosen;
 		}
 
-		public Dictionary<char,int> GetLetterFrequencyByStringPattern(string pattern)
+		private PatternResult GetLetterFrequencyByStringPattern(string pattern)
 		{
-			Dictionary<char, int> occurances = new Dictionary<char, int>();
+			PatternResult result = new PatternResult();
 			for(int i = 0; i < Count; i++)
 			{
 				string input = m_input[i];
@@ -81,17 +83,23 @@ namespace Markov
 					int index = (input.IndexOf(pattern) + pattern.Length);
 					if (index < input.Length)
 					{
-						char c = (input.Substring(index, 1).ToCharArray())[0];
-						if (!occurances.ContainsKey(c))
-							occurances[c] = 0;
-						occurances[c]++;
+						result.AddOrUpdate(input[index]);
 					}
 				}
 			}
 
-			return occurances;
+			return result;
 		}
 
+		private bool MinimumResultsFound(decimal totalResults, decimal minimumPercentage)
+		{
+			decimal percentageOccurancesFound = totalResults / Count;
+			decimal minimumNeeded = minimumPercentage / 100m;
+
+			if (percentageOccurancesFound >= minimumNeeded)
+				return true;
+			return false;
+		}
 
 		/// <summary>
 		/// Add a string to the list of inputs 

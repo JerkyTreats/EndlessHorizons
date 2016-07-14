@@ -40,7 +40,28 @@ namespace Util
 			}
 			return randomizedString.ToString();
 		}
-		
+
+		/// <summary>
+		/// Takes a string and capitalizes the first letter of every word
+		/// </summary>
+		/// <param name="str"></param>
+		/// <returns></returns>
+		public static string CaptializeString(string str)
+		{
+			string toReturn = null;
+			string[] words = str.Trim().Split();
+			for (int i = 0; i < words.Length; i++)
+			{
+				string firstLetter = words[i][0].ToString().ToUpper();
+				if (i == 0)
+					toReturn += string.Format("{0}{1}", firstLetter, words[i].Substring(1));
+				else
+					toReturn += string.Format(" {0}{1}", firstLetter, words[i].Substring(1));
+			}
+
+			return toReturn;
+		}
+
 		private static char ShiftChar(Random rnd, string strLibrary, char letter)
 		{
 			char[] charLib = strLibrary.ToCharArray();
