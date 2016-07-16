@@ -36,13 +36,30 @@ namespace Util
 		}
 
 		[TestMethod]
-		public void JSONTools_JSONArrayCanBeReturnedAsListOfStrings()
+		public void JSONTools_JSONArrayReturnsNotNullList()
 		{
 			string inputFile = Path.Combine(Directory.GetCurrentDirectory(), "Util", "TestNameInputFile.json");
 
 			List<string> list = JSONTools.GetJsonArrayAsList(inputFile, "Name");
 
 			Assert.IsNotNull(list);
+		}
+
+		[TestMethod]
+		public void JSONTools_JSONArrayReturnsNonEmptyStringsInList()
+		{
+			string inputFile = Path.Combine(Directory.GetCurrentDirectory(), "Util", "TestNameInputFile.json");
+
+			List<string> list = JSONTools.GetJsonArrayAsList(inputFile, "Name");
+
+			bool notEmpty = true;
+			foreach(string item in list)
+			{
+				if (item.Equals(""))
+					notEmpty = false;
+			}
+
+			Assert.IsTrue(notEmpty);
 		}
 	}
 }

@@ -9,7 +9,8 @@ namespace Planet
 	{
 		public static Planet GenerateRandomPlanet()
 		{
-			string name = NameGenerator.GenerateRandomName(GetPlanetNameInputFile(),"Name");
+			List<string> inputs = JSONTools.GetJsonArrayAsList(GetPlanetNameInputFile(), "Name");
+			string name = NameGenerator.GenerateMarkovName(inputs, new System.Random());
 			PlanetResourceFactory resources = new PlanetResourceFactory();
 			List<Dealership> dealerships = null;
 

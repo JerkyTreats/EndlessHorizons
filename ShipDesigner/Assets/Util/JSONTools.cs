@@ -38,7 +38,8 @@ namespace Util
 			JSONArray arr = GetJsonFileArray(jsonPath, identifier);
 			for (int i = 0; i < arr.Count; i++)
 			{
-				list.Add(arr[identifier][i].Value);
+				string test = arr[i][identifier];
+				list.Add(test);
 			}
 			return list;
 		}

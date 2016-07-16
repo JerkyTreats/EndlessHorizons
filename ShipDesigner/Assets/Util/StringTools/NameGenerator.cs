@@ -7,22 +7,10 @@ namespace Util
 {
 	public static class NameGenerator
 	{
-		public static string GenerateMarkovName(string inputFile, string identifier, Random rnd)
+		public static string GenerateMarkovName(List<string> inputList, Random rnd)
 		{
-			string name = null;
-			if (File.Exists(inputFile))
-			{
-				var inputNames = JSONTools.GetJsonFileArray(inputFile, identifier);
-				List<string> inputList = new List<string>();
-				for (int i = 0; i < inputNames.Count; i++)
-				{
-					inputList.Add(inputNames[i][identifier]);
-				}
-				MarkovGenerator mg = new MarkovGenerator(inputList, rnd);
-				string lowerName = mg.GenerateString();
-				name = StringTools.CaptializeString(lowerName);
-			}
-			return name;
+			MarkovGenerator mg = new MarkovGenerator(inputList, rnd);
+			return StringTools.CaptializeString(mg.GenerateString());
 		}
 
 		public static string GenerateRandomName(string inputFile, string identifier)

@@ -2,8 +2,9 @@
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Text;
+using Util;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace ShipDesignerUnitTests
 {
@@ -54,12 +55,13 @@ namespace ShipDesignerUnitTests
 			Random rnd = new Random();
 			string path = GetPath("markov_names");
 			string input = Helpers.GetInputFile("planet_input");
+			List<string> inputs = JSONTools.GetJsonArrayAsList(input, "Name");
 
 			using (StreamWriter outputFile = new StreamWriter(path))
 			{
 				for (int i = 0; i <= 100; i++)
 				{
-					string generatedName = Util.NameGenerator.GenerateMarkovName(input,"Name",rnd);
+					string generatedName = Util.NameGenerator.GenerateMarkovName(inputs ,rnd);
 					Trace.WriteLine(generatedName);
 					outputFile.WriteLine(generatedName);
 					//Thread.Sleep(20);
@@ -71,7 +73,7 @@ namespace ShipDesignerUnitTests
 		public void NameGenerator_ReturnedNameIsCapitalizedCorrectly()
 		{
 			Random rnd = new Random();
-			string generatedName = Util.NameGenerator.GenerateMarkovName(Helpers.GetInputFile("planet_input"), "Name", rnd);
+			string generatedName = Util.NameGenerator.GenerateMarkovName(JSONTools.GetJsonArrayAsList(Helpers.GetInputFile("planet_input"), "Name"), rnd);
 
 			bool allWordsCapped = true;
 			foreach(string word in generatedName.Split())
