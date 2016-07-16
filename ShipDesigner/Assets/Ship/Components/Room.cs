@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Ship.Components
+namespace Ships.Components
 {
 	public class Room
 	{

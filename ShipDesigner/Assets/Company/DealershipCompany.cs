@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Ship;
+using Ships;
 
 namespace Company
 {

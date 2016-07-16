@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Ship
+namespace Ships
 {
 	public class Ship
 	{

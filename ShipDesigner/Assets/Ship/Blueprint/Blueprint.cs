@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Ship.Components;
+using Ships.Components;
 
-namespace Ship
+namespace Ships
 {
 	public class Blueprint
 	{

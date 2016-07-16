@@ -13,7 +13,7 @@ namespace Planet
 			List<string> inputs = JSONTools.GetJsonArrayAsList(GetPlanetNameInputFile(), "Name");
 			string name = NameGenerator.GenerateMarkovName(inputs, rnd);
 			PlanetResourceFactory resources = new PlanetResourceFactory(rnd);
-			List<Dealership> dealerships = null;
+			List<Dealership> dealerships = new List<Dealership>();
 
 			return new Planet(name, resources.Mining, resources.Manufacturing, resources.Intellectual, dealerships);
 		}

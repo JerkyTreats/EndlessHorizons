@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Ship.Components
+namespace Ships.Components
 {
 	public class Equipment
 	{

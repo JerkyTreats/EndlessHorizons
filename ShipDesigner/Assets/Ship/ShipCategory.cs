@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ship
+namespace Ships
 {
 	public class ShipCategory
 	{
