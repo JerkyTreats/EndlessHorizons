@@ -15,9 +15,9 @@ namespace Planet
 		public int Manufacturing { get; set; }
 		public int Intellectual { get; set; }
 
-		public PlanetResourceFactory()
+		public PlanetResourceFactory(Random rnd)
 		{
-			GenerateResourceLevels();
+			GenerateResourceLevels(rnd);
 		}
 
 		/// <summary>
@@ -26,7 +26,7 @@ namespace Planet
 		/// Max is highest for first level, always lower for subsequent levels. 
 		/// Randomize the fields to assign before assignment.
 		/// </summary>
-		private void GenerateResourceLevels()
+		private void GenerateResourceLevels(Random rnd)
 		{
 			List<string> resourceOrder = new List<string> {
 				"mining",
@@ -34,12 +34,10 @@ namespace Planet
 				"intellectual"
 			};
 
-			Random rnd = new Random();
-
 			while (resourceOrder.Count > 0)
 			{
 				int i = rnd.Next(0, (resourceOrder.Count-1));
-				int resourceValue = GenerateResourceLevel();
+				int resourceValue = GenerateResourceLevel(rnd);
 
 				switch (resourceOrder[i])
 				{
@@ -62,9 +60,8 @@ namespace Planet
 		/// <summary>
 		///		Pull random value from ResourceMax, subtract that value from ResourceMax and return the value;
 		/// </summary>
-		private int GenerateResourceLevel()
+		private int GenerateResourceLevel(Random rnd)
 		{
-			Random rnd = new Random();
 			int next = rnd.Next(0, ResourceMax);
 			ResourceMax -= next;
 			return next;
