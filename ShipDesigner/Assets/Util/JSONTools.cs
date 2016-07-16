@@ -32,5 +32,15 @@ namespace Util
 			return inputArr;
 		}		
 		
+		public static List<string> GetJsonArrayAsList(string jsonPath, string identifier)
+		{
+			List<string> list = new List<string>();
+			JSONArray arr = GetJsonFileArray(jsonPath, identifier);
+			for (int i = 0; i < arr.Count; i++)
+			{
+				list.Add(arr[identifier][i].Value);
+			}
+			return list;
+		}
 	}
 }

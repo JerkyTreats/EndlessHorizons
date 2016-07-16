@@ -2,6 +2,7 @@
 using SimpleJSON;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Util;
+using System.Collections.Generic;
 
 namespace Util
 {
@@ -32,6 +33,16 @@ namespace Util
 			JSONNode node = JSONTools.GetJSONNode(inputFile);
 
 			Assert.IsNotNull(node);
+		}
+
+		[TestMethod]
+		public void JSONTools_JSONArrayCanBeReturnedAsListOfStrings()
+		{
+			string inputFile = Path.Combine(Directory.GetCurrentDirectory(), "Util", "TestNameInputFile.json");
+
+			List<string> list = JSONTools.GetJsonArrayAsList(inputFile, "Name");
+
+			Assert.IsNotNull(list);
 		}
 	}
 }
