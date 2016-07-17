@@ -15,7 +15,7 @@ namespace Planet
 		
 		public List<Dealership> ShipDealerships { get; set; }
 
-		public Planet(string Name, int MiningLevel, int ManufacturingLevel, int IntellectualLevel, List<Dealership> ShipDealships)
+		public Planet(string Name, int MiningLevel, int ManufacturingLevel, int IntellectualLevel, List<Dealership> ShipDealerships)
 		{
 			this.Name = Name;
 			this.MiningLevel = MiningLevel;
