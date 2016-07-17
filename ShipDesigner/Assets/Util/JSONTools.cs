@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System;
 using System.IO;
 using SimpleJSON;
 
@@ -18,10 +17,7 @@ namespace Util
 				return JSON.Parse(jsonString);
 			}
 			else
-			{
 				return null;
-			}
-
 		}	
 		
 		public static JSONArray GetJsonFileArray(string jsonPath, string identifier)

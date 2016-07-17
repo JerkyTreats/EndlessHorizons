@@ -20,7 +20,7 @@ namespace Workshop
 		{
 			JsonValues = JSONTools.GetJSONNode(GetGridInformationPath());
 			GridTileLength = GetFloat("GridTileLength");
-			GridTileLength = GetFloat("GridTileWidth");
+			GridTileWidth = GetFloat("GridTileWidth");
 		}
 
 		private float GetFloat(string value)
