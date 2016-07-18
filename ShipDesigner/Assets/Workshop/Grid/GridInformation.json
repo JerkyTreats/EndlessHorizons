@@ -1,7 +1,6 @@
 {
 	"GridInformation" : {
-		"GridTileLength" : 1.0,
-		"GridTileWidth" : 1.0,
+		"PixelsPerUnit" : 128,
 		"TileStartLocation" : {
 			"x" : 1.0,
 			"y" : 1.0,

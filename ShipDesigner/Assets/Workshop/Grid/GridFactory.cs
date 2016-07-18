@@ -9,31 +9,26 @@ namespace Workshop
 	{
 		private static string FILE_NAME = "GridInformation.json";
 		private static string JSON_ROOT_NODE = "GridInformation";
-		private static float GRID_TILE_LENGTH_DEFAULT = 1.0f;
-		private static float GRID_TILE_WIDTH_DEFAULT = 1.0f;
 
 		private JSONNode JsonValues;
 
-		private float m_gridTileLength;
-		private float m_gridTileWidth;
+		private Vector3 m_tileStartLocation;
 		private int m_gridCountX;
 		private int m_gridCountY;
-		private string m_sprite;
+		private Sprite m_sprite;
 
 		public static Grid BuildGrid()
 		{
 			GridFactory gi = new GridFactory();
-			return new Grid(gi.TileCountX, gi.TileCountY, gi.TileStartLocation, gi.TileLength, gi.TileWidth, gi.Sprite);
+			return new Grid(gi.TileCountX, gi.TileCountY, gi.TileStartLocation, gi.Sprite);
 		}
 
 		public GridFactory()
 		{
 			JsonValues = JSONTools.GetJSONNode(GetGridInformationPath());
-			TileLength = GetFloatFromJson("GridTileLength");
-			TileWidth = GetFloatFromJson("GridTileWidth");
 			SetStartLocation();
 			SetTileCount();
-			SetSpritePath();
+			CreateSprite();
 		}
 
 		private string GetGridInformationPath()
@@ -53,7 +48,7 @@ namespace Workshop
 
 		private void SetStartLocation()
 		{
-			TileStartLocation = new Vector3
+			m_tileStartLocation = new Vector3
 				(
 					JsonValues[JSON_ROOT_NODE]["TileStartLocation"]["x"].AsFloat,
 					JsonValues[JSON_ROOT_NODE]["TileStartLocation"]["y"].AsFloat,
@@ -67,36 +62,18 @@ namespace Workshop
 			m_gridCountY = JsonValues[JSON_ROOT_NODE]["TileCount"]["y"].AsInt;
 		}
 
-		private void SetSpritePath()
+		private void CreateSprite()
 		{
-			m_sprite = GetStringFromJson("SpritePath");
+			string resourcePath = GetStringFromJson("SpritePath");
+			Texture2D tex = Resources.Load<Texture2D>(resourcePath) as Texture2D;
+			Rect rect = new Rect(0, 0, tex.width, tex.height);
+			float pixelsPerUnit = GetFloatFromJson("PixelsPerUnit");
+			m_sprite = Sprite.Create(tex, rect, new Vector2(),pixelsPerUnit);
 		}
 
-		public float TileLength
-		{
-			get { return m_gridTileLength; }
-			set
-			{
-				if (value != 0)
-					m_gridTileLength = value;
-				else if ((m_gridTileLength == 0) && (value == 0))
-					m_gridTileLength = GRID_TILE_LENGTH_DEFAULT;
-			}
-		}
-		public float TileWidth
-		{
-			get { return m_gridTileWidth; }
-			set
-			{
-				if (value != 0)
-					m_gridTileWidth = value;
-				else if ((m_gridTileWidth == 0) && (value == 0))
-					m_gridTileWidth = GRID_TILE_WIDTH_DEFAULT;
-			}
-		}
-		public Vector3 TileStartLocation { get; set; }
+		public Vector3 TileStartLocation { get { return m_tileStartLocation; } }
 		public int TileCountX { get { return m_gridCountX; } }
 		public int TileCountY { get { return m_gridCountY; } }
-		public string Sprite { get { return m_sprite; } }
+		public Sprite Sprite { get { return m_sprite; } }
 	}
 }
