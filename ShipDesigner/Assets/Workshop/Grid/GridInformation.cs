@@ -23,8 +23,8 @@ namespace Workshop
 		public GridInformation()
 		{
 			JsonValues = JSONTools.GetJSONNode(GetGridInformationPath());
-			GridTileLength = GetFloatFromJson("GridTileLength");
-			GridTileWidth = GetFloatFromJson("GridTileWidth");
+			TileLength = GetFloatFromJson("GridTileLength");
+			TileWidth = GetFloatFromJson("GridTileWidth");
 			SetStartLocation();
 			SetTileCount();
 			SetSpritePath();
@@ -67,7 +67,7 @@ namespace Workshop
 			m_sprite = Util.Common.CombinePath(Directory.GetCurrentDirectory(), relativeDirs);
 		}
 
-		public float GridTileLength
+		public float TileLength
 		{
 			get { return m_gridTileLength; }
 			set
@@ -78,7 +78,7 @@ namespace Workshop
 					m_gridTileLength = GRID_TILE_LENGTH_DEFAULT;
 			}
 		}
-		public float GridTileWidth
+		public float TileWidth
 		{
 			get { return m_gridTileWidth; }
 			set

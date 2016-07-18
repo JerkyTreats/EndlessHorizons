@@ -13,30 +13,30 @@ namespace ShipDesignerUnitTests
 		public void GridInformation_GridTileLengthRetrievedFromJsonFile()
 		{
 			GridInformation gi = new GridInformation();
-			Assert.AreEqual(5.0f, gi.GridTileLength);
+			Assert.AreEqual(5.0f, gi.TileLength);
 		}
 
 		[TestMethod]
 		public void GridInformation_GridTileWidthRetrievedFromJsonFile()
 		{
 			GridInformation gi = new GridInformation();
-			Assert.AreEqual(5.0f, gi.GridTileWidth);
+			Assert.AreEqual(5.0f, gi.TileWidth);
 		}
 
 		[TestMethod]
 		public void GridInformation_GridTileLengthCannotBeSetToZero()
 		{
 			GridInformation gi = new GridInformation();
-			gi.GridTileLength = 0;
-			Assert.AreNotEqual(0, gi.GridTileLength);
+			gi.TileLength = 0;
+			Assert.AreNotEqual(0, gi.TileLength);
 		}
 
 		[TestMethod]
 		public void GridInformation_GridTileWidthCannotBeSetToZero()
 		{
 			GridInformation gi = new GridInformation();
-			gi.GridTileWidth = 0;
-			Assert.AreNotEqual(0, gi.GridTileWidth);
+			gi.TileWidth = 0;
+			Assert.AreNotEqual(0, gi.TileWidth);
 		}
 
 		[TestMethod]
@@ -65,6 +65,41 @@ namespace ShipDesignerUnitTests
 		{
 			GridInformation gi = new GridInformation();
 			Assert.IsTrue(File.Exists(gi.Sprite));
+		}
+
+		[TestMethod]
+		public void GridFactory_ReturnsNonNullObject()
+		{
+			Grid g = GridFactory.BuildGrid();
+			Assert.IsNotNull(g);
+		}
+
+		[TestMethod]
+		public void GridFactory_ReturnedObjectHasCorrectStartLocation()
+		{
+			Grid g = GridFactory.BuildGrid();
+			Assert.AreEqual(new Vector3(1.0f,1.0f,1.0f),g.StartLocation);
+		}
+
+		[TestMethod]
+		public void GridFactory_ReturnedObjectHasCorrectGridCountX()
+		{
+			Grid g = GridFactory.BuildGrid();
+			Assert.AreEqual(10, g.GridCountX);
+		}
+
+		[TestMethod]
+		public void GridFactory_ReturnedObjectHasCorrectGridCountY()
+		{
+			Grid g = GridFactory.BuildGrid();
+			Assert.AreEqual(10, g.GridCountY);
+		}
+
+		[TestMethod]
+		public void Grid_ConstructorBuildsTileList()
+		{
+			Grid g = GridFactory.BuildGrid();
+			Assert.IsTrue(g.Tiles.Count > 0);
 		}
 	}
 }
