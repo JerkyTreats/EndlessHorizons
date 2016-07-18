@@ -22,8 +22,8 @@ namespace Workshop
 
 		public static Grid BuildGrid()
 		{
-			GridFactory gi = new GridFactory();
-			return new Grid(gi.TileCountX, gi.TileCountY, gi.TileStartLocation, gi.TileLength, gi.TileWidth);
+			GridFactory gf = new GridFactory();
+			return new Grid(gf.TileCountX, gf.TileCountY, gf.TileStartLocation, gf.TileLength, gf.TileWidth, gf.Sprite);
 		}
 
 		public GridFactory()

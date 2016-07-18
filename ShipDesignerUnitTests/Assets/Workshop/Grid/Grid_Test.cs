@@ -101,5 +101,39 @@ namespace ShipDesignerUnitTests
 			Grid g = GridFactory.BuildGrid();
 			Assert.IsTrue(g.Tiles.Count > 0);
 		}
+
+		[TestMethod]
+		public void Grid_SpritePathExists()
+		{
+			Grid g = GridFactory.BuildGrid();
+			Assert.IsTrue(File.Exists(g.Tiles[0].Sprite));
+		}
+
+		[TestMethod]
+		public void GridTile_VisibilityPropertyDefaultsToTrue()
+		{
+			Grid g = GridFactory.BuildGrid();
+			bool allValuesTrue = true;
+			foreach(GridTile tile in g.Tiles)
+			{
+				if (!tile.Visible)
+					allValuesTrue = false;
+			}
+			Assert.IsTrue(allValuesTrue);
+		}
+
+		[TestMethod]
+		public void GridTile_VisibilityCanBeSetToFalse()
+		{
+			Grid g = GridFactory.BuildGrid();
+			g.Tiles[0].Visible = false;
+			int falseCount = 0;
+			foreach (GridTile grid in g.Tiles)
+			{
+				if (grid.Visible == false)
+					falseCount++;
+			}
+			Assert.IsTrue(falseCount == 1);
+		}
 	}
 }

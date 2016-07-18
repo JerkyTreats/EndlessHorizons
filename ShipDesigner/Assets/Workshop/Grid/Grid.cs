@@ -8,17 +8,17 @@ namespace Workshop
 		private int m_gridCountX;
 		private int m_gridCountY;
 
-		public List<GridTile> m_tiles;
+		private List<GridTile> m_tiles;
 
-		public Grid(int x, int y, Vector3 startLocation, float tileLength, float tileWidth)
+		public Grid(int x, int y, Vector3 startLocation, float tileLength, float tileWidth, string spritePath)
 		{
 			m_gridCountX = x;
 			m_gridCountY = y;
 			m_startLocation = startLocation;
-			GenerateTileList(tileLength, tileWidth);
+			GenerateTileList(tileLength, tileWidth, spritePath);
 		}
 
-		public void GenerateTileList(float length, float width)
+		public void GenerateTileList(float length, float width, string spritePath)
 		{
 			m_tiles = new List<GridTile>();
 			for (int x = 0; x < m_gridCountX; x++)
@@ -28,7 +28,7 @@ namespace Workshop
 					float pos_x = m_startLocation.x + (x * length);
 					float pos_y = m_startLocation.y + (y * width);
 					Vector3 position = new Vector3(pos_x, pos_y);
-					m_tiles.Add(new GridTile(length, width, position));
+					m_tiles.Add(new GridTile(length, width, position, spritePath));
 				}
 			}
 		}
