@@ -12,21 +12,21 @@ namespace ShipDesignerUnitTests
 		[TestMethod]
 		public void GridInformation_GridTileLengthRetrievedFromJsonFile()
 		{
-			GridInformation gi = new GridInformation();
+			GridFactory gi = new GridFactory();
 			Assert.AreEqual(5.0f, gi.TileLength);
 		}
 
 		[TestMethod]
 		public void GridInformation_GridTileWidthRetrievedFromJsonFile()
 		{
-			GridInformation gi = new GridInformation();
+			GridFactory gi = new GridFactory();
 			Assert.AreEqual(5.0f, gi.TileWidth);
 		}
 
 		[TestMethod]
 		public void GridInformation_GridTileLengthCannotBeSetToZero()
 		{
-			GridInformation gi = new GridInformation();
+			GridFactory gi = new GridFactory();
 			gi.TileLength = 0;
 			Assert.AreNotEqual(0, gi.TileLength);
 		}
@@ -34,7 +34,7 @@ namespace ShipDesignerUnitTests
 		[TestMethod]
 		public void GridInformation_GridTileWidthCannotBeSetToZero()
 		{
-			GridInformation gi = new GridInformation();
+			GridFactory gi = new GridFactory();
 			gi.TileWidth = 0;
 			Assert.AreNotEqual(0, gi.TileWidth);
 		}
@@ -42,28 +42,28 @@ namespace ShipDesignerUnitTests
 		[TestMethod]
 		public void GridInformation_TileStartLocationRetrievedByJsonFile()
 		{
-			GridInformation gi = new GridInformation();
+			GridFactory gi = new GridFactory();
 			Assert.AreEqual(new Vector3(1.0f, 1.0f, 1.0f), gi.TileStartLocation);
 		}
 
 		[TestMethod]
 		public void GridInformation_TileCountXRetrievedByJsonFile()
 		{
-			GridInformation gi = new GridInformation();
+			GridFactory gi = new GridFactory();
 			Assert.AreEqual(10, gi.TileCountX);
 		}
 
 		[TestMethod]
 		public void GridInformation_TileCountYRetrievedByJsonFile()
 		{
-			GridInformation gi = new GridInformation();
+			GridFactory gi = new GridFactory();
 			Assert.AreEqual(10, gi.TileCountY);
 		}
 
 		[TestMethod]
 		public void GridInformation_TileSpritePulledFromJsonFile()
 		{
-			GridInformation gi = new GridInformation();
+			GridFactory gi = new GridFactory();
 			Assert.IsTrue(File.Exists(gi.Sprite));
 		}
 
