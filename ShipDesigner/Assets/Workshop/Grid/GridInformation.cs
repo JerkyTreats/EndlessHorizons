@@ -1,6 +1,7 @@
 ﻿using SimpleJSON;
 using System.IO;
 using Util;
+using UnityEngine;
 
 namespace Workshop
 {
@@ -15,22 +16,55 @@ namespace Workshop
 
 		private float m_gridTileLength;
 		private float m_gridTileWidth;
+		private int m_gridCountX;
+		private int m_gridCountY;
+		private string m_sprite;
 
 		public GridInformation()
 		{
 			JsonValues = JSONTools.GetJSONNode(GetGridInformationPath());
-			GridTileLength = GetFloat("GridTileLength");
-			GridTileWidth = GetFloat("GridTileWidth");
-		}
-
-		private float GetFloat(string value)
-		{
-			return JsonValues[JSON_ROOT_NODE][value].AsFloat;
+			GridTileLength = GetFloatFromJson("GridTileLength");
+			GridTileWidth = GetFloatFromJson("GridTileWidth");
+			SetStartLocation();
+			SetTileCount();
+			SetSpritePath();
 		}
 
 		private string GetGridInformationPath()
 		{
-			return Common.CombinePath(Directory.GetCurrentDirectory(), "Workshop", "Grid", FILE_NAME);
+			return Common.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Workshop", "Grid", FILE_NAME);
+		}
+
+		private float GetFloatFromJson(string value)
+		{
+			return JsonValues[JSON_ROOT_NODE][value].AsFloat;
+		}
+
+		private string GetStringFromJson(string value)
+		{
+			return JsonValues[JSON_ROOT_NODE][value].Value;
+		}
+
+		private void SetStartLocation()
+		{
+			TileStartLocation = new Vector3
+				(
+					JsonValues[JSON_ROOT_NODE]["TileStartLocation"]["x"].AsFloat,
+					JsonValues[JSON_ROOT_NODE]["TileStartLocation"]["y"].AsFloat,
+					JsonValues[JSON_ROOT_NODE]["TileStartLocation"]["z"].AsFloat
+				);
+		}
+
+		private void SetTileCount()
+		{
+			m_gridCountX = JsonValues[JSON_ROOT_NODE]["TileCount"]["x"].AsInt;
+			m_gridCountY = JsonValues[JSON_ROOT_NODE]["TileCount"]["y"].AsInt;
+		}
+
+		private void SetSpritePath()
+		{
+			string[] relativeDirs = GetStringFromJson("SpritePath").Split('\\');
+			m_sprite = Util.Common.CombinePath(Directory.GetCurrentDirectory(), relativeDirs);
 		}
 
 		public float GridTileLength
@@ -55,6 +89,9 @@ namespace Workshop
 					m_gridTileWidth = GRID_TILE_WIDTH_DEFAULT;
 			}
 		}
-
+		public Vector3 TileStartLocation { get; set; }
+		public int TileCountX { get { return m_gridCountX; } }
+		public int TileCountY { get { return m_gridCountY; } }
+		public string Sprite { get { return m_sprite; } }
 	}
 }
