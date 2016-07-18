@@ -11,6 +11,6 @@
 			"x" : 10,
 			"y" : 10
 		},
-		"SpritePath" : "Assets\\Workshop\\Grid\\GridTile.png" 
+		"SpritePath" : "Sprites/Grid/GridTile"
 	}
 }

@@ -22,8 +22,8 @@ namespace Workshop
 
 		public static Grid BuildGrid()
 		{
-			GridFactory gf = new GridFactory();
-			return new Grid(gf.TileCountX, gf.TileCountY, gf.TileStartLocation, gf.TileLength, gf.TileWidth, gf.Sprite);
+			GridFactory gi = new GridFactory();
+			return new Grid(gi.TileCountX, gi.TileCountY, gi.TileStartLocation, gi.TileLength, gi.TileWidth, gi.Sprite);
 		}
 
 		public GridFactory()
@@ -69,8 +69,7 @@ namespace Workshop
 
 		private void SetSpritePath()
 		{
-			string[] relativeDirs = GetStringFromJson("SpritePath").Split('\\');
-			m_sprite = Util.Common.CombinePath(Directory.GetCurrentDirectory(), relativeDirs);
+			m_sprite = GetStringFromJson("SpritePath");
 		}
 
 		public float TileLength

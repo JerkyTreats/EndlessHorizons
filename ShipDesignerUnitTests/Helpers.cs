@@ -13,5 +13,11 @@ namespace ShipDesignerUnitTests
 		{
 			return Path.Combine(Directory.GetCurrentDirectory(), "Util", (fileName + ".json"));
 		}
+
+		public static string GetRootDirectory()
+		{
+			string parent = Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\..");
+			return Path.Combine(parent, "ShipDesigner");
+		}
 	}
 }

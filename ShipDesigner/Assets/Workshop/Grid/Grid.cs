@@ -4,9 +4,13 @@ namespace Workshop
 {
 	public class Grid
 	{
+		private static string GAME_OBJECT_NAME = "Grid";
+
 		private Vector3 m_startLocation = new Vector3();
 		private int m_gridCountX;
 		private int m_gridCountY;
+		private GameObject m_gridGameObject;
+		private Grid_GameObject m_gridGameObjectScript;
 
 		private List<GridTile> m_tiles;
 
@@ -15,6 +19,8 @@ namespace Workshop
 			m_gridCountX = x;
 			m_gridCountY = y;
 			m_startLocation = startLocation;
+
+			InitializeGameObject();
 			GenerateTileList(tileLength, tileWidth, spritePath);
 		}
 
@@ -28,14 +34,21 @@ namespace Workshop
 					float pos_x = m_startLocation.x + (x * length);
 					float pos_y = m_startLocation.y + (y * width);
 					Vector3 position = new Vector3(pos_x, pos_y);
-					m_tiles.Add(new GridTile(length, width, position, spritePath));
+
+					GridTile grid = new GridTile(length, width, position, spritePath);
+					grid.TileGameObject.transform.parent = m_gridGameObject.transform;
+					m_tiles.Add(grid);
 				}
 			}
 		}
 
-		public Vector3 StartLocation { get { return m_startLocation; } }
-		public int GridCountX { get { return m_gridCountX; } }
-		public int GridCountY { get { return m_gridCountY; } }
+		private void InitializeGameObject()
+		{
+			m_gridGameObject = new GameObject(GAME_OBJECT_NAME);
+			m_gridGameObjectScript = m_gridGameObject.AddComponent<Grid_GameObject>();
+			m_gridGameObjectScript.Initialize(this);
+		}
+
 		public List<GridTile> Tiles { get { return m_tiles; } }
 	}
 }

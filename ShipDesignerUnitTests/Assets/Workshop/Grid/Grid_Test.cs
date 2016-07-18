@@ -64,76 +64,9 @@ namespace ShipDesignerUnitTests
 		public void GridInformation_TileSpritePulledFromJsonFile()
 		{
 			GridFactory gi = new GridFactory();
-			Assert.IsTrue(File.Exists(gi.Sprite));
-		}
-
-		[TestMethod]
-		public void GridFactory_ReturnsNonNullObject()
-		{
-			Grid g = GridFactory.BuildGrid();
-			Assert.IsNotNull(g);
-		}
-
-		[TestMethod]
-		public void GridFactory_ReturnedObjectHasCorrectStartLocation()
-		{
-			Grid g = GridFactory.BuildGrid();
-			Assert.AreEqual(new Vector3(1.0f,1.0f,1.0f),g.StartLocation);
-		}
-
-		[TestMethod]
-		public void GridFactory_ReturnedObjectHasCorrectGridCountX()
-		{
-			Grid g = GridFactory.BuildGrid();
-			Assert.AreEqual(10, g.GridCountX);
-		}
-
-		[TestMethod]
-		public void GridFactory_ReturnedObjectHasCorrectGridCountY()
-		{
-			Grid g = GridFactory.BuildGrid();
-			Assert.AreEqual(10, g.GridCountY);
-		}
-
-		[TestMethod]
-		public void Grid_ConstructorBuildsTileList()
-		{
-			Grid g = GridFactory.BuildGrid();
-			Assert.IsTrue(g.Tiles.Count > 0);
-		}
-
-		[TestMethod]
-		public void Grid_SpritePathExists()
-		{
-			Grid g = GridFactory.BuildGrid();
-			Assert.IsTrue(File.Exists(g.Tiles[0].Sprite));
-		}
-
-		[TestMethod]
-		public void GridTile_VisibilityPropertyDefaultsToTrue()
-		{
-			Grid g = GridFactory.BuildGrid();
-			bool allValuesTrue = true;
-			foreach(GridTile tile in g.Tiles)
-			{
-				if (!tile.Visible)
-					allValuesTrue = false;
-			}
-			Assert.IsTrue(allValuesTrue);
-		}
-
-		[TestMethod]
-		public void GridTile_VisibilityCanBeSetToFalse()
-		{
-			Grid g = GridFactory.BuildGrid();
-			g.Tiles[0].Visible = false;
-			int falseCount = 0;
-			foreach (GridTile grid in g.Tiles)
-			{
-				if (grid.Visible == false)
-					falseCount++;
-			}
-			Assert.IsTrue(falseCount == 1);
+			string root = Path.Combine(Helpers.GetRootDirectory(), "Assets\\Resources");
+			string path = Util.Common.CombinePath(root, gi.Sprite.Split('/'));
+			Assert.IsTrue(File.Exists(path + ".png"));
 		}
 	}
 }
