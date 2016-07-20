@@ -12,13 +12,5 @@ namespace Workshop
 			controller = grid;
 		}
 
-		void BuildTiles()
-		{
-			for (int i = 0; i < controller.Tiles.Count; i++)
-			{
-				controller.Tiles[i].TileGameObject.transform.SetParent(gameObject.transform);
-			}
-		}
-
 	}
 }

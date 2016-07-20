@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
+using View;
 
 namespace Workshop
 {
@@ -10,6 +8,7 @@ namespace Workshop
 		void Start()
 		{
 			GridFactory.BuildGrid();
+			CameraFactory.BuildCamera();
 		}
 	}
 }
