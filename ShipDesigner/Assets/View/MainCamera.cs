@@ -7,7 +7,7 @@ namespace View
 {
 	public class MainCamera
 	{
-		private static string GAME_OBJECT_NAME = "MainCamera";
+		private static string GAME_OBJECT_NAME = "Camera";
 
 		private GameObject m_CameraGameObject;
 		private Camera m_CameraComponent;
@@ -35,10 +35,12 @@ namespace View
 		private void InitializeGameObject()
 		{
 			m_CameraGameObject = new GameObject(GAME_OBJECT_NAME);
-			var rigidbody = m_CameraGameObject.AddComponent<Rigidbody2D>();
-			rigidbody.isKinematic = true;
+			
+			//var rigidbody = m_CameraGameObject.AddComponent<Rigidbody>();
+			//rigidbody.useGravity = false;
 			m_CameraComponent = m_CameraGameObject.AddComponent<Camera>();
 			var obj = m_CameraGameObject.AddComponent<Camera_GameObject>();
+
 			obj.Initialize(this);
 		}
 	}

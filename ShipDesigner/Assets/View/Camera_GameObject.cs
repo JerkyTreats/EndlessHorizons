@@ -41,28 +41,27 @@ namespace View
 
 		}
 
-		void FixedUpdate() {
-			float xDirection = Input.GetAxis("Horizontal");
+		void LateUpdate() {
+			MoveCamera();
+		}
+
+		void MoveCamera()
+		{
+			float xDirection = Input.GetAxis("Horizontal") * Time.deltaTime * m_scrollSpeed;
 			float xPosition = m_camera.transform.position.x;
 
+			float yDirection = Input.GetAxis("Vertical") * Time.deltaTime * m_scrollSpeed;
 			float yPosition = m_camera.transform.position.y;
-			float yDirection = Input.GetAxis("Vertical");
 
-			//Debug.Log(string.Format("x : [{0}] \n y : [{1}]", xDirection, yDirection));
+			if ((xDirection < 0 && xPosition < controller.Boundary.X.Min)
+				|| (xDirection > 0 && xPosition > controller.Boundary.X.Max))
+				xDirection = 0;
 
-			if (xDirection < 0 && xPosition > controller.Boundary.X.Min)
-				Debug.Log("xDirection greater than X min");
+			if ((yDirection < 0 && yPosition < controller.Boundary.Y.Min)
+				|| (yDirection > 0 && yPosition > controller.Boundary.Y.Max))
+				yDirection = 0;
 
-			if (xDirection > 0 && xPosition < controller.Boundary.X.Max)
-				Debug.Log("xDirection less than max");
-
-			if ((xDirection < 0 && xPosition > controller.Boundary.X.Min)
-				|| (xDirection > 0 && xPosition < controller.Boundary.X.Max))
-				AddForce(gameObject.transform.right, xDirection);
-
-			if ((yDirection < 0 && yPosition > controller.Boundary.Y.Min)
-				|| (yDirection > 0 && yPosition < controller.Boundary.Y.Max))
-				AddForce(gameObject.transform.up, yDirection);
+			gameObject.transform.position = gameObject.transform.position + new Vector3(xDirection, yDirection);
 		}
 
 		void AddForce(Vector3 axis, float direction)
