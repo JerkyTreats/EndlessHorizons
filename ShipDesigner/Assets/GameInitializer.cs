@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using View;
+using Workshop;
 
-namespace Workshop
+namespace ShipDesigner
 {
-	class GridFactory_GameObject : MonoBehaviour
+	class GameInitializer : MonoBehaviour
 	{
 		void Start()
 		{

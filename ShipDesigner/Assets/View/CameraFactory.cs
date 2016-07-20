@@ -21,10 +21,23 @@ namespace View
 		public Vector3 Position { get { return m_position; } }
 		public Boundary Boundary { get { return m_boundary; } }
 
-		public static MainCamera BuildCamera()
+
+		public static GameObject BuildCamera()
+		{
+			GameObject cameraObject = new GameObject("MainCamera");
+			cameraObject.SetActive(false);
+
+			cameraObject.AddComponent<Camera>();
+			var camComponent = cameraObject.AddComponent<CameraComponent>();
+			camComponent.SetController(GetCameraController());
+			cameraObject.SetActive(true);
+			return cameraObject;
+		}
+
+		public static CameraController GetCameraController()
 		{
 			CameraFactory cf = new CameraFactory();
-			return new MainCamera(cf.TranslateSpeed, cf.ScrollSpeed, cf.Position, cf.Boundary);
+			return new CameraController(cf.TranslateSpeed, cf.ScrollSpeed, cf.Position, cf.Boundary);
 		}
 
 		public CameraFactory()
