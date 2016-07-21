@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Text;
+﻿using UnityEngine;
+using Util;
 
 namespace View
 {
 	public class CameraController
 	{
-		private static string GAME_OBJECT_NAME = "Camera";
-
-		private ICameraMovement m_movementController;
+		private IMovementController m_movementController;
 
 		private float m_translateSpeed;
 		private float m_scrollSpeed;
@@ -29,31 +25,27 @@ namespace View
 			m_boundaries = boundary;
 		}
 
-		public void SetMovementController( ICameraMovement controller)
+		public void SetMovementController( IMovementController controller)
 		{
 			m_movementController = controller;
 		}
 
-
-		public void Move(Vector3 currentPosition, float x, float y, float z)
+		public void MoveX(float value)
 		{
-			x *= m_translateSpeed;
-			y *= m_translateSpeed;
-			z *= m_translateSpeed;
+			value *= m_translateSpeed;
+			m_movementController.MoveX(value);
+		}
 
-			float newPositionX = currentPosition.x + x;
-			float newPositionY = currentPosition.y + y;
-			float newPositionZ = currentPosition.z + z;
+		public void MoveY(float value)
+		{
+			value *= m_translateSpeed;
+			m_movementController.MoveY(value);
+		}
 
-			if (newPositionX < m_boundaries.X.Min || newPositionX > m_boundaries.X.Max)
-				x = 0;
-			if (newPositionY < m_boundaries.Y.Min || newPositionY > m_boundaries.Y.Max)
-				y = 0;
-			if (newPositionZ < m_boundaries.Z.Min || newPositionZ > m_boundaries.Z.Max)
-				z = 0;
-
-			if (x != 0 || y != 0 || z != 0)
-				m_movementController.Move(x, y, z);
+		public void MoveZ(float position, float value)
+		{
+			value *= m_scrollSpeed;
+			m_movementController.MoveZ(value);
 		}
 	}
 }

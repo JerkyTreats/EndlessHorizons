@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Util;
 
 
 namespace View
 {
-	public class CameraComponent : MonoBehaviour, ICameraMovement
+	public class CameraComponent : MonoBehaviour, IMovementController
 	{
 		private CameraController controller;
 
@@ -13,18 +14,35 @@ namespace View
 			controller.SetMovementController(this);
 		}
 
-		void LateUpdate()
+		void FixedUpdate()
 		{
-			float x = Input.GetAxis("Horizontal");
-			float y = Input.GetAxis("Vertical");
-			float z = Input.GetAxis("Mouse ScrollWheel");
-			if (x != 0 || y != 0 || z != 0)
-				controller.Move(transform.position, x, y, z);
+			if (Input.GetButton("Horizontal"))
+				controller.MoveX(Input.GetAxis("Horizontal"));
+			if(Input.GetButton("Vertical"))
+				controller.MoveY(Input.GetAxis("Vertical"));
+			if(Input.GetButton("Mouse ScrollWheel"))
+				controller.MoveZ(transform.position.z, Input.GetAxis("Mouse ScrollWheel"));
 		}
 
-		public void Move (float x, float y, float z)
+		public void MoveX(float value)
 		{
-			transform.position += new Vector3 (x * Time.deltaTime, y * Time.deltaTime, z * Time.deltaTime);
+			value *= Time.deltaTime;
+			if ((transform.position.x + value > controller.Boundary.X.Min) && (transform.position.x + value < controller.Boundary.X.Max))
+				transform.position += new Vector3(value, 0);
+		}
+
+		public void MoveY(float value)
+		{
+			value *= Time.deltaTime;
+			if ((transform.position.y + value > controller.Boundary.Y.Min) && (transform.position.y + value < controller.Boundary.Y.Max))
+				transform.position += new Vector3(0, value);
+		}
+
+		public void MoveZ(float value)
+		{
+			value *= Time.deltaTime;
+			if ((transform.position.z + value > controller.Boundary.Z.Min) && (transform.position.z + value < controller.Boundary.Z.Max))
+				transform.position += new Vector3(0, 0, value);
 		}
 
 		public void SetController(CameraController controller)

@@ -1,6 +1,6 @@
 {
 	"TranslateSpeed" : 10.0,
-	"ScrollSpeed" : 10.0,
+	"ScrollSpeed" : 100.0,
 	"StartLocation" : {
 		"x": 5.0,
 		"y": 5.0,
