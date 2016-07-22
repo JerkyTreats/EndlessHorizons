@@ -22,7 +22,7 @@ namespace View
 		public Boundary Boundary { get { return m_boundary; } }
 
 
-		public static GameObject BuildCamera()
+		public static void BuildCamera()
 		{
 			GameObject cameraObject = new GameObject("MainCamera");
 			cameraObject.SetActive(false);
@@ -31,7 +31,6 @@ namespace View
 			var camComponent = cameraObject.AddComponent<CameraComponent>();
 			camComponent.SetController(GetCameraController());
 			cameraObject.SetActive(true);
-			return cameraObject;
 		}
 
 		public static CameraController GetCameraController()

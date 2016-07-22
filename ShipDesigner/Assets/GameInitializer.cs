@@ -8,7 +8,7 @@ namespace ShipDesigner
 	{
 		void Start()
 		{
-			GridFactory.BuildGrid();
+			GridFactory.InitializeGrid();
 			CameraFactory.BuildCamera();
 		}
 	}
