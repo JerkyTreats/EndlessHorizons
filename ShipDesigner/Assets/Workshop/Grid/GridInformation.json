@@ -7,9 +7,9 @@
 			"z" : 1.0
 		},
 		"TileCount" : {
-			"x" : 10,
-			"y" : 10
+			"x" : 30,
+			"y" : 30
 		},
-		"SpritePath" : "Sprites/Grid/GridTile" 
+		"SpritePath" : "Sprites/Grid/GridTile_Default" 
 	}
 }

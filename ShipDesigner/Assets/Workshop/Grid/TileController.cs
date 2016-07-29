@@ -10,7 +10,7 @@ namespace Workshop
 
 		private Vector3 m_position;
 		private SpriteData m_spriteData;
-
+		
 		public Vector3 Position { get { return m_position; } }
 		public SpriteData SpriteData { get { return m_spriteData; } }
 		public bool Visible { get; set; }
