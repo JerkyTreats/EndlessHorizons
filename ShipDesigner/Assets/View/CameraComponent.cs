@@ -21,7 +21,7 @@ namespace View
 			if (Input.GetButton("Vertical"))
 				controller.MoveY(Input.GetAxis("Vertical") * Time.deltaTime);
 			if(Input.GetButton("Mouse ScrollWheel"))
-				controller.MoveZ(transform.position.z, Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime);
+				controller.MoveZ(Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime);
 		}
 
 		public void MoveX(float value)
