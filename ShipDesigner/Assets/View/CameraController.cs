@@ -42,7 +42,7 @@ namespace View
 			m_movementController.MoveY(value);
 		}
 
-		public void MoveZ(float position, float value)
+		public void MoveZ(float value)
 		{
 			value *= m_scrollSpeed;
 			m_movementController.MoveZ(value);
