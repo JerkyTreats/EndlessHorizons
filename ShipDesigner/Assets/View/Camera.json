@@ -2,18 +2,18 @@
 	"TranslateSpeed" : 10.0,
 	"ScrollSpeed" : 100.0,
 	"StartLocation" : {
-		"x": 5.0,
-		"y": 5.0,
+		"x": 14.0,
+		"y": 10.0,
 		"z": -5.0
 	},
 	"Boundaries" : {
 		"x" : { 
-			"min" : 0, 
-			"max": 10 
+			"min" : 8.4, 
+			"max": 18.4 
 		},
 		"y" : { 
-			"min" : 0, 
-			"max": 10 
+			"min" : 4.5, 
+			"max": 14.5
 		},
 		"z" : { 
 			"min" : -4.5, 

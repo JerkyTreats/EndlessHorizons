@@ -3,20 +3,25 @@ using System.IO;
 using Util;
 using UnityEngine;
 using Engine;
+using System.Collections.Generic;
 
 namespace Workshop
 {
 	public class GridData
 	{
-		private static string FILE_NAME = "GridInformation.json";
-		private static string JSON_ROOT_NODE = "GridInformation";
+		static string FILE_NAME = "GridInformation.json";
+		static string JSON_ROOT_NODE = "GridInformation";
 
-		private JSONNode JsonValues;
+		JSONNode JsonValues;
 
-		private Vector3 m_tileStartLocation;
-		private int m_gridCountX;
-		private int m_gridCountY;
-		private SpriteData m_spriteData;
+		Vector3 m_tileStartLocation;
+		int m_gridCountX;
+		int m_gridCountY;
+		SpriteData m_spriteData;
+
+		Vector3[] m_vertices;
+		Vector2[] m_uvs;
+		Vector3[] m_normals;
 
 		public GridData()
 		{
@@ -24,21 +29,7 @@ namespace Workshop
 			SetStartLocation();
 			SetTileCount();
 			m_spriteData = new SpriteData(GetStringFromJson("SpritePath"), GetFloatFromJson("PixelsPerUnit"));
-		}
-
-		private string GetGridInformationPath()
-		{
-			return Common.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Workshop", "Grid", FILE_NAME);
-		}
-
-		private float GetFloatFromJson(string value)
-		{
-			return JsonValues[JSON_ROOT_NODE][value].AsFloat;
-		}
-
-		private string GetStringFromJson(string value)
-		{
-			return JsonValues[JSON_ROOT_NODE][value].Value;
+			SetBackgroundPlaneData();
 		}
 
 		private void SetStartLocation()
@@ -57,9 +48,75 @@ namespace Workshop
 			m_gridCountY = JsonValues[JSON_ROOT_NODE]["TileCount"]["y"].AsInt;
 		}
 
+		void SetBackgroundPlaneData()
+		{
+			SetVertices();
+			SetUVs();
+			SetNormals();
+		}
+
+		private void SetVertices()
+		{
+			List<Vector3> verts = new List<Vector3>();
+
+			string node = "BackgroundPlane";
+			string vectorNode = "Vector3";
+			for (int i = 0; i < 4; i++)
+			{
+				verts.Add(new Vector3(
+					JsonValues[JSON_ROOT_NODE][node][i][vectorNode]["x"].AsFloat,
+					JsonValues[JSON_ROOT_NODE][node][i][vectorNode]["y"].AsFloat,
+					JsonValues[JSON_ROOT_NODE][node][i][vectorNode]["z"].AsFloat
+				));
+			}
+			m_vertices = verts.ToArray();
+		}
+
+		void SetUVs()
+		{
+			Vector2 bottomLeft = new Vector2();
+			Vector2 topLeft = new Vector2(0, TileCountY );
+			Vector2 topRight = new Vector2(TileCountX, TileCountY);
+			Vector2 bottomRight = new Vector2(TileCountX, 0);
+
+			m_uvs = new Vector2[] { bottomLeft, topLeft, topRight, bottomRight }; 
+		}
+
+		void SetNormals()
+		{
+			Vector3[] normals = new Vector3[4];
+
+			normals[0] = -Vector3.forward;
+			normals[1] = -Vector3.forward;
+			normals[2] = -Vector3.forward;
+			normals[3] = -Vector3.forward;
+
+			m_normals = normals;
+		}
+
+		private string GetGridInformationPath()
+		{
+			return Common.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Workshop", "Grid", FILE_NAME);
+		}
+
+		private float GetFloatFromJson(string value)
+		{
+			return JsonValues[JSON_ROOT_NODE][value].AsFloat;
+		}
+
+		private string GetStringFromJson(string value)
+		{
+			return JsonValues[JSON_ROOT_NODE][value].Value;
+		}
+
 		public Vector3 TileStartLocation { get { return m_tileStartLocation; } }
 		public int TileCountX { get { return m_gridCountX; } }
 		public int TileCountY { get { return m_gridCountY; } }
 		public SpriteData SpriteData { get { return m_spriteData; } }
+
+		public Vector3[] Vertices { get { return m_vertices; } }
+		public Vector2[] UVs { get { return m_uvs; } }
+		public Vector3[] Normals { get { return m_normals; } }
+
 	}
 }

@@ -48,6 +48,7 @@ namespace Workshop
 			}
 		}
 
+		public Vector3 StartLocation { get { return m_startLocation; } }
 		public List<Vector3> TilePositions { get { return m_tiles; } }
 		public SpriteData SpriteData { get { return m_spriteData; } }
 	}
