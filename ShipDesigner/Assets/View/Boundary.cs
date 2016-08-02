@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using Util;
-
+﻿
 namespace View
 {
 	/// <summary>
@@ -10,6 +6,8 @@ namespace View
 	/// </summary>
 	public class Boundary
 	{
+		public enum State { WithinBounds, AboveMax, BelowMin };
+
 		private Bound m_boundX;
 		private Bound m_boundY;
 		private Bound m_boundZ;
@@ -23,6 +21,15 @@ namespace View
 			m_boundX = new Bound(minX, maxX);
 			m_boundY = new Bound(minY, maxY);
 			m_boundZ = new Bound(minZ, maxZ);
+		}
+
+		public State WithinBounds (Bound bound, float newPosition)
+		{
+			if (newPosition < bound.Min)
+				return State.BelowMin;
+			if (newPosition > bound.Max)
+				return State.AboveMax;
+			return State.WithinBounds;
 		}
 	}
 
