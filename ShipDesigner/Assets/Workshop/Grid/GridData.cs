@@ -4,6 +4,7 @@ using Util;
 using UnityEngine;
 using Engine;
 using System.Collections.Generic;
+using System;
 
 namespace Workshop
 {
@@ -17,7 +18,7 @@ namespace Workshop
 		Vector3 m_tileStartLocation;
 		int m_gridCountX;
 		int m_gridCountY;
-		SpriteData m_spriteData;
+		MaterialData m_spriteData;
 
 		Vector3[] m_vertices;
 		Vector2[] m_uvs;
@@ -28,9 +29,10 @@ namespace Workshop
 			JsonValues = JSONTools.GetJSONNode(GetGridInformationPath());
 			SetStartLocation();
 			SetTileCount();
-			m_spriteData = new SpriteData(GetStringFromJson("SpritePath"), GetFloatFromJson("PixelsPerUnit"));
-			SetBackgroundPlaneData();
+			m_spriteData = new MaterialData(GetStringFromJson("SpritePath"), GetVertices(), GetNormals(), GetUVs(), GetTriangles());
 		}
+
+
 
 		private void SetStartLocation()
 		{
@@ -48,14 +50,7 @@ namespace Workshop
 			m_gridCountY = JsonValues[JSON_ROOT_NODE]["TileCount"]["y"].AsInt;
 		}
 
-		void SetBackgroundPlaneData()
-		{
-			SetVertices();
-			SetUVs();
-			SetNormals();
-		}
-
-		private void SetVertices()
+		private Vector3[] GetVertices()
 		{
 			List<Vector3> verts = new List<Vector3>();
 
@@ -69,20 +64,20 @@ namespace Workshop
 					JsonValues[JSON_ROOT_NODE][node][i][vectorNode]["z"].AsFloat
 				));
 			}
-			m_vertices = verts.ToArray();
+			return verts.ToArray();
 		}
 
-		void SetUVs()
+		Vector2[] GetUVs()
 		{
 			Vector2 bottomLeft = new Vector2();
 			Vector2 topLeft = new Vector2(0, TileCountY );
 			Vector2 topRight = new Vector2(TileCountX, TileCountY);
 			Vector2 bottomRight = new Vector2(TileCountX, 0);
 
-			m_uvs = new Vector2[] { bottomLeft, topLeft, topRight, bottomRight }; 
+			return new Vector2[] { bottomLeft, topLeft, topRight, bottomRight }; 
 		}
 
-		void SetNormals()
+		Vector3[] GetNormals()
 		{
 			Vector3[] normals = new Vector3[4];
 
@@ -91,7 +86,17 @@ namespace Workshop
 			normals[2] = -Vector3.forward;
 			normals[3] = -Vector3.forward;
 
-			m_normals = normals;
+			return normals;
+		}
+
+		private int[] GetTriangles()
+		{
+			return new int[]
+			{
+				0, 1, 2,
+				0, 2, 3
+			};
+
 		}
 
 		private string GetGridInformationPath()
@@ -112,7 +117,7 @@ namespace Workshop
 		public Vector3 TileStartLocation { get { return m_tileStartLocation; } }
 		public int TileCountX { get { return m_gridCountX; } }
 		public int TileCountY { get { return m_gridCountY; } }
-		public SpriteData SpriteData { get { return m_spriteData; } }
+		public MaterialData MaterialData { get { return m_spriteData; } }
 
 		public Vector3[] Vertices { get { return m_vertices; } }
 		public Vector2[] UVs { get { return m_uvs; } }

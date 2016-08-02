@@ -11,19 +11,23 @@ namespace Workshop
 		public void SetController (GridController controller)
 		{
 			this.controller = controller;
-			//gameObject.transform.localScale = new Vector3(controller.Rect.width, controller.Rect.height);
-			//LoadSprite();
+			transform.position = controller.StartLocation;
+			RenderGrid();
 		}
 
-		void LoadSprite()
+		void RenderGrid()
 		{
-			//var renderer = gameObject.AddComponent<MeshRenderer>();
-			//renderer.material.mainTexture = controller.SpriteData.Texture;
-			//controller.SpriteData.Texture.wrapMode = TextureWrapMode.Repeat;
+			var meshFilter = gameObject.AddComponent<MeshFilter>();
+			var renderer = gameObject.AddComponent<MeshRenderer>();
+			renderer.material.mainTexture = controller.MaterialData.Texture;
 
-			//Renderer = gameObject.AddComponent<SpriteRenderer>();
-			//Debug.Log(string.Format("Rect Width: [{0}] \n Rect Height: [{1}]",controller.Rect.width, controller.Rect.height));
-			//Renderer.sprite = Sprite.Create(controller.SpriteData.Texture, new Rect(0,0,900,900), new Vector2(), controller.SpriteData.PixelsPerUnit);
+			Mesh mesh = new Mesh();
+			mesh.vertices = controller.MaterialData.Vertices;
+			mesh.normals = controller.MaterialData.Normals;
+			mesh.uv = controller.MaterialData.UVs;
+			mesh.triangles = controller.MaterialData.Triangles;
+			meshFilter.mesh = mesh;
+			mesh.RecalculateNormals();
 		}
 	}
 }
