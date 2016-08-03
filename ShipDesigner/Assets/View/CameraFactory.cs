@@ -68,8 +68,10 @@ namespace View
 			return new Boundary(
 				JsonValues[key]["x"]["min"].AsFloat,
 				JsonValues[key]["x"]["max"].AsFloat,
+
 				JsonValues[key]["y"]["min"].AsFloat,
 				JsonValues[key]["y"]["max"].AsFloat,
+				
 				JsonValues[key]["z"]["min"].AsFloat,
 				JsonValues[key]["z"]["max"].AsFloat
 				);

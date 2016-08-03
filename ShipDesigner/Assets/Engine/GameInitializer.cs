@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using View;
 using Workshop;
+using UI;
 
 namespace ShipDesigner
 {
@@ -10,6 +11,7 @@ namespace ShipDesigner
 		{
 			GridFactory.InitializeGrid();
 			CameraFactory.BuildCamera();
+			UIFactory.BuildUI();
 		}
 	}
 }
