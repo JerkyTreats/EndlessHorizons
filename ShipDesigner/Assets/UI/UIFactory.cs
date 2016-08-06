@@ -23,17 +23,43 @@ namespace UI
 
 		static void BuildInventory(GameObject canvas)
 		{
-			GameObject panel = new GameObject("Panel");
+			GameObject panel = BuildPanel(canvas);
+			FillInventory(panel);
+		}
+
+		private static GameObject BuildPanel(GameObject canvas)
+		{
+			GameObject panel = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/InventoryPanel"));
+			panel.name = "InventoryPanel";
 			panel.transform.parent = canvas.transform;
 
-			var rect = panel.AddComponent<RectTransform>();
-			var renderer = panel.AddComponent<CanvasRenderer>();
-			var image = panel.AddComponent<Image>();
-
+			RectTransform rect = panel.GetComponent<RectTransform>();
 			rect.anchorMax = new Vector2();
 			rect.anchorMin = new Vector2();
 			rect.pivot = new Vector2();
-			rect.anchoredPosition = new Vector2 (10f, 10f);
+			rect.anchoredPosition = new Vector2(10f, 10f);
+			BuildPanelSelectionArea(panel);
+			return panel;
 		}
+
+		private static void BuildPanelSelectionArea(GameObject panel)
+		{
+			var selectionArea = panel.transform.GetChild(panel.transform.childCount - 1);
+			selectionArea.gameObject.AddComponent<Drag>();
+		}
+
+		private static void FillInventory(GameObject panel)
+		{
+			//var imageComponent = panel.GetComponent<Image>();
+			//var border = imageComponent.sprite.border;
+
+			GameObject inventoryArea = panel.transform.GetChild(1).gameObject;
+			int max = 0;
+			for (int i = 0; i < max; i++)
+			{
+
+			}
+		}
+
 	}
 }
