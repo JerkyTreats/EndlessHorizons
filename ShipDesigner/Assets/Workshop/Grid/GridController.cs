@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Engine; 
 
-namespace Workshop
+namespace Workshop.Grid
 {
 	public class GridController
 	{

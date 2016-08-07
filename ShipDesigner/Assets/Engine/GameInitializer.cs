@@ -12,6 +12,8 @@ namespace ShipDesigner
 			GridFactory.InitializeGrid();
 			CameraFactory.BuildCamera();
 			UIFactory.BuildUI();
+
+			Destroy(gameObject);
 		}
 	}
 }

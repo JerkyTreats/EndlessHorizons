@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Workshop
+namespace Workshop.Grid
 {
 	public static class GridFactory
 	{

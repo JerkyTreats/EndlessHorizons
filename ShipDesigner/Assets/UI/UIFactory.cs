@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace UI
 {
@@ -8,6 +9,7 @@ namespace UI
 		public static void BuildUI()
 		{
 			var canvas = BuildCanvas();
+			BuildEventSystem();
 			BuildInventory(canvas);
 		}
 
@@ -19,6 +21,13 @@ namespace UI
 			canvas.AddComponent<CanvasScaler>();
 			canvas.AddComponent<GraphicRaycaster>();
 			return canvas;
+		}
+
+		private static void BuildEventSystem()
+		{
+			GameObject eventSystem = new GameObject("EventSystem");
+			eventSystem.AddComponent<EventSystem>();
+			eventSystem.AddComponent<StandaloneInputModule>();
 		}
 
 		static void BuildInventory(GameObject canvas)

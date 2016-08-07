@@ -6,7 +6,7 @@ using Engine;
 using System.Collections.Generic;
 using System;
 
-namespace Workshop
+namespace Workshop.Grid
 {
 	public class GridData
 	{
