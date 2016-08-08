@@ -1,5 +1,5 @@
 ﻿using System;
-using Util;
+using Engine.Utility;
 using UnityEngine;
 using SimpleJSON;
 using System.IO;
@@ -50,7 +50,7 @@ namespace View
 
 		private string GetGridInformation()
 		{
-			return Common.CombinePath(Directory.GetCurrentDirectory(), "Assets", "View", FILE_NAME);
+			return Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "View", FILE_NAME);
 		}
 
 		private Vector3 GetStartPosition()

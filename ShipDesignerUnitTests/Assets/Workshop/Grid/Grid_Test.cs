@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Workshop;
+using Workshop.Grid;
 using UnityEngine;
 using System.IO;
 

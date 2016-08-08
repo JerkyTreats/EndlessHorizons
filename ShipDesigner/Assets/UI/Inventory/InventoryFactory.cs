@@ -11,16 +11,6 @@ namespace UI
 		public static void BuildInventory(GameObject canvas)
 		{
 			GameObject panel = BuildPanel(canvas);
-			BuildInventoryController(panel);
-		}
-
-		private static void BuildInventoryController(GameObject panel)
-		{
-			RectTransform rect = panel.GetComponent<RectTransform>();
-			Vector4 border = panel.GetComponent<Image>().sprite.border;
-			Vector2 min = new Vector2(rect.anchoredPosition.x + border.x, rect.anchoredPosition.y + border.y);
-			Vector2 max = new Vector2((rect.anchoredPosition.x + rect.sizeDelta.x) - border.z, (rect.anchoredPosition.y + rect.sizeDelta.y) - border.w);
-			InventoryController controller = new InventoryController(min, max);
 		}
 
 		private static GameObject BuildPanel(GameObject canvas)
@@ -30,7 +20,11 @@ namespace UI
 			panel.transform.parent = canvas.transform;
 			SetStartPosition(panel);
 			BuildPanelSelectionArea(panel);
-			panel.AddComponent<InventoryComponent>();
+
+			InventoryComponent component = panel.AddComponent<InventoryComponent>();
+			InventoryController controller = BuildInventoryController(panel);
+			component.SetController(controller);
+
 			return panel;
 		}
 
@@ -47,6 +41,17 @@ namespace UI
 		{
 			var selectionArea = panel.transform.GetChild(panel.transform.childCount - 1);
 			selectionArea.gameObject.AddComponent<Drag>();
+		}
+
+		private static InventoryController BuildInventoryController(GameObject panel)
+		{
+			RectTransform rect = panel.GetComponent<RectTransform>();
+			Vector4 border = panel.GetComponent<Image>().sprite.border;
+
+			Vector2 min = new Vector2(rect.anchoredPosition.x + border.x, rect.anchoredPosition.y + border.y);
+			Vector2 max = new Vector2((rect.anchoredPosition.x + rect.sizeDelta.x) - border.z, (rect.anchoredPosition.y + rect.sizeDelta.y) - border.w);
+
+			return new InventoryController(min, max);
 		}
 	}
 }

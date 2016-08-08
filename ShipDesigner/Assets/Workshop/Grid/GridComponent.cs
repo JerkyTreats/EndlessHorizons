@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Engine.Utility;
 
 namespace Workshop.Grid
 {
@@ -12,22 +13,9 @@ namespace Workshop.Grid
 		{
 			this.controller = controller;
 			transform.position = controller.StartLocation;
-			RenderGrid();
+			Util.RenderMesh(gameObject, controller.MaterialData);
 		}
 
-		void RenderGrid()
-		{
-			var meshFilter = gameObject.AddComponent<MeshFilter>();
-			var renderer = gameObject.AddComponent<MeshRenderer>();
-			renderer.material.mainTexture = controller.MaterialData.Texture;
 
-			Mesh mesh = new Mesh();
-			mesh.vertices = controller.MaterialData.Vertices;
-			mesh.normals = controller.MaterialData.Normals;
-			mesh.uv = controller.MaterialData.UVs;
-			mesh.triangles = controller.MaterialData.Triangles;
-			meshFilter.mesh = mesh;
-			mesh.RecalculateNormals();
-		}
 	}
 }

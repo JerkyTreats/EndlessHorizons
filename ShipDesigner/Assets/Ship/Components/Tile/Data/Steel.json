@@ -13,7 +13,7 @@
 			}
 		},
 		"Inventory" : {
-			"ResourcePath" : "Sprites/Ship/Components/Tile/Steel_Inventory"
+			"Texture" : "Sprites/Ship/Components/Tile/Steel_Inventory"
 		}
 	}
 }

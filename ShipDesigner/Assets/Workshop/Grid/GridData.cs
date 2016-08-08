@@ -1,6 +1,6 @@
 ﻿using SimpleJSON;
 using System.IO;
-using Util;
+using Engine.Utility;
 using UnityEngine;
 using Engine;
 using System.Collections.Generic;
@@ -100,7 +100,7 @@ namespace Workshop.Grid
 
 		private string GetGridInformationPath()
 		{
-			return Common.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Workshop", "Grid", FILE_NAME);
+			return Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Workshop", "Grid", FILE_NAME);
 		}
 
 		private float GetFloatFromJson(string value)

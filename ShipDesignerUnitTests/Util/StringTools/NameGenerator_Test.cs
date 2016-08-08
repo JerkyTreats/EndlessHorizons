@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Util;
+using Engine.Utility;
 using System.Threading;
 using System.Collections.Generic;
 
@@ -20,7 +20,7 @@ namespace ShipDesignerUnitTests
 		[TestMethod]
 		public void NameGenerator_ReturnsNotNullForWellFormedData()
 		{
-			string generatedName = Util.NameGenerator.GenerateRandomName(Helpers.GetInputFile(),"Name");
+			string generatedName = NameGenerator.GenerateRandomName(Helpers.GetInputFile(),"Name");
 			Trace.WriteLine(generatedName);
 			Assert.IsNotNull(generatedName);
 		}
@@ -29,7 +29,7 @@ namespace ShipDesignerUnitTests
 		public void NameGenerator_ReturnStringDifferentFromInputString()
 		{
 			string inputName = "Azeby"; //Found in TestNameInputFile.json
-			string generatedName = Util.NameGenerator.GenerateRandomName(Helpers.GetInputFile(),"Name");
+			string generatedName = NameGenerator.GenerateRandomName(Helpers.GetInputFile(),"Name");
 			Assert.AreNotEqual(inputName, generatedName);
 		}
 
@@ -41,7 +41,7 @@ namespace ShipDesignerUnitTests
 			{
 				for (int i = 0; i <= 100; i++)
 				{
-					string generatedName = Util.NameGenerator.GenerateRandomName(Helpers.GetInputFile("planet_input"), "Name");
+					string generatedName = NameGenerator.GenerateRandomName(Helpers.GetInputFile("planet_input"), "Name");
 					Trace.WriteLine(generatedName);
 					outputFile.WriteLine(generatedName);
 					Thread.Sleep(20);
@@ -61,7 +61,7 @@ namespace ShipDesignerUnitTests
 			{
 				for (int i = 0; i <= 100; i++)
 				{
-					string generatedName = Util.NameGenerator.GenerateMarkovName(inputs ,rnd);
+					string generatedName = NameGenerator.GenerateMarkovName(inputs ,rnd);
 					Trace.WriteLine(generatedName);
 					outputFile.WriteLine(generatedName);
 					//Thread.Sleep(20);
@@ -73,7 +73,7 @@ namespace ShipDesignerUnitTests
 		public void NameGenerator_ReturnedNameIsCapitalizedCorrectly()
 		{
 			Random rnd = new Random();
-			string generatedName = Util.NameGenerator.GenerateMarkovName(JSONTools.GetJsonArrayAsList(Helpers.GetInputFile("planet_input"), "Name"), rnd);
+			string generatedName = NameGenerator.GenerateMarkovName(JSONTools.GetJsonArrayAsList(Helpers.GetInputFile("planet_input"), "Name"), rnd);
 
 			bool allWordsCapped = true;
 			foreach(string word in generatedName.Split())

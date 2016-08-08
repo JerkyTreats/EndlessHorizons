@@ -3,7 +3,7 @@ using System.IO;
 using Markov;
 using System.Collections.Generic;
 
-namespace Util
+namespace Engine.Utility
 {
 	public static class NameGenerator
 	{

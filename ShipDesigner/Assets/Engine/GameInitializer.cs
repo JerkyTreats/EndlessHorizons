@@ -9,7 +9,6 @@ namespace Engine
 	{
 		void Start()
 		{
-			GameDataFactory.BuildGameData();
 			GridFactory.InitializeGrid();
 			CameraFactory.BuildCamera();
 			UIFactory.BuildUI();

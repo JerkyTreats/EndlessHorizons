@@ -13,7 +13,8 @@ namespace Engine
 		public MaterialData(string resourcePath, Vector3[] vertices, Vector3[] normals, Vector2[] uvs, int[] tris)
 		{
 			m_texture = Resources.Load<Texture>(resourcePath) as Texture;
-			m_texture.wrapMode = TextureWrapMode.Repeat;
+			if (m_texture != null)
+				m_texture.wrapMode = TextureWrapMode.Repeat;
 			m_normals = normals;
 			m_vertices = vertices;
 			m_uvs = uvs;

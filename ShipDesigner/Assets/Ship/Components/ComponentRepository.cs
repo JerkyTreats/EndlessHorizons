@@ -7,7 +7,7 @@ namespace Ships.Components
 {
 	public class ComponentRepository
 	{
-		TileDataRepository TileData;
+		public TileDataRepository TileData;
 
 		public ComponentRepository()
 		{

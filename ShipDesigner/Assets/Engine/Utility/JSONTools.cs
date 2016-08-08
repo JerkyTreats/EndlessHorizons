@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using SimpleJSON;
 
-namespace Util
+namespace Engine.Utility
 {
 	public static class JSONTools
 	{		

@@ -1,11 +1,6 @@
 ﻿using SimpleJSON;
 using Engine;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Util;
-using System.IO;
-using System;
+using Engine.Utility;
 using UnityEngine;
 
 namespace Ships.Components
@@ -18,7 +13,7 @@ namespace Ships.Components
 		float m_durability;
 		float m_cost;
 
-		MaterialData m_inventorySpriteData;
+		string m_inventorySpritePath;
 		MaterialData m_spriteData;
 
 		public string Name { get { return m_name; } }
@@ -26,6 +21,7 @@ namespace Ships.Components
 		public float Durability { get { return m_durability; } }
 		public float Cost { get { return m_cost; } }
 		public MaterialData MainSpriteData { get { return m_spriteData; } }
+		public string InventorySpritePath {  get { return m_inventorySpritePath; } }
 
 		public TileData(string tileJsonPath)
 		{
@@ -34,10 +30,36 @@ namespace Ships.Components
 			SetWeight();
 			SetDurability();
 			SetCost();
-			SetSprite();
+			SetMainSprite();
+			SetInventorySprite();
 		}
 
-		private void SetSprite()
+		private void SetCost()
+		{
+			m_cost = JsonValues["Cost"].AsFloat;
+		}
+
+		private void SetDurability()
+		{
+			m_durability = JsonValues["Durability"].AsFloat;
+		}
+
+		private void SetWeight()
+		{
+			m_weight = JsonValues["Weight"].AsFloat;
+		}
+
+		void SetName()
+		{
+			m_name = JsonValues["Name"].Value;
+		}
+
+		private void SetInventorySprite()
+		{
+			m_inventorySpritePath = JsonValues["Sprite"]["Inventory"]["Texture"].Value;
+		}
+
+		private void SetMainSprite()
 		{
 			var main = JsonValues["Sprite"]["Main"];
 			var inventory = JsonValues["Sprite"]["Inventory"];
@@ -53,14 +75,6 @@ namespace Ships.Components
 				normals,
 				uvs,
 				tris
-			);
-
-			m_inventorySpriteData = new MaterialData(
-				inventory["Texture"].Value,
-				GetVertices(inventory),
-				GetNormals(),
-				GetUVs(),
-				GetTris()
 			);
 		}
 
@@ -104,26 +118,6 @@ namespace Ships.Components
 				new Vector3(node["MaxSize"]["x"].AsFloat, node["MaxSize"]["y"].AsFloat),
 				new Vector3(node["MaxSize"]["x"].AsFloat,0),
 			};
-		}
-
-		private void SetCost()
-		{
-			m_cost = JsonValues["Cost"].AsFloat;
-		}
-
-		private void SetDurability()
-		{
-			m_durability = JsonValues["Durability"].AsFloat;
-		}
-
-		private void SetWeight()
-		{
-			m_weight = JsonValues["Weight"].AsFloat;
-		}
-
-		void SetName()
-		{
-			m_name = JsonValues["Name"].Value;
 		}
 	}
 }
