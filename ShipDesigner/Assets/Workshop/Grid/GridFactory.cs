@@ -5,7 +5,6 @@ namespace Workshop.Grid
 	public static class GridFactory
 	{
 		private static string GRID_OBJECT_NAME = "Grid";
-		private static string TILE_OBJECT_NAME = "Tile";
 
 		public static void InitializeGrid()
 		{

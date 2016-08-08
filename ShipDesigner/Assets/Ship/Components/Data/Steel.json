@@ -1,0 +1,19 @@
+{
+	"Name" : "Steel",
+	"Weight" : 10.0,
+	"Durability" : 3,
+	"Cost" : 3.75,
+	"Sprite" : {
+		"Main" : {
+			"Texture" : "Sprites/Ship/Components/Steel_Main",
+			"MaxSize" : {
+				"x" : 1,
+				"y" : 1,
+				"z" : 0
+			}
+		},
+		"Inventory" : {
+			"ResourcePath" : "Sprites/Ship/Components/Steel_Inventory",
+		}
+	}
+}

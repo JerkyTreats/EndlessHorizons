@@ -12,7 +12,7 @@ namespace Ships.Components
 
 		public float Weight { get; set; }
 		public int Durability { get; set; }
-		public int Cost { get; set; }
+		public float Cost { get; set; }
 
 		public Sprite InventorySprite { get { return m_inventorySprite; } }
 		public Sprite Sprite { get { return m_sprite; } }

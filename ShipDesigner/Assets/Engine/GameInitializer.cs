@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using View;
-using Workshop;
+using Workshop.Grid;
 using UI;
 
 namespace ShipDesigner

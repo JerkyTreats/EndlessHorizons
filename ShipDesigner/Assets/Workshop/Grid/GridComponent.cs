@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Workshop
+namespace Workshop.Grid
 {
 	public class GridComponent : MonoBehaviour
 	{
