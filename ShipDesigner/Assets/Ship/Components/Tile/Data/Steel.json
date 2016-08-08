@@ -5,7 +5,7 @@
 	"Cost" : 3.75,
 	"Sprite" : {
 		"Main" : {
-			"Texture" : "Sprites/Ship/Components/Steel_Main",
+			"Texture" : "Sprites/Ship/Components/Tile/Steel_Main",
 			"MaxSize" : {
 				"x" : 1,
 				"y" : 1,
@@ -13,7 +13,7 @@
 			}
 		},
 		"Inventory" : {
-			"ResourcePath" : "Sprites/Ship/Components/Steel_Inventory",
+			"ResourcePath" : "Sprites/Ship/Components/Tile/Steel_Inventory"
 		}
 	}
 }

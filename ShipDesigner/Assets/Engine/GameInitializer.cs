@@ -3,12 +3,13 @@ using View;
 using Workshop.Grid;
 using UI;
 
-namespace ShipDesigner
+namespace Engine
 {
 	class GameInitializer : MonoBehaviour
 	{
 		void Start()
 		{
+			GameDataFactory.BuildGameData();
 			GridFactory.InitializeGrid();
 			CameraFactory.BuildCamera();
 			UIFactory.BuildUI();

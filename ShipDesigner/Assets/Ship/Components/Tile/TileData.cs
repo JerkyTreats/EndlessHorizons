@@ -21,9 +21,15 @@ namespace Ships.Components
 		MaterialData m_inventorySpriteData;
 		MaterialData m_spriteData;
 
-		public TileData(string tileName)
+		public string Name { get { return m_name; } }
+		public float Weight { get { return m_weight; } }
+		public float Durability { get { return m_durability; } }
+		public float Cost { get { return m_cost; } }
+		public MaterialData MainSpriteData { get { return m_spriteData; } }
+
+		public TileData(string tileJsonPath)
 		{
-			JsonValues = JSONTools.GetJSONNode(GetPath(tileName));
+			JsonValues = JSONTools.GetJSONNode(tileJsonPath);
 			SetName();
 			SetWeight();
 			SetDurability();
@@ -100,8 +106,6 @@ namespace Ships.Components
 			};
 		}
 
-
-
 		private void SetCost()
 		{
 			m_cost = JsonValues["Cost"].AsFloat;
@@ -120,11 +124,6 @@ namespace Ships.Components
 		void SetName()
 		{
 			m_name = JsonValues["Name"].Value;
-		}
-
-		string GetPath(string tileName)
-		{
-			return Common.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Ship", "Components", tileName);
 		}
 	}
 }

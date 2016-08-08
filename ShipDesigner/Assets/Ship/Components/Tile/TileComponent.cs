@@ -5,11 +5,17 @@ namespace Ships.Components
 {
 	public class TileComponent : MonoBehaviour, IInventoryItem
 	{
-		TileController controller;
+		TileController Controller;
+
+		public void SetController (TileController controller)
+		{
+			Controller = controller;
+		}
 
 		public Sprite GetUISprite()
 		{
-			return controller.InventorySprite;
+			return null;
+			//return Controller.InventorySprite;
 		}
 
 		public GameObject SpawnItem()

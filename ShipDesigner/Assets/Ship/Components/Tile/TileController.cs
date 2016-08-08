@@ -1,5 +1,6 @@
 using Workshop.Inventory;
 using UnityEngine;
+using Engine;
 
 namespace Ships.Components
 {
@@ -7,14 +8,23 @@ namespace Ships.Components
 	{
 		IInventoryItem m_iInventoryItem;
 
-		Sprite m_inventorySprite;
-		Sprite m_sprite;
+		MaterialData m_inventorySpriteData;
+		MaterialData m_spriteData;
 
+		public string Name { get; set; }
 		public float Weight { get; set; }
-		public int Durability { get; set; }
+		public float Durability { get; set; }
 		public float Cost { get; set; }
 
-		public Sprite InventorySprite { get { return m_inventorySprite; } }
-		public Sprite Sprite { get { return m_sprite; } }
+		public MaterialData Sprite { get { return m_spriteData; } }
+
+		public TileController(string name, float weight, float durability, float cost, MaterialData mainSprite)
+		{
+			Name = name;
+			Weight = weight;
+			Durability = durability;
+			Cost = cost;
+			m_spriteData = mainSprite;
+		}
 	}
 }
