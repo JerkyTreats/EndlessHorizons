@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Utility;
 using UnityEngine;
+using UI;
 
 namespace Ships.Components
 {
@@ -13,15 +14,15 @@ namespace Ships.Components
 		float m_durability;
 		float m_cost;
 
-		string m_inventorySpritePath;
-		MaterialData m_spriteData;
+		InventoryItem m_inventoryItem;
+		Quad m_spriteData;
 
 		public string Name { get { return m_name; } }
 		public float Weight { get { return m_weight; } }
 		public float Durability { get { return m_durability; } }
 		public float Cost { get { return m_cost; } }
-		public MaterialData MainSpriteData { get { return m_spriteData; } }
-		public string InventorySpritePath {  get { return m_inventorySpritePath; } }
+		public Quad MainSpriteData { get { return m_spriteData; } }
+		public InventoryItem InventoryItem {  get { return m_inventoryItem; } }
 
 		public TileData(string tileJsonPath)
 		{
@@ -31,7 +32,7 @@ namespace Ships.Components
 			SetDurability();
 			SetCost();
 			SetMainSprite();
-			SetInventorySprite();
+			SetInventoryItem();
 		}
 
 		private void SetCost()
@@ -54,70 +55,23 @@ namespace Ships.Components
 			m_name = JsonValues["Name"].Value;
 		}
 
-		private void SetInventorySprite()
+		private void SetInventoryItem()
 		{
-			m_inventorySpritePath = JsonValues["Sprite"]["Inventory"]["Texture"].Value;
+			m_inventoryItem = new InventoryItem(JsonValues["Sprite"]["Inventory"]["Texture"].Value, new Quad(JsonValues["Sprite"]["Inventory"]["Texture"]));
 		}
 
 		private void SetMainSprite()
 		{
-			var main = JsonValues["Sprite"]["Main"];
-			var inventory = JsonValues["Sprite"]["Inventory"];
-
-			Vector3[] vertices = GetVertices(main);
-			Vector3[] normals = GetNormals();
-			Vector2[] uvs = GetUVs();
-			int[] tris = GetTris();
-
-			m_spriteData = new MaterialData(
-				main["Texture"].Value,
-				vertices,
-				normals,
-				uvs,
-				tris
-			);
+			m_spriteData = BuildQuad(JsonValues["Sprite"]["Main"]);
 		}
 
-		private int[] GetTris()
+		private Quad BuildQuad(JSONNode node)
 		{
-			return new int[6]
-			{
-				0, 1, 2,
-				0, 2, 3
-			};
-		}
+			Quad quad = new Quad(node["Texture"]);
 
-		private Vector2[] GetUVs()
-		{
-			return new Vector2[4]
-			{
-				new Vector2(),
-				new Vector2(0,1),
-				new Vector2(1,1),
-				new Vector2(1,0),
-			};
-		}
-
-		private Vector3[] GetNormals()
-		{
-			return new Vector3[4]
-			{
-				-Vector3.forward,
-				-Vector3.forward,
-				-Vector3.forward,
-				-Vector3.forward
-			};
-		}
-
-		private static Vector3[] GetVertices(JSONNode node)
-		{
-			return new Vector3[4]
-			{
-				new Vector3(),
-				new Vector3(0, node["MaxSize"]["y"].AsFloat),
-				new Vector3(node["MaxSize"]["x"].AsFloat, node["MaxSize"]["y"].AsFloat),
-				new Vector3(node["MaxSize"]["x"].AsFloat,0),
-			};
+			m_spriteData = new Quad(node["Texture"].Value);
+			m_spriteData.SetVertices(new Vector3(), new Vector3(node["MaxSize"]["x"].AsFloat, node["MaxSize"]["y"].AsFloat));
+			return quad;
 		}
 	}
 }

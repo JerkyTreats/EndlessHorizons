@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Engine.Utility;
 
 namespace Workshop.Grid
 {
@@ -13,7 +12,7 @@ namespace Workshop.Grid
 		{
 			this.controller = controller;
 			transform.position = controller.StartLocation;
-			Util.RenderMesh(gameObject, controller.MaterialData);
+			controller.Quad.RenderQuad(gameObject);
 		}
 
 

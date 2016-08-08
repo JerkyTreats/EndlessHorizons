@@ -8,17 +8,17 @@ namespace Ships.Components
 	{
 		IInventoryItem m_iInventoryItem;
 
-		MaterialData m_inventorySpriteData;
-		MaterialData m_spriteData;
+		Quad m_inventorySpriteData;
+		Quad m_spriteData;
 
 		public string Name { get; set; }
 		public float Weight { get; set; }
 		public float Durability { get; set; }
 		public float Cost { get; set; }
 
-		public MaterialData Sprite { get { return m_spriteData; } }
+		public Quad Sprite { get { return m_spriteData; } }
 
-		public TileController(string name, float weight, float durability, float cost, MaterialData mainSprite)
+		public TileController(string name, float weight, float durability, float cost, Quad mainSprite)
 		{
 			Name = name;
 			Weight = weight;

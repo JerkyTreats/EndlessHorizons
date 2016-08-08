@@ -4,6 +4,7 @@ using Engine.Utility;
 using UnityEngine;
 using Engine;
 using System.Collections.Generic;
+using System;
 
 namespace Workshop.Grid
 {
@@ -17,21 +18,15 @@ namespace Workshop.Grid
 		Vector3 m_tileStartLocation;
 		int m_gridCountX;
 		int m_gridCountY;
-		MaterialData m_spriteData;
-
-		Vector3[] m_vertices;
-		Vector2[] m_uvs;
-		Vector3[] m_normals;
+		Quad m_quad;
 
 		public GridData()
 		{
 			JsonValues = JSONTools.GetJSONNode(GetGridInformationPath());
 			SetStartLocation();
 			SetTileCount();
-			m_spriteData = new MaterialData(GetStringFromJson("SpritePath"), GetVertices(), GetNormals(), GetUVs(), GetTriangles());
+			SetQuad();
 		}
-
-
 
 		private void SetStartLocation()
 		{
@@ -49,53 +44,12 @@ namespace Workshop.Grid
 			m_gridCountY = JsonValues[JSON_ROOT_NODE]["TileCount"]["y"].AsInt;
 		}
 
-		private Vector3[] GetVertices()
+		private void SetQuad()
 		{
-			List<Vector3> verts = new List<Vector3>();
+			m_quad = new Quad(GetStringFromJson("SpritePath"));
 
-			string node = "BackgroundPlane";
-			string vectorNode = "Vector3";
-			for (int i = 0; i < 4; i++)
-			{
-				verts.Add(new Vector3(
-					JsonValues[JSON_ROOT_NODE][node][i][vectorNode]["x"].AsFloat,
-					JsonValues[JSON_ROOT_NODE][node][i][vectorNode]["y"].AsFloat,
-					JsonValues[JSON_ROOT_NODE][node][i][vectorNode]["z"].AsFloat
-				));
-			}
-			return verts.ToArray();
-		}
-
-		Vector2[] GetUVs()
-		{
-			Vector2 bottomLeft = new Vector2();
-			Vector2 topLeft = new Vector2(0, TileCountY );
-			Vector2 topRight = new Vector2(TileCountX, TileCountY);
-			Vector2 bottomRight = new Vector2(TileCountX, 0);
-
-			return new Vector2[] { bottomLeft, topLeft, topRight, bottomRight }; 
-		}
-
-		Vector3[] GetNormals()
-		{
-			Vector3[] normals = new Vector3[4];
-
-			normals[0] = -Vector3.forward;
-			normals[1] = -Vector3.forward;
-			normals[2] = -Vector3.forward;
-			normals[3] = -Vector3.forward;
-
-			return normals;
-		}
-
-		private int[] GetTriangles()
-		{
-			return new int[]
-			{
-				0, 1, 2,
-				0, 2, 3
-			};
-
+			m_quad.SetVertices(new Vector3(), new Vector3(m_gridCountX, m_gridCountY));
+			m_quad.SetUVs(new Vector2(), new Vector2(TileCountX, TileCountY));
 		}
 
 		private string GetGridInformationPath()
@@ -116,11 +70,6 @@ namespace Workshop.Grid
 		public Vector3 TileStartLocation { get { return m_tileStartLocation; } }
 		public int TileCountX { get { return m_gridCountX; } }
 		public int TileCountY { get { return m_gridCountY; } }
-		public MaterialData MaterialData { get { return m_spriteData; } }
-
-		public Vector3[] Vertices { get { return m_vertices; } }
-		public Vector2[] UVs { get { return m_uvs; } }
-		public Vector3[] Normals { get { return m_normals; } }
-
+		public Quad Quad { get { return m_quad; } }
 	}
 }

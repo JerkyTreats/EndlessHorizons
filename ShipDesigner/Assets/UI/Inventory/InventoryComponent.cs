@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Engine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -21,8 +23,14 @@ namespace UI
 
 		void FillInventory()
 		{
-			List<Sprite> inventorySprites = Controller.GetInventorySprites();
-
+			List<InventoryItem> inventoryItems = Controller.GetInventorySprites();
+			for (int i = 0; i < inventoryItems.Count; i++)
+			{
+				InventoryItem item = inventoryItems[i];
+				GameObject inventoryItem = new GameObject(item.Name);
+				item.Quad.RenderQuad(inventoryItem);
+				inventoryItem.transform.position = Controller.GetInventoryItemPosition(i);
+			}
 		}
 	}
 }

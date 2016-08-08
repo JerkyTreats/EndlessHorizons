@@ -11,7 +11,7 @@ namespace Workshop.Grid
 			GameObject grid = new GameObject(GRID_OBJECT_NAME);
 			GridComponent component = grid.AddComponent<GridComponent>();
 			GridData data = new GridData();
-			GridController controller = new GridController(data.TileCountX, data.TileCountY, data.TileStartLocation, data.MaterialData);
+			GridController controller = new GridController(data.TileCountX, data.TileCountY, data.TileStartLocation, data.Quad);
 			component.SetController(controller);
 		}
 	}

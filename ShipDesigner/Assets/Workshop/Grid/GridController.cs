@@ -9,16 +9,16 @@ namespace Workshop.Grid
 		private Vector3 m_startLocation = new Vector3();
 		private int m_tileCountX;
 		private int m_tileCountY;
-		private MaterialData m_materialData;
+		private Quad quad;
 
 		private List<Vector3> m_tiles;
 
-		public GridController(int x, int y, Vector3 startLocation, MaterialData materialData)
+		public GridController(int x, int y, Vector3 startLocation, Quad quad)
 		{
 			m_tileCountX = x;
 			m_tileCountY = y;
 			m_startLocation = startLocation;
-			m_materialData = materialData;
+			this.quad = quad;
 
 			GenerateTileList();
 		}
@@ -26,8 +26,8 @@ namespace Workshop.Grid
 		public void GenerateTileList()
 		{
 			m_tiles = new List<Vector3>();
-			float width = m_materialData.Vertices[2].x / m_materialData.UVs[2].x;
-			float height = m_materialData.Vertices[2].y / m_materialData.UVs[2].y;
+			float width = quad.Vertices[2].x / quad.UVs[2].x;
+			float height = quad.Vertices[2].y / quad.UVs[2].y;
 
 			for (int x = 0; x < m_tileCountX; x++)
 			{
@@ -43,6 +43,6 @@ namespace Workshop.Grid
 
 		public Vector3 StartLocation { get { return m_startLocation; } }
 		public List<Vector3> TilePositions { get { return m_tiles; } }
-		public MaterialData MaterialData { get { return m_materialData; } }
+		public Quad Quad { get { return quad; } }
 	}
 }
