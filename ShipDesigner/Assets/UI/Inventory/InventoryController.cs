@@ -10,19 +10,11 @@ namespace UI
 	public class InventoryController
 	{
 		static float INVENTORY_SPRITE_SIZE = 0.64f;
+		static float INVENTORY_PADDING = 0.05f;
 		Vector2[] centerArea = new Vector2[4]; 
 
-		public InventoryController(Vector2 min, Vector2 max)
+		public InventoryController()
 		{
-			SetCenterArea(min, max);
-		}
-
-		void SetCenterArea(Vector2 min, Vector2 max)
-		{
-			centerArea[0] = min;
-			centerArea[1] = new Vector2(min.x, max.y);
-			centerArea[2] = max;
-			centerArea[3] = new Vector2(max.x, min.y);
 		}
 
 		public List<InventoryItem> GetInventorySprites()
@@ -41,6 +33,10 @@ namespace UI
 
 		public Vector3 GetInventoryItemPosition(int index)
 		{
+			float startX = centerArea[1].x + INVENTORY_PADDING;
+			float endX = centerArea[2].x + INVENTORY_PADDING;
+
+
 			return new Vector3();
 		}
 	}
