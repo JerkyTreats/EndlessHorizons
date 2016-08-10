@@ -11,13 +11,26 @@ namespace UI
 	{
 		static float INVENTORY_SPRITE_SIZE = 0.64f;
 		static float INVENTORY_PADDING = 0.05f;
-		Vector2[] centerArea = new Vector2[4]; 
+		RectTransform Parent;
 
-		public InventoryController()
+		public InventoryController(GameObject parent)
 		{
+			Parent = parent.GetComponent<RectTransform>();
 		}
 
-		public List<InventoryItem> GetInventorySprites()
+		public void FillInventory()
+		{
+			List<InventoryItem> inventoryItems = GetInventorySprites();
+			for (int i = 0; i < inventoryItems.Count; i++)
+			{
+				InventoryItem item = inventoryItems[i];
+
+				//item.Quad.RenderQuad(inventoryItem);
+				//inventoryItem.transform.position = GetInventoryItemPosition(i);
+			}
+		}
+
+		List<InventoryItem> GetInventorySprites()
 		{
 			List<InventoryItem> inventoryItems = new List<InventoryItem>();
 			TileDataRepository data = GameData.Instance.Components.TileData;
@@ -31,12 +44,8 @@ namespace UI
 			return inventoryItems;
 		}
 
-		public Vector3 GetInventoryItemPosition(int index)
+		Vector3 GetInventoryItemPosition(int index)
 		{
-			float startX = centerArea[1].x + INVENTORY_PADDING;
-			float endX = centerArea[2].x + INVENTORY_PADDING;
-
-
 			return new Vector3();
 		}
 	}

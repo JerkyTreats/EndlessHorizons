@@ -10,27 +10,10 @@ namespace UI
 	{
 		InventoryController Controller;
 
-		void Start()
-		{
-
-		}
-
 		public void SetController(InventoryController controller)
 		{
 			Controller = controller;
-			FillInventory();
-		}
-
-		void FillInventory()
-		{
-			List<InventoryItem> inventoryItems = Controller.GetInventorySprites();
-			for (int i = 0; i < inventoryItems.Count; i++)
-			{
-				InventoryItem item = inventoryItems[i];
-				GameObject inventoryItem = new GameObject(item.Name);
-				item.Quad.RenderQuad(inventoryItem);
-				inventoryItem.transform.position = Controller.GetInventoryItemPosition(i);
-			}
+			Controller.FillInventory();
 		}
 	}
 }
