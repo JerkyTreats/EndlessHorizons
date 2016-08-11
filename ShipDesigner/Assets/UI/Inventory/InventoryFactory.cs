@@ -14,7 +14,7 @@ namespace UI
 		{
 			GameObject panel = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/InventoryPanel"));
 			panel.name = "InventoryPanel";
-			panel.transform.parent = canvas.transform;
+			panel.transform.SetParent(canvas.transform);
 			SetStartPosition(panel);
 			BuildPanelSelectionArea(panel);
 			var scrollRect = BuildInventoryArea(panel);
