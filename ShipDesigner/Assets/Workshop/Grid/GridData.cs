@@ -22,7 +22,7 @@ namespace Workshop.Grid
 
 		public GridData()
 		{
-			JsonValues = JSONTools.GetJSONNode(GetGridInformationPath());
+			JsonValues = JSONTools.GetJSONNode(Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Workshop", "Grid", FILE_NAME));
 			SetStartLocation();
 			SetTileCount();
 			SetQuad();
@@ -46,25 +46,10 @@ namespace Workshop.Grid
 
 		private void SetQuad()
 		{
-			m_quad = new Quad(GetStringFromJson("SpritePath"));
-
+			string texturePath = JsonValues[JSON_ROOT_NODE]["BackgroundPlane"]["SpritePath"].Value;
+			m_quad = new Quad(texturePath);
 			m_quad.SetVertices(new Vector3(), new Vector3(m_gridCountX, m_gridCountY));
 			m_quad.SetUVs(new Vector2(), new Vector2(TileCountX, TileCountY));
-		}
-
-		private string GetGridInformationPath()
-		{
-			return Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Workshop", "Grid", FILE_NAME);
-		}
-
-		private float GetFloatFromJson(string value)
-		{
-			return JsonValues[JSON_ROOT_NODE][value].AsFloat;
-		}
-
-		private string GetStringFromJson(string value)
-		{
-			return JsonValues[JSON_ROOT_NODE][value].Value;
 		}
 
 		public Vector3 TileStartLocation { get { return m_tileStartLocation; } }

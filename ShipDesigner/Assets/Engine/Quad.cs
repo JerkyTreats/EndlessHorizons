@@ -23,8 +23,6 @@ namespace Engine
 		public Quad(string resourcePath, Vector3[] vertices, Vector3[] normals, Vector2[] uvs, int[] tris)
 		{
 			m_texture = LoadTexture(resourcePath);
-			if (m_texture != null)
-				m_texture.wrapMode = TextureWrapMode.Repeat;
 			m_normals = normals;
 			m_vertices = vertices;
 			m_uvs = uvs;
@@ -38,7 +36,11 @@ namespace Engine
 		public void RenderQuad(GameObject gameObject)
 		{
 			var renderer = gameObject.AddComponent<MeshRenderer>();
-			renderer.material.mainTexture = m_texture;
+			Material material = renderer.material;
+			material.name = string.Format("Material_{0}", gameObject.name);
+			material.mainTexture = m_texture;
+
+			renderer.material = material;
 
 			Mesh mesh = new Mesh();
 			mesh.vertices = m_vertices;
@@ -49,21 +51,6 @@ namespace Engine
 			var meshFilter = gameObject.AddComponent<MeshFilter>();
 			meshFilter.mesh = mesh;
 			mesh.RecalculateNormals();
-		}
-
-		public float Width
-		{
-			get
-			{
-				return m_vertices[2].x / m_uvs[2].x;
-			}
-		}
-		public float Height
-		{
-			get
-			{
-				return m_vertices[2].y / m_uvs[2].y;
-			}
 		}
 
 		/// <summary>
@@ -100,8 +87,12 @@ namespace Engine
 
 		Texture LoadTexture(string resourcePath)
 		{
-			return Resources.Load<Texture>(resourcePath) as Texture;
+			Texture tex = Resources.Load<Texture>(resourcePath) as Texture;
+			if (tex != null)
+				tex.wrapMode = TextureWrapMode.Repeat;
+			return tex;
 		}
+
 		Vector3[] GetDefaultNormals()
 		{
 			Vector3[] normals = new Vector3[4];
@@ -144,9 +135,27 @@ namespace Engine
 		}
 
 		public Texture Texture { get { return m_texture; } }
+		public Texture2D Texture2D { get { return m_texture as Texture2D; } }
 		public Vector3[] Vertices {  get { return m_vertices; } }
 		public Vector3[] Normals {  get { return m_normals; } }
 		public Vector2[] UVs {  get { return m_uvs; } }
 		public int[] Triangles {  get { return m_tris; } }
+		public float UVMappingWidth
+		{
+			get
+			{
+				return m_vertices[2].x / m_uvs[2].x;
+			}
+		}
+		public float UVMappingHeight
+		{
+			get
+			{
+				return m_vertices[2].y / m_uvs[2].y;
+			}
+		}
+		public float Width { get { return Vertices[2].x - Vertices[0].x; } }
+		public float Height { get { return Vertices[2].y - Vertices[0].y; } }
+		public Rect Rect { get { return new Rect(0, 0, Width, Height); } }
 	}
 }

@@ -20,13 +20,21 @@ namespace UI
 
 		public void FillInventory()
 		{
+			Vector2 pivot = new Vector2(0, 1);
+			Vector2 spriteSize = new Vector2(INVENTORY_SPRITE_SIZE, INVENTORY_SPRITE_SIZE);
 			List<InventoryItem> inventoryItems = GetInventorySprites();
 			for (int i = 0; i < inventoryItems.Count; i++)
 			{
-				InventoryItem item = inventoryItems[i];
+				//= inventoryItems[i].Quad.Texture;
+				Vector2 position = GetInventoryItemPosition(i);
 
-				//item.Quad.RenderQuad(inventoryItem);
-				//inventoryItem.transform.position = GetInventoryItemPosition(i);
+				InventoryItem itemData = inventoryItems[i];
+				GameObject item = new GameObject(itemData.Name);
+				var image = item.AddComponent<Image>();
+
+				image.sprite = Sprite.Create(itemData.Quad.Texture2D, itemData.Quad.Rect, pivot, 1014f);
+
+					//Engine.UI.BuildUIObject(itemData.Name, Parent.gameObject, pivot, spriteSize, pivot, position);
 			}
 		}
 
@@ -44,9 +52,16 @@ namespace UI
 			return inventoryItems;
 		}
 
-		Vector3 GetInventoryItemPosition(int index)
+		Vector2 GetInventoryItemPosition(int index)
 		{
-			return new Vector3();
+			int  spritesPerRow = Convert.ToInt32(Math.Floor((Parent.sizeDelta.x - INVENTORY_PADDING) / (INVENTORY_SPRITE_SIZE + INVENTORY_PADDING)));
+			int tableRow = index / spritesPerRow;
+			int tableColumn = index % spritesPerRow;
+
+			float xPosition = INVENTORY_PADDING + (tableColumn * (INVENTORY_SPRITE_SIZE + INVENTORY_PADDING));
+			float yPosition = INVENTORY_PADDING + (tableRow * (INVENTORY_SPRITE_SIZE + INVENTORY_PADDING));
+
+			return new Vector2(xPosition, yPosition);
 		}
 	}
 }
