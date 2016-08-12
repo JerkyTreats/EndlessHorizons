@@ -56,10 +56,10 @@ namespace UI
 			Vector2 pivot = new Vector2(0, 1);
 			Vector2 position = new Vector2();
 
-			GameObject scrollContainer = Engine.UI.BuildUIObject("ScrollContainer", panel, anchor, sizeDelta, pivot, new Vector2());
+			GameObject scrollContainer = Engine.UI.BuildEmptyUIObject("ScrollContainer", panel, anchor, sizeDelta, pivot, new Vector2());
 			scrollContainer.AddComponent<ScrollRect>();
 
-			GameObject inventoryArea = Engine.UI.BuildUIObject("InventoryArea", scrollContainer, new Vector2(0,1), sizeDelta, pivot, position);
+			GameObject inventoryArea = Engine.UI.BuildEmptyUIObject("InventoryArea", scrollContainer, new Vector2(0,1), sizeDelta, pivot, position);
 
 			return inventoryArea;
 		}
