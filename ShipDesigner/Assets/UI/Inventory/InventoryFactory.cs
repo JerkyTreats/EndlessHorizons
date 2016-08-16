@@ -10,6 +10,36 @@ namespace UI
 			GameObject panel = BuildPanel(canvas);
 		}
 
+		public static GameObject BuildInventoryItemPanel(string name, Sprite sprite, Transform transform, Vector2 anchor, Vector2 spriteSize, Vector2 pivot, Vector2 position, Vector2 textSize)
+		{
+			GameObject inventoryItem = Engine.UI.BuildImageUIObject(name, sprite, transform, pivot, spriteSize, pivot, position);
+			AddText(name, inventoryItem.transform, textSize);
+
+			return inventoryItem;
+		}
+
+		private static void AddText(string name, Transform transform, Vector2 textSize)
+		{
+			GameObject textArea = new GameObject("Text");
+			textArea.transform.SetParent(transform);
+			Text text = textArea.AddComponent<Text>();
+
+			text.text = name;
+			text.verticalOverflow = VerticalWrapMode.Overflow;
+			text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+			text.alignment = TextAnchor.MiddleCenter;
+			text.resizeTextForBestFit = true;
+
+			Vector2 vector = new Vector2();
+			RectTransform rect = textArea.GetComponent<RectTransform>();
+			rect.anchorMin = vector;
+			rect.anchorMax = vector;
+			rect.sizeDelta = textSize;
+			vector.x = rect.sizeDelta.x / 2;
+			vector.y = ((rect.sizeDelta.y / 2) + 1f) * -1;
+			rect.anchoredPosition = vector;
+		}
+
 		private static GameObject BuildPanel(GameObject canvas)
 		{
 			GameObject panel = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/InventoryPanel"));

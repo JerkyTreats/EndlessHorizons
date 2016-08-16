@@ -131,7 +131,6 @@ namespace Engine
 				new Vector2(1,1),
 				new Vector2(1,0)
 			};
-
 		}
 
 		public Texture Texture { get { return m_texture; } }

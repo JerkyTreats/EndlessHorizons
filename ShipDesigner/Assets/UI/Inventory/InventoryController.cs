@@ -11,6 +11,7 @@ namespace UI
 	{
 		static float INVENTORY_SPRITE_SIZE = 32f;
 		static float INVENTORY_PADDING = 2.5f;
+		static float TEXT_AREA_DIVISION_AMOUNT = 4f;
 		RectTransform Parent;
 
 		public InventoryController(GameObject parent)
@@ -27,9 +28,9 @@ namespace UI
 			{
 				Vector2 position = GetInventoryItemPosition(i);
 				TileData itemData = inventoryItems[i];
-				Sprite sprite = Sprite.Create(itemData.InventoryItem.Quad.Texture2D, itemData.InventoryItem.Quad.Rect, pivot, 1014f);
-
-				Engine.UI.BuildImageUIObject(itemData.Name, sprite, Parent.transform, pivot, spriteSize, pivot, position);
+				Sprite sprite = Sprite.Create(itemData.InventoryItem.Quad.Texture2D, itemData.InventoryItem.Quad.Rect, pivot);
+				Vector2 textSize = new Vector2(spriteSize.x, spriteSize.y / TEXT_AREA_DIVISION_AMOUNT);
+				InventoryFactory.BuildInventoryItemPanel(itemData.Name, sprite, Parent.transform, pivot, spriteSize, pivot, position, textSize);
 			}
 		}
 
