@@ -1,0 +1,18 @@
+{
+	"SpriteSize" : {
+		"x" : 32.0,
+		"y" : 32.0
+	},
+	"Padding" : {
+		"x" : 2.5,
+		"y" : 2.5
+	},
+	"TextLabel" : {
+		"TextLabelDivisionAmount" : 4,
+		"Font" : "Arial",
+		"TextAnchor" : "MiddleCenter",
+		"VerticalWrapMode" : "Overflow",
+		"BestFit" : true
+	}
+
+}

@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UI.Inventory.Item;
+using Engine.UI;
+using Ships.Components;
 
-namespace UI
+namespace UI.Inventory
 {
 	public static class InventoryFactory
 	{
@@ -10,34 +13,28 @@ namespace UI
 			GameObject panel = BuildPanel(canvas);
 		}
 
-		public static GameObject BuildInventoryItemPanel(string name, Sprite sprite, Transform transform, Vector2 anchor, Vector2 spriteSize, Vector2 pivot, Vector2 position, Vector2 textSize)
+		/// <summary>
+		/// Build an Inventory Item UI image. Attaches to a parent RectTransform
+		/// </summary>
+		/// <param name="position"> Position of the image based on the pivot point </param>
+		/// <param name="tileData"> TileData object to populate image values </param>
+		/// <param name="transform"> Parent RectTransform of the image. Pivot is placed in relation to this objects size </param>
+		/// <returns></returns>
+		public static GameObject BuildInventoryItem(Vector2 position, TileData tileData, Transform transform)
 		{
-			GameObject inventoryItem = Engine.UI.BuildImageUIObject(name, sprite, transform, pivot, spriteSize, pivot, position);
-			AddText(name, inventoryItem.transform, textSize);
+			ItemData itemData = tileData.ItemData;
+			Sprite sprite = Sprite.Create(itemData.Quad.Texture2D, itemData.Quad.Rect, itemData.Pivot);
+			Vector2 textPanelSize = new Vector2(itemData.SpriteSize.x, itemData.SpriteSize.y / itemData.TextDivisionAmount);
+
+			GameObject inventoryItem = Common.BuildImageUIObject(tileData.Name, sprite, transform, itemData.Pivot, itemData.SpriteSize, itemData.Pivot, position);
+			ItemComponent component = inventoryItem.AddComponent<ItemComponent>();
+			ItemController itemController = new ItemController(itemData.TextData, textPanelSize);
+			inventoryItem.AddComponent<OnClick>();
+
+			component.SetController(itemController);
+			component.AddTextLabel();
 
 			return inventoryItem;
-		}
-
-		private static void AddText(string name, Transform transform, Vector2 textSize)
-		{
-			GameObject textArea = new GameObject("Text");
-			textArea.transform.SetParent(transform);
-			Text text = textArea.AddComponent<Text>();
-
-			text.text = name;
-			text.verticalOverflow = VerticalWrapMode.Overflow;
-			text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-			text.alignment = TextAnchor.MiddleCenter;
-			text.resizeTextForBestFit = true;
-
-			Vector2 vector = new Vector2();
-			RectTransform rect = textArea.GetComponent<RectTransform>();
-			rect.anchorMin = vector;
-			rect.anchorMax = vector;
-			rect.sizeDelta = textSize;
-			vector.x = rect.sizeDelta.x / 2;
-			vector.y = ((rect.sizeDelta.y / 2) + 1f) * -1;
-			rect.anchoredPosition = vector;
 		}
 
 		private static GameObject BuildPanel(GameObject canvas)
@@ -86,10 +83,10 @@ namespace UI
 			Vector2 pivot = new Vector2(0, 1);
 			Vector2 position = new Vector2();
 
-			GameObject scrollContainer = Engine.UI.BuildEmptyUIObject("ScrollContainer", panel, anchor, sizeDelta, pivot, new Vector2());
+			GameObject scrollContainer = Common.BuildEmptyUIObject("ScrollContainer", panel, anchor, sizeDelta, pivot, new Vector2());
 			scrollContainer.AddComponent<ScrollRect>();
 
-			GameObject inventoryArea = Engine.UI.BuildEmptyUIObject("InventoryArea", scrollContainer, new Vector2(0,1), sizeDelta, pivot, position);
+			GameObject inventoryArea = Common.BuildEmptyUIObject("InventoryArea", scrollContainer, new Vector2(0,1), sizeDelta, pivot, position);
 
 			return inventoryArea;
 		}

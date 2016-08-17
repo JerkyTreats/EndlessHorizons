@@ -2,7 +2,7 @@
 using Engine;
 using Engine.Utility;
 using UnityEngine;
-using UI;
+using UI.Inventory.Item;
 
 namespace Ships.Components
 {
@@ -14,7 +14,7 @@ namespace Ships.Components
 		float m_durability;
 		float m_cost;
 
-		InventoryItem m_inventoryItem;
+		ItemData m_itemData;
 		Quad m_spriteData;
 
 		public string Name { get { return m_name; } }
@@ -22,7 +22,7 @@ namespace Ships.Components
 		public float Durability { get { return m_durability; } }
 		public float Cost { get { return m_cost; } }
 		public Quad MainSpriteData { get { return m_spriteData; } }
-		public InventoryItem InventoryItem {  get { return m_inventoryItem; } }
+		public ItemData ItemData {  get { return m_itemData; } }
 
 		public TileData(string tileJsonPath)
 		{
@@ -32,7 +32,7 @@ namespace Ships.Components
 			SetDurability();
 			SetCost();
 			SetMainSprite();
-			SetInventoryItem();
+			SetItemData();
 		}
 
 		private void SetCost()
@@ -55,9 +55,9 @@ namespace Ships.Components
 			m_name = JsonValues["Name"].Value;
 		}
 
-		private void SetInventoryItem()
+		private void SetItemData()
 		{
-			m_inventoryItem = new InventoryItem(JsonValues["Sprite"]["Inventory"]["Texture"].Value, new Quad(JsonValues["Sprite"]["Inventory"]["Texture"]));
+			m_itemData = new ItemData(Name, new Quad(JsonValues["Sprite"]["Inventory"]["Texture"]));
 		}
 
 		private void SetMainSprite()

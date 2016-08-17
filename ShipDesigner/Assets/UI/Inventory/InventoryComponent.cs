@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using Engine;
-using UnityEngine.UI;
 
-namespace UI
+namespace UI.Inventory
 {
 	public class InventoryComponent : MonoBehaviour
 	{
