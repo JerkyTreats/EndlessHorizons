@@ -1,4 +1,3 @@
-using Workshop.Inventory;
 using UnityEngine;
 using Engine;
 
@@ -6,9 +5,6 @@ namespace Ships.Components
 {
 	public class TileController 
 	{
-		IInventoryItem m_iInventoryItem;
-
-		Quad m_inventorySpriteData;
 		Quad m_spriteData;
 
 		public string Name { get; set; }

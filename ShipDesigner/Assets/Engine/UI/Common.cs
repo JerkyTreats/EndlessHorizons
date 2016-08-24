@@ -6,11 +6,6 @@ namespace Engine.UI
 {
 	public static class Common
 	{
-		public static T ParseEnum<T>(string value)
-		{
-			return (T)Enum.Parse(typeof(T), value, true);
-		}	
-
 		public static GameObject BuildEmptyUIObject(string name, GameObject parent, Vector2 anchor, Vector2 sizeDelta, Vector2 pivot, Vector2 position)
 		{
 			GameObject uiObject = new GameObject(name);

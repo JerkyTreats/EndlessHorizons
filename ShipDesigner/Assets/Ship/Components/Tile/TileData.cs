@@ -57,7 +57,8 @@ namespace Ships.Components
 
 		private void SetItemData()
 		{
-			m_itemData = new ItemData(Name, new Quad(JsonValues["Sprite"]["Inventory"]["Texture"]));
+			string path = JsonValues["Sprite"]["Inventory"]["Texture"].Value;
+			m_itemData = new ItemData(Name, path);
 		}
 
 		private void SetMainSprite()

@@ -13,30 +13,6 @@ namespace UI.Inventory
 			GameObject panel = BuildPanel(canvas);
 		}
 
-		/// <summary>
-		/// Build an Inventory Item UI image. Attaches to a parent RectTransform
-		/// </summary>
-		/// <param name="position"> Position of the image based on the pivot point </param>
-		/// <param name="tileData"> TileData object to populate image values </param>
-		/// <param name="transform"> Parent RectTransform of the image. Pivot is placed in relation to this objects size </param>
-		/// <returns></returns>
-		public static GameObject BuildInventoryItem(Vector2 position, TileData tileData, Transform transform)
-		{
-			ItemData itemData = tileData.ItemData;
-			Sprite sprite = Sprite.Create(itemData.Quad.Texture2D, itemData.Quad.Rect, itemData.Pivot);
-			Vector2 textPanelSize = new Vector2(itemData.SpriteSize.x, itemData.SpriteSize.y / itemData.TextDivisionAmount);
-
-			GameObject inventoryItem = Common.BuildImageUIObject(tileData.Name, sprite, transform, itemData.Pivot, itemData.SpriteSize, itemData.Pivot, position);
-			ItemComponent component = inventoryItem.AddComponent<ItemComponent>();
-			ItemController itemController = new ItemController(itemData.TextData, textPanelSize);
-			inventoryItem.AddComponent<OnClick>();
-
-			component.SetController(itemController);
-			component.AddTextLabel();
-
-			return inventoryItem;
-		}
-
 		private static GameObject BuildPanel(GameObject canvas)
 		{
 			GameObject panel = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/InventoryPanel"));

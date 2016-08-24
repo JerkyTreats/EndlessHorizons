@@ -1,34 +1,32 @@
-﻿using Engine;
-using Engine.UI;
+﻿using Engine.UI;
 using Engine.Utility;
 using System.IO;
 using SimpleJSON;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI.Inventory.Item
 {
 	public class ItemData
 	{
 		static string FILE_NAME = "ItemData.json";
-		Vector2 m_spriteSize;
 		float m_textDivisionAmount;
 		Vector2 m_pivot = new Vector2(0, 1);
+		Vector2 m_itemSize;
+		Sprite m_sprite;
 
 		public string Name { get; set; }
-		public Quad Quad { get; set; }
 		public TextData TextData { get; set; }
-		public Vector2 SpriteSize {  get { return m_spriteSize; } }
 		public float TextDivisionAmount { get { return m_textDivisionAmount; } }
-		public Vector2 Pivot { get { return m_pivot;  } }
+		public Vector2 ItemSize { get { return m_itemSize; } }
+		public Sprite Sprite {  get { return m_sprite; } }
+		public Vector2 Pivot { get { return m_pivot; } }
 
-		public ItemData(string name, Quad quad)
+		public ItemData(string name, string spritePath)
 		{
 			Name = name;
-			Quad = quad;
-			TextData = new TextData();
 			SetTextData();
-			SetSprite();
+			SetItemSize();
+			SetSprite(spritePath);
 		}
 
 		private JSONNode GetJsonNode()
@@ -39,23 +37,29 @@ namespace UI.Inventory.Item
 
 		private void SetTextData()
 		{
+			TextData = new TextData();
 			JSONNode node = GetJsonNode()["TextLabel"];
 
 			TextData.Text = Name;
 			TextData.Font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
-			TextData.TextAnchor = Common.ParseEnum<TextAnchor>(node["TextAnchor"].Value);
-			TextData.VerticalWrapMode = Common.ParseEnum<VerticalWrapMode>(node["VerticalWrapMode"]);
+			TextData.TextAnchor = Util.ParseEnum<TextAnchor>(node["TextAnchor"].Value);
+			TextData.VerticalWrapMode = Util.ParseEnum<VerticalWrapMode>(node["VerticalWrapMode"]);
 			TextData.BestFit = node["BestFit"].AsBool;
 
 			m_textDivisionAmount = node["TextLabelDivisionAmount"].AsFloat;
 		}
 
-		private void SetSprite()
+		private void SetSprite(string spritePath)
+		{
+			m_sprite = Engine.Common.BuildSprite(spritePath, new Vector2(0.5f, 0.5f));
+		}
+
+		private void SetItemSize()
 		{
 			JSONNode node = GetJsonNode()["SpriteSize"];
 			float width = node["x"].AsFloat;
 			float length = node["y"].AsFloat;
-			m_spriteSize = new Vector2(width, length);
+			m_itemSize = new Vector2(width, length);
 		}
 	}
 }

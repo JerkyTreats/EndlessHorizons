@@ -21,15 +21,15 @@ namespace UI.Inventory
 
 		public void FillInventory()
 		{
-			List<TileData> inventoryItems = GetInventorySprites();
+			List<TileData> inventoryItems = GetAllTileData();
 			for (int i = 0; i < inventoryItems.Count; i++)
 			{
 				Vector2 position = GetInventoryItemPosition(i);
-				InventoryFactory.BuildInventoryItem(position, inventoryItems[i], Parent);
+				ItemFactory.BuildInventoryItem(inventoryItems[i].Name, position, inventoryItems[i].ItemData, Parent);
 			}
 		}
 
-		List<TileData> GetInventorySprites()
+		List<TileData> GetAllTileData()
 		{
 			List<TileData> inventoryItems = new List<TileData>();
 			TileDataRepository data = GameData.Instance.Components.TileData;

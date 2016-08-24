@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
+using System;
 
 namespace Engine.Utility
 {
@@ -19,5 +20,17 @@ namespace Engine.Utility
 			}
 			return path;
 		}
+
+		/// <summary>
+		/// Converts string into Enum
+		/// </summary>
+		/// <typeparam name="T">Enum to look for value</typeparam>
+		/// <param name="value">string Value to convert to Enum value</param>
+		/// <returns></returns>
+		public static T ParseEnum<T>(string value)
+		{
+			return (T)Enum.Parse(typeof(T), value, true);
+		}
+
 	}
 }

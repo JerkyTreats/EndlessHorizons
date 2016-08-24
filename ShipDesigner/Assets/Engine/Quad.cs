@@ -13,7 +13,7 @@ namespace Engine
  
 		public Quad(string resourcePath)
 		{
-			m_texture = LoadTexture(resourcePath);
+			m_texture = Common.LoadTexture(resourcePath);
 			m_vertices = GetDefaultVertices();
 			m_uvs = GetDefaultUVs();
 			m_normals = GetDefaultNormals();
@@ -22,7 +22,7 @@ namespace Engine
 
 		public Quad(string resourcePath, Vector3[] vertices, Vector3[] normals, Vector2[] uvs, int[] tris)
 		{
-			m_texture = LoadTexture(resourcePath);
+			m_texture = Common.LoadTexture(resourcePath);
 			m_normals = normals;
 			m_vertices = vertices;
 			m_uvs = uvs;
@@ -83,14 +83,6 @@ namespace Engine
 				new Vector2(max.x,max.y),
 				new Vector2(max.x,min.y)
 			};
-		}
-
-		Texture LoadTexture(string resourcePath)
-		{
-			Texture tex = Resources.Load<Texture>(resourcePath) as Texture;
-			if (tex != null)
-				tex.wrapMode = TextureWrapMode.Repeat;
-			return tex;
 		}
 
 		Vector3[] GetDefaultNormals()
@@ -155,6 +147,5 @@ namespace Engine
 		}
 		public float Width { get { return Vertices[2].x - Vertices[0].x; } }
 		public float Height { get { return Vertices[2].y - Vertices[0].y; } }
-		public Rect Rect { get { return new Rect(0, 0, Width, Height); } }
 	}
 }
