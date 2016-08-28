@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Engine;
 
 namespace Workshop.Grid
 {
@@ -13,6 +14,8 @@ namespace Workshop.Grid
 			GridData data = new GridData();
 			GridController controller = new GridController(data.TileCountX, data.TileCountY, data.TileStartLocation, data.Quad);
 			component.SetController(controller);
+
+			GameData.Instance.SetGrid(grid);
 		}
 	}
 }

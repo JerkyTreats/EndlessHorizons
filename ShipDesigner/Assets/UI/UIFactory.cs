@@ -21,6 +21,9 @@ namespace UI
 			canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
 			canvas.AddComponent<CanvasScaler>();
 			canvas.AddComponent<GraphicRaycaster>();
+
+			Engine.GameData.Instance.SetCanvas(canvasComponent);
+
 			return canvas;
 		}
 

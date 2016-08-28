@@ -7,19 +7,23 @@ namespace View
 	{
 		private CameraController controller;
 
-		void OnEnable()
-		{
-			controller.SetMovementController(this);
-		}
-
 		void FixedUpdate()
 		{
 			if (Input.GetButton("Horizontal"))
-				controller.MoveX(Input.GetAxis("Horizontal") * Time.deltaTime);
+			{
+				var input = Input.GetAxis("Horizontal") * Time.deltaTime;
+				controller.MoveX(input);
+			}
 			if (Input.GetButton("Vertical"))
-				controller.MoveY(Input.GetAxis("Vertical") * Time.deltaTime);
-			if(Input.GetButton("Mouse ScrollWheel"))
-				controller.MoveZ(Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime);
+			{
+				var input = Input.GetAxis("Vertical") * Time.deltaTime;
+				controller.MoveY(input);
+			}
+			if (Input.GetButton("Mouse ScrollWheel"))
+			{
+				var input = Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime;
+				controller.MoveZ(input);
+			}
 		}
 
 		public void MoveX(float value)
@@ -77,6 +81,7 @@ namespace View
 		public void SetController(CameraController controller)
 		{
 			this.controller = controller;
+			this.controller.SetMovementController(this);
 			transform.position = controller.Position;
 		}
 	}

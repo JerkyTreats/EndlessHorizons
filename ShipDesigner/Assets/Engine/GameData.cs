@@ -11,6 +11,8 @@ namespace Engine
 		private static readonly object m_padlock = new object();
 
 		public ComponentRepository Components;
+		public Canvas Canvas { get; set; }
+		public GameObject Grid { get; set; }
 
 		GameData()
 		{
@@ -30,16 +32,14 @@ namespace Engine
 			}
 		}
 
+		public void SetGrid(GameObject Grid)
+		{
+			this.Grid = Grid;
+		}
+
+		public void SetCanvas(Canvas Canvas)
+		{
+			this.Canvas = Canvas;
+		}
 	}
-
-
-	//public class GameData : MonoBehaviour
-	//{
-	//	ComponentRepository Components;
-
-	//	void Start()
-	//	{
-	//		Components = new ComponentRepository();
-	//	}
-	//}
 }

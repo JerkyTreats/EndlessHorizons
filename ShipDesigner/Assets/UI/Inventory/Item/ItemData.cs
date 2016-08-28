@@ -1,4 +1,5 @@
-﻿using Engine.UI;
+﻿using Engine;
+using Engine.UI;
 using Engine.Utility;
 using System.IO;
 using SimpleJSON;
@@ -9,10 +10,12 @@ namespace UI.Inventory.Item
 	public class ItemData
 	{
 		static string FILE_NAME = "ItemData.json";
+
 		float m_textDivisionAmount;
 		Vector2 m_pivot = new Vector2(0, 1);
 		Vector2 m_itemSize;
 		Sprite m_sprite;
+		Quad m_itemPreview;
 
 		public string Name { get; set; }
 		public TextData TextData { get; set; }
@@ -20,6 +23,7 @@ namespace UI.Inventory.Item
 		public Vector2 ItemSize { get { return m_itemSize; } }
 		public Sprite Sprite {  get { return m_sprite; } }
 		public Vector2 Pivot { get { return m_pivot; } }
+		public Quad ItemPreview { get { return m_itemPreview; } }
 
 		public ItemData(string name, string spritePath)
 		{
@@ -27,6 +31,7 @@ namespace UI.Inventory.Item
 			SetTextData();
 			SetItemSize();
 			SetSprite(spritePath);
+			SetItemPreviewData(spritePath);
 		}
 
 		private JSONNode GetJsonNode()
@@ -60,6 +65,12 @@ namespace UI.Inventory.Item
 			float width = node["x"].AsFloat;
 			float length = node["y"].AsFloat;
 			m_itemSize = new Vector2(width, length);
+		}
+
+		private void SetItemPreviewData(string spritePath)
+		{
+			m_itemPreview = new Quad(spritePath);
+			m_itemPreview.SetVertices(new Vector3(), new Vector3(1,1));
 		}
 	}
 }

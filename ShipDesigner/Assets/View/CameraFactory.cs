@@ -28,6 +28,7 @@ namespace View
 			cameraObject.SetActive(false);
 
 			cameraObject.AddComponent<Camera>();
+			cameraObject.tag = "MainCamera"; // sets Camera.main property
 			var camComponent = cameraObject.AddComponent<CameraComponent>();
 			camComponent.SetController(GetCameraController());
 			cameraObject.SetActive(true);
