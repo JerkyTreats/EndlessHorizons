@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UI.Inventory.Item;
-using Engine.UI;
-using Ships.Components;
 
 namespace UI.Inventory
 {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Engine.UI
+namespace UI
 {
 	public class TextData
 	{

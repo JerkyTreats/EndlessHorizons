@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Engine.UI
+namespace UI
 {
 	public static class Common
 	{
