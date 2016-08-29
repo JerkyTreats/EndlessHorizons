@@ -56,10 +56,10 @@ namespace UI.Inventory
 			Vector2 pivot = new Vector2(0, 1);
 			Vector2 position = new Vector2();
 
-			GameObject scrollContainer = Common.BuildEmptyUIObject("ScrollContainer", panel, anchor, sizeDelta, pivot, new Vector2());
+			GameObject scrollContainer = Common.BuildUIObject.BuildEmptyUIObject("ScrollContainer", panel, anchor, sizeDelta, pivot, new Vector2());
 			scrollContainer.AddComponent<ScrollRect>();
 
-			GameObject inventoryArea = Common.BuildEmptyUIObject("InventoryArea", scrollContainer, new Vector2(0,1), sizeDelta, pivot, position);
+			GameObject inventoryArea = Common.BuildUIObject.BuildEmptyUIObject("InventoryArea", scrollContainer, new Vector2(0,1), sizeDelta, pivot, position);
 
 			return inventoryArea;
 		}

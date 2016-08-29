@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.Common
 {
-	public static class Common
+	public static class BuildUIObject
 	{
 		public static GameObject BuildEmptyUIObject(string name, GameObject parent, Vector2 anchor, Vector2 sizeDelta, Vector2 pivot, Vector2 position)
 		{

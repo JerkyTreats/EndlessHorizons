@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace UI
 {
+	/// <summary>
+	/// Unity UI Text Object 
+	/// </summary>
 	public static class TextLabel
 	{
 

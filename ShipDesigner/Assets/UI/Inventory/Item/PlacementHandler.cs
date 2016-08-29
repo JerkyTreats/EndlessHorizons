@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using Engine;
-using System;
+using UI.Common;
 
 namespace UI.Inventory.Item
 {
@@ -27,12 +27,12 @@ namespace UI.Inventory.Item
 		{
 			TilePreview = new GameObject("Item_Preview");
 			Quad.RenderQuad(TilePreview);
-			TilePreview.transform.position = GetWorldPosition();
+			TilePreview.transform.position = GetTilePosition();
 		}
 
 		public void OnDrag(PointerEventData eventData)
 		{
-			TilePreview.transform.position = GetWorldPosition();
+			TilePreview.transform.position = GetTilePosition();
 		}
 
 		public void OnEndDrag(PointerEventData eventData)
@@ -41,43 +41,16 @@ namespace UI.Inventory.Item
 			//TilePreview = null;
 		}
 
-		//Converts Canvas UI object to WorldPosition
-		Vector3 GetWorldPosition()
+		private Vector3 GetTilePosition()
 		{
-			Camera camera = Camera.main;
-
-			Vector2 frustumSize = GetFrustumSize(camera);
-			Vector3 frustumOrigin = GetFrustumOriginInWorldSpace(camera, frustumSize.x, frustumSize.y);
-			Vector3 distanceOfMousePositionToFrustumOrigin = GetDistanceOfMousePositionToFrustumOrigin(frustumSize.x, frustumSize.y);
-			Vector3 GridLocation = frustumOrigin + distanceOfMousePositionToFrustumOrigin;
-			GridLocation.z = ZAxis;
-			//Debug.Log(string.Format(" GridLocation : [{2}], \n frustumOrigin : [{0}], \n distanceOfMousePosition : [{1}]", frustumOrigin, distanceOfMousePositionToFrustumOrigin, GridLocation));
-			return GridLocation;
+			Vector3 mousePositionInWorldSpace = UIToWorldSpaceConverter.GetWorldPosition(GetDistance());
+			mousePositionInWorldSpace.z = ZAxis;
+			return mousePositionInWorldSpace;
 		}
 
-		//blindly ripped from https://docs.unity3d.com/Manual/FrustumSizeAtDistance.html
-		private Vector2 GetFrustumSize(Camera camera)
+		private Vector3 GetDistance()
 		{
-			float frustumHeight = 2.0f * (camera.transform.position.z * -1) * Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
-			float frustumWidth = frustumHeight * camera.aspect;
-			return new Vector2(frustumWidth, frustumHeight);
-		}
-
-		//Distance from GridOrigin to LowerLeft point of frustum. 
-		private Vector3 GetFrustumOriginInWorldSpace(Camera camera, float frustumWidth, float frustumHeight)
-		{
-			Vector3 cameraDistanceToGridOrigin = camera.transform.position - Grid.transform.position;
-			float frustumOriginX = cameraDistanceToGridOrigin.x - (frustumWidth / 2);
-			float frustumOriginY = cameraDistanceToGridOrigin.y - (frustumHeight / 2);
-			return new Vector3(frustumOriginX, frustumOriginY);
-		}
-
-		//World unit amount of space between the mouse position and the frustum origin. 
-		private Vector3 GetDistanceOfMousePositionToFrustumOrigin(float frustumWidth, float frustumHeight)
-		{
-			float distanceOfButtonToFrustumX = frustumWidth * (Input.mousePosition.x / Screen.width);
-			float distanceOfButtonToFrustumY = frustumHeight * (Input.mousePosition.y / Screen.height);
-			return new Vector3(distanceOfButtonToFrustumX, distanceOfButtonToFrustumY);
+			return Camera.main.transform.position - Grid.transform.position;
 		}
 	}
 }

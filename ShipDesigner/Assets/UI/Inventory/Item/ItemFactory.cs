@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using UI;
-using Workshop.Grid;
+using UI.Common;
 
 namespace UI.Inventory.Item
 {
@@ -16,7 +15,7 @@ namespace UI.Inventory.Item
 		public static GameObject BuildInventoryItem(string name, Vector2 position, ItemData itemData, Transform parent)
 		{
 			Vector2 textPanelSize = new Vector2(itemData.ItemSize.x, itemData.ItemSize.y / itemData.TextDivisionAmount);
-			GameObject inventoryItem = Common.BuildImageUIObject(string.Format("{0}_Item", name), itemData.Sprite, parent, itemData.Pivot, itemData.ItemSize, itemData.Pivot, position);
+			GameObject inventoryItem = BuildUIObject.BuildImageUIObject(string.Format("{0}_Item", name), itemData.Sprite, parent, itemData.Pivot, itemData.ItemSize, itemData.Pivot, position);
 			TextLabel.BuildTextLabel(inventoryItem.transform, itemData.TextData, textPanelSize);
 			PlacementHandler placementHandler = inventoryItem.AddComponent<PlacementHandler>();
 			placementHandler.Quad = itemData.ItemPreview;
