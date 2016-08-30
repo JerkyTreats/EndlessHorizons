@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems;
 using Engine;
 using UI.Common;
+using Workshop.Grid;
 
 namespace UI.Inventory.Item
 {
@@ -43,14 +44,20 @@ namespace UI.Inventory.Item
 
 		private Vector3 GetTilePosition()
 		{
-			Vector3 mousePositionInWorldSpace = UIToWorldSpaceConverter.GetWorldPosition(GetDistance());
-			mousePositionInWorldSpace.z = ZAxis;
-			return mousePositionInWorldSpace;
+			Vector3 closestGridTile = GetClosestGridTile(UIToWorldSpaceConverter.GetWorldPosition(GetDistance()));
+			closestGridTile.z = ZAxis;
+			return closestGridTile;
 		}
 
 		private Vector3 GetDistance()
 		{
 			return Camera.main.transform.position - Grid.transform.position;
+		}
+
+		private Vector3 GetClosestGridTile(Vector3 inputVector)
+		{
+			GridComponent grid = Grid.GetComponent<GridComponent>();
+			return grid.GetClosestGridTile(inputVector);
 		}
 	}
 }
