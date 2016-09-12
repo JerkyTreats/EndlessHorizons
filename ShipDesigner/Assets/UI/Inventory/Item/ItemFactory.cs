@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UI.Common;
+using Ships.Components;
 
 namespace UI.Inventory.Item
 {
@@ -12,15 +13,32 @@ namespace UI.Inventory.Item
 		/// <param name="itemData"> ItemData object to populate image values </param>
 		/// <param name="parent"> Parent RectTransform of the image. Pivot is placed in relation to this objects size </param>
 		/// <returns></returns>
-		public static GameObject BuildInventoryItem(string name, Vector2 position, ItemData itemData, Transform parent)
+		public static GameObject BuildInventoryItem(TileData data, Vector2 position, Transform parent)
 		{
-			Vector2 textPanelSize = new Vector2(itemData.ItemSize.x, itemData.ItemSize.y / itemData.TextDivisionAmount);
-			GameObject inventoryItem = BuildUIObject.BuildImageUIObject(string.Format("{0}_Item", name), itemData.Sprite, parent, itemData.Pivot, itemData.ItemSize, itemData.Pivot, position);
-			TextLabel.BuildTextLabel(inventoryItem.transform, itemData.TextData, textPanelSize);
-			PlacementHandler placementHandler = inventoryItem.AddComponent<PlacementHandler>();
-			placementHandler.Quad = itemData.ItemPreview;
+			GameObject inventoryItem = BuildUIObject.BuildImageUIObject(string.Format("{0}_Item", data.Name), data.ItemData.Sprite, parent, data.ItemData.Pivot, data.ItemData.ItemSize, data.ItemData.Pivot, position);
+			SetItemController(data, inventoryItem);
+			SetTextLabel(data.ItemData, inventoryItem);
+			SetPlacementHandler(data.ItemData, inventoryItem);
 
 			return inventoryItem;
+		}
+
+		private static void SetItemController(TileData data, GameObject inventoryItem)
+		{
+			var component = inventoryItem.AddComponent<ItemComponent>();
+			component.SetController(new ItemController(data));
+		}
+
+		private static void SetTextLabel(ItemData itemData, GameObject inventoryItem)
+		{
+			Vector2 textPanelSize = new Vector2(itemData.ItemSize.x, itemData.ItemSize.y / itemData.TextDivisionAmount);
+			TextLabel.BuildTextLabel(inventoryItem.transform, itemData.TextData, textPanelSize);
+		}
+
+		private static void SetPlacementHandler(ItemData itemData, GameObject inventoryItem)
+		{
+			PlacementHandler placementHandler = inventoryItem.AddComponent<PlacementHandler>();
+			placementHandler.Quad = itemData.ItemPreview;
 		}
 	}
 }

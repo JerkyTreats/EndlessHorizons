@@ -8,6 +8,9 @@ namespace Ships.Components
 	public class ComponentRepository
 	{
 		public TileDataRepository TileData;
+		public RoomDataRepository RoomData;
+		public EquipmentDataRepository EquipmentData;
+		public DoorDataRepository DoorData;
 
 		public ComponentRepository()
 		{

@@ -25,7 +25,7 @@ namespace UI.Inventory
 			for (int i = 0; i < inventoryItems.Count; i++)
 			{
 				Vector2 position = GetInventoryItemPosition(i);
-				ItemFactory.BuildInventoryItem(inventoryItems[i].Name, position, inventoryItems[i].ItemData, Parent);
+				ItemFactory.BuildInventoryItem(inventoryItems[i], position, Parent);
 			}
 		}
 

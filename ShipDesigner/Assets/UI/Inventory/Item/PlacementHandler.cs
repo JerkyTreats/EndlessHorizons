@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using Engine;
 using UI.Common;
 using Workshop.Grid;
+using Ships.Components;
 
 namespace UI.Inventory.Item
 {
@@ -12,15 +13,15 @@ namespace UI.Inventory.Item
 	public class PlacementHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 	{
 		public Canvas Canvas;
-		public GameObject Grid;
+		public GridComponent Grid;
 		public float ZAxis { get; set; }
 		public Quad Quad { get; set; }
 		GameObject TilePreview;
 
 		void Start()
 		{
-			Grid = GameData.Instance.Grid;
-			ZAxis = Grid.GetComponent<Workshop.Grid.GridComponent>().ZAxisItemPlacement;
+			Grid = GameData.Instance.Grid.GetComponent<GridComponent>();
+			ZAxis = Grid.ZAxisItemPlacement;
 			Canvas = GameData.Instance.Canvas;
 		}
 
@@ -38,26 +39,22 @@ namespace UI.Inventory.Item
 
 		public void OnEndDrag(PointerEventData eventData)
 		{
-			//Destroy(TilePreview);
-			//TilePreview = null;
+			TileData data = gameObject.GetComponent<ItemComponent>().GetTileData();
+			GameObject builtItem = TileFactory.BuildTile(data);
+			builtItem.transform.position = GetTilePosition();
+
+			Destroy(TilePreview);
+			TilePreview = null;
+
 		}
 
 		private Vector3 GetTilePosition()
 		{
-			Vector3 closestGridTile = GetClosestGridTile(UIToWorldSpaceConverter.GetWorldPosition(GetDistance()));
-			closestGridTile.z = ZAxis;
-			return closestGridTile;
-		}
-
-		private Vector3 GetDistance()
-		{
-			return Camera.main.transform.position - Grid.transform.position;
-		}
-
-		private Vector3 GetClosestGridTile(Vector3 inputVector)
-		{
-			GridComponent grid = Grid.GetComponent<GridComponent>();
-			return grid.GetClosestGridTile(inputVector);
+			Vector3 vector = Camera.main.transform.position - Grid.transform.position;
+			vector = UIToWorldSpaceConverter.GetWorldPosition(vector);
+			vector = Grid.GetClosestGridTile(vector);
+			vector.z = ZAxis;
+			return vector;
 		}
 	}
 }

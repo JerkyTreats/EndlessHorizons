@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Engine
 {
+	/// <summary>
+	/// Holds cross-game data and references in a singleton class
+	/// </summary>
 	public class GameData
 	{
 		private static GameData m_instance;
@@ -19,6 +22,9 @@ namespace Engine
 			Components = new ComponentRepository();
 		}
 
+		/// <summary>
+		/// Singleton reference to the GameData instance
+		/// </summary>
 		public static GameData Instance
 		{
 			get
