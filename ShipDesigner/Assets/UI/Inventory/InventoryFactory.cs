@@ -7,7 +7,7 @@ namespace UI.Inventory
 	{
 		public static void BuildInventory(GameObject canvas)
 		{
-			GameObject panel = BuildPanel(canvas);
+			BuildPanel(canvas);
 		}
 
 		private static GameObject BuildPanel(GameObject canvas)

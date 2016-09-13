@@ -19,8 +19,6 @@ namespace Engine.Utility
 			StringBuilder randomizedString = new StringBuilder();
 			Random rnd = new Random();
 
-			List<char> returnArr  = new List<char>();
-		
 			foreach (char letter in arr)
 			{
 				if(vowels.IndexOf(letter)!=-1)

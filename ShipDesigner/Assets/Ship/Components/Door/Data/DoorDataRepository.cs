@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Engine;
 
 namespace Ships.Components
 {
-	public class DoorDataRepository
+	public class DoorDataRepository : DataRepository
 	{
 
 	}

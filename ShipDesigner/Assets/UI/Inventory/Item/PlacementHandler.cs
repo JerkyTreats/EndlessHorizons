@@ -16,6 +16,8 @@ namespace UI.Inventory.Item
 		public GridComponent Grid;
 		public float ZAxis { get; set; }
 		public Quad Quad { get; set; }
+		public GameObject SpawnObject { get; set; }
+
 		GameObject TilePreview;
 
 		void Start()
@@ -39,9 +41,10 @@ namespace UI.Inventory.Item
 
 		public void OnEndDrag(PointerEventData eventData)
 		{
-			TileData data = gameObject.GetComponent<ItemComponent>().GetTileData();
-			GameObject builtItem = TileFactory.BuildTile(data);
-			builtItem.transform.position = GetTilePosition();
+			GameObject instantiated = Instantiate(SpawnObject);
+			instantiated.name = SpawnObject.name;
+			instantiated.transform.position = GetTilePosition();
+			instantiated.SetActive(true);
 
 			Destroy(TilePreview);
 			TilePreview = null;

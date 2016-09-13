@@ -11,7 +11,6 @@ namespace UI.Inventory
 	{
 		static float INVENTORY_SPRITE_SIZE = 32f;
 		static float INVENTORY_PADDING = 2.5f;
-		static float TEXT_AREA_DIVISION_AMOUNT = 4f;
 		RectTransform Parent;
 
 		public InventoryController(GameObject parent)
@@ -21,11 +20,16 @@ namespace UI.Inventory
 
 		public void FillInventory()
 		{
+			FillTileInventory();
+		}
+
+		private void FillTileInventory()
+		{
 			List<TileData> inventoryItems = GetAllTileData();
 			for (int i = 0; i < inventoryItems.Count; i++)
 			{
 				Vector2 position = GetInventoryItemPosition(i);
-				ItemFactory.BuildInventoryItem(inventoryItems[i], position, Parent);
+				TileFactory.BuildInventoryItem(inventoryItems[i], Parent, position);
 			}
 		}
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,9 @@ namespace Ships.Components
 		public ComponentRepository()
 		{
 			TileData = new TileDataRepository();
+			RoomData = new RoomDataRepository();
+			EquipmentData = new EquipmentDataRepository();
+			DoorData = new DoorDataRepository();
 		}
 	}
 }
