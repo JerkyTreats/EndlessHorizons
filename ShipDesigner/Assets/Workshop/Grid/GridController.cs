@@ -14,6 +14,8 @@ namespace Workshop.Grid
 		private Quad m_quad;
 		private Vector2 m_tileSize;
 		private List<Tile> m_tiles;
+		private List<Vector3> m_occupiedTiles;
+		private Vector2 m_occupiedTilesSnappingSize;
 
 		#endregion
 		#region Public Variables
@@ -21,8 +23,10 @@ namespace Workshop.Grid
 		public Vector3 StartLocation { get { return m_startLocation; } }
 		public List<Tile> Tiles { get { return m_tiles; } }
 		public Quad Quad { get { return m_quad; } }
+		public List<Vector3> OccupiedTiles { get { return m_occupiedTiles; } }
 		
 		#endregion
+		
 		#region Public Methods
 
 		/// <summary>
@@ -33,7 +37,7 @@ namespace Workshop.Grid
 		/// <param name="startLocation">Starting position of the grid in world space</param>
 		/// <param name="quad">Quad object to render the Grid</param>
 		/// <param name="tileSize">Max Size of each tile, min size assumed to be zero </param>
-		public GridController(int x, int y, Vector3 startLocation, Quad quad, Vector2 tileSize)
+		public GridController(int x, int y, Vector3 startLocation, Quad quad, Vector2 tileSize, Vector2 occupiedTilesSnappingSize)
 		{
 			m_tileCountX = x;
 			m_tileCountY = y;
@@ -41,6 +45,7 @@ namespace Workshop.Grid
 			m_quad = quad;
 			m_tileSize = tileSize;
 
+			InitializeOccupiedTiles(occupiedTilesSnappingSize);
 			GenerateTileList();
 		}
 
@@ -49,7 +54,7 @@ namespace Workshop.Grid
 		/// </summary>
 		/// <param name="inputVector">Vector3 to compare to the tile locations</param>
 		/// <returns></returns>
-		public Vector3 GetClosestGridTile(Vector3 inputVector)
+		public Vector3 GetClosestGridTileCoordinate(Vector3 inputVector)
 		{
 			float x = RoundUp(inputVector.x, m_tileSize.x);
 			x /= m_tileSize.x;
@@ -60,13 +65,23 @@ namespace Workshop.Grid
 			return new Vector3(x, y, inputVector.z);
 		}
 
+		/// <summary>
+		/// Adds a Tile to a List of Occupied Tiles
+		/// </summary>
+		/// <param name="inputVector">Grid Coordinate to Occupy</param>
 		public void OccupyTile(Vector3 inputVector)
 		{
-
+			m_occupiedTiles.Add(inputVector);
 		}
 
 		#endregion
 		#region Private Methods
+
+		private void InitializeOccupiedTiles(Vector2 occupiedTilesSnappingSize)
+		{
+			m_occupiedTiles = new List<Vector3>();
+			m_occupiedTilesSnappingSize = occupiedTilesSnappingSize;
+		}
 
 		private void GenerateTileList()
 		{
@@ -74,7 +89,7 @@ namespace Workshop.Grid
 
 			float width = m_quad.Vertices[2].x / m_quad.UVs[2].x;
 			float height = m_quad.Vertices[2].y / m_quad.UVs[2].y;
-
+				
 			for (int x = 0; x < m_tileCountX; x++)
 			{
 				for (int y = 0; y < m_tileCountY; y++)
@@ -86,7 +101,7 @@ namespace Workshop.Grid
 				}
 			}
 		}
-
+			
 		private float RoundUp(float inputVectorAxis, float tileSizeAxis)
 		{
 			float flooredAmount = (float)System.Math.Floor(inputVectorAxis);
@@ -97,6 +112,7 @@ namespace Workshop.Grid
 
 			return flooredAmount;
 		}
+
 		#endregion
 	}
 }

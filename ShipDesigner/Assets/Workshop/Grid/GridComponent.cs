@@ -20,7 +20,7 @@ namespace Workshop.Grid
 
 		public Vector3 GetClosestGridTile(Vector3 inputVector)
 		{
-			return Controller.GetClosestGridTile(inputVector);
+			return Controller.GetClosestGridTileCoordinate(inputVector);
 		}
 	}
 }

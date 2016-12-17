@@ -14,8 +14,15 @@
 			"x" : 30,
 			"y" : 30
 		},
-		"BackgroundPlane" : {
-			"SpritePath" : "Sprites/Grid/GridTile_Default"
-		}
+    "BackgroundPlane": {
+      "SpritePath": "Sprites/Grid/GridTile_Default"
+    },
+    "OccupiedTiles": {
+      "SnappingDistance": {
+        "x" :  1,
+        "y" :  1,
+        "z" :  1
+      }
+    }
 	}
 }

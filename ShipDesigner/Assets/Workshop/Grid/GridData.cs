@@ -20,6 +20,7 @@ namespace Workshop.Grid
 		int m_gridCountY;
 		Quad m_quad;
 		Vector2 m_tileSize;
+		Vector2 m_occupiedTileSnappingDistance;
 
 		public GridData()
 		{
@@ -28,6 +29,7 @@ namespace Workshop.Grid
 			SetTileCount();
 			SetTileSize();
 			SetQuad();
+			SetOccupiedTiles();
 		}
 
 		private void SetStartLocation()
@@ -59,10 +61,20 @@ namespace Workshop.Grid
 			m_quad.SetUVs(new Vector2(), new Vector2((TileCountX * m_tileSize.x), (TileCountY * m_tileSize.y)));
 		}
 
+		private void SetOccupiedTiles()
+		{
+			string occupied_node = "OccupiedTiles";
+			m_occupiedTileSnappingDistance = new Vector2(
+				JsonValues[JSON_ROOT_NODE][occupied_node]["x"].AsFloat,
+				JsonValues[JSON_ROOT_NODE][occupied_node]["y"].AsFloat
+				);
+		}
+
 		public Vector3 TileStartLocation { get { return m_tileStartLocation; } }
 		public int TileCountX { get { return m_gridCountX; } }
 		public int TileCountY { get { return m_gridCountY; } }
 		public Quad Quad { get { return m_quad; } }
 		public Vector2 TileSize { get { return m_tileSize; } }
+		public Vector2 OccupiedTileSnappingSize { get { return m_occupiedTileSnappingDistance; } }
 	}
 }
