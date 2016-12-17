@@ -30,23 +30,19 @@ namespace Workshop.Grid
 		#region Public Methods
 
 		/// <summary>
-		/// Creates a GridController object
+		/// Creates a GridController Object. A GridData object is created on the fly to map JSON values to object properties. 
 		/// </summary>
-		/// <param name="x">Number of tiles on the X axis</param>
-		/// <param name="y">Number of tiles on the Y axis</param>
-		/// <param name="startLocation">Starting position of the grid in world space</param>
-		/// <param name="quad">Quad object to render the Grid</param>
-		/// <param name="tileSize">Max Size of each tile, min size assumed to be zero </param>
-		public GridController(int x, int y, Vector3 startLocation, Quad quad, Vector2 tileSize, Vector2 occupiedTilesSnappingSize)
+		public GridController()
 		{
-			m_tileCountX = x;
-			m_tileCountY = y;
-			m_startLocation = startLocation;
-			m_quad = quad;
-			m_tileSize = tileSize;
+			GridData data = new GridData();
 
-			InitializeOccupiedTiles(occupiedTilesSnappingSize);
-			GenerateTileList();
+			m_tileCountX = data.TileCountX;
+			m_tileCountY = data.TileCountY;
+			m_startLocation = data.TileStartLocation;
+			m_quad = data.Quad;
+			m_tileSize = data.TileSize;
+
+			InitializeGridController(data.OccupiedTileSnappingSize);
 		}
 
 		/// <summary>
@@ -76,6 +72,11 @@ namespace Workshop.Grid
 
 		#endregion
 		#region Private Methods
+		private void InitializeGridController(Vector2 occupiedTilesSnappingSize)
+		{
+			InitializeOccupiedTiles(occupiedTilesSnappingSize);
+			GenerateTileList();
+		}
 
 		private void InitializeOccupiedTiles(Vector2 occupiedTilesSnappingSize)
 		{
