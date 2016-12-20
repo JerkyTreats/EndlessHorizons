@@ -37,7 +37,7 @@ namespace UI.Inventory.Item
 		{
 			TilePreview = new GameObject("Item_Preview");
 			Quad.RenderQuad(TilePreview);
-			GetTilePosition();
+			UpdateCurrentPosition();
 			TilePreview.transform.position = CurrentPosition;
 		}
 		
@@ -47,7 +47,7 @@ namespace UI.Inventory.Item
 		/// <param name="eventData"></param>
 		public void OnDrag(PointerEventData eventData)
 		{
-			GetTilePosition();
+			UpdateCurrentPosition();
 			TilePreview.transform.position = CurrentPosition;
 		}
 
@@ -59,33 +59,43 @@ namespace UI.Inventory.Item
 		{
 			GameObject instantiated = Instantiate(SpawnObject);
 			instantiated.name = SpawnObject.name;
-			GetTilePosition();
+			UpdateCurrentPosition();
 			instantiated.transform.position = CurrentPosition;
 			instantiated.SetActive(true);
+			OccupyTile();
 
 			Destroy(TilePreview);
 			TilePreview = null;
-			CurrentPosition = Vector3.zero;
+			//CurrentPosition = Vector3.zero;
 		}
 
-		//Convert the mouse point space from UI space to world space
-		//Then get the tile that is in that worldspace
-		//If that tile is occupied, do nothing
-		//But if not occupied, update the current position with the origin of the tile.
-		private void GetTilePosition()
+		//update CurrentPosition if the tile is unoccupied
+		private void UpdateCurrentPosition()
 		{
-			Vector3 vector = Camera.main.transform.position - Grid.transform.position;
-			vector = UIToWorldSpaceConverter.GetWorldPosition(vector);
-			Tile tile = Grid.GetTileByVector3(vector);
+			Tile tile = GetTileByPosition();
 			if (tile.Occupied)
-			{
 				return;
-			} else
+			else
 			{
 				CurrentPosition.x = tile.MinX;
 				CurrentPosition.y = tile.MinY;
 				CurrentPosition.z = ZAxis;
 			}
+		}
+
+		private void OccupyTile()
+		{
+			Tile tile = GetTileByPosition();
+			tile.Occupied = true;
+		}
+
+		//Convert the mouse point space from UI space to world space
+		//Then get the tile that is in that worldspace
+		private Tile GetTileByPosition()
+		{
+			Vector3 vector = Camera.main.transform.position - Grid.transform.position;
+			vector = UIToWorldSpaceConverter.GetWorldPosition(vector);
+			return Grid.GetTileByVector3(vector);
 		}
 	}
 }
