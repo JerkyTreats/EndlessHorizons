@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
+using Workshop.Grid.Tiles;
 
 namespace Workshop.Grid
 {
@@ -18,9 +17,9 @@ namespace Workshop.Grid
 			ZAxisItemPlacement = controller.StartLocation.z - 0.01f;
 		}
 
-		public Vector3 GetClosestGridTile(Vector3 inputVector)
+		public Tile GetTileByVector3(Vector3 inputVector)
 		{
-			return Controller.GetClosestGridTileCoordinate(inputVector);
+			return Controller.GetTileByVector3(inputVector);
 		}
 	}
 }
