@@ -11,6 +11,5 @@ namespace Ships
 		public float Speed {get; set; }
 		public int Durability { get; set; }
 		public ShipCategory Category { get; set; }
-		public Blueprint Blueprint {get; set; }
 	}
 }

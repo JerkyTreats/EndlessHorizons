@@ -35,7 +35,7 @@ namespace UI.Inventory.Item
 
 		private JSONNode GetJsonNode()
 		{
-			string path = Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "UI", "Inventory", "Item", FILE_NAME);
+			string path = Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Workshop", "UI", "Inventory", "Item", FILE_NAME);
 			return JSONTools.GetJSONNode(path);
 		}
 
