@@ -3,11 +3,14 @@ using Engine;
 using Engine.Utility;
 using UnityEngine;
 using UI.Inventory.Item;
+using System.IO;
 
 namespace Ships.Components
 {
 	public class TileData
 	{
+		public static string TILE_DATA_PATH = Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Game", "Ships", "Components", "Tile", "Data", "Raw");
+
 		JSONNode JsonValues;
 		string m_name;
 		float m_weight;
