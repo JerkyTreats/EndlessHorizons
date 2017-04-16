@@ -15,7 +15,7 @@ namespace UI.Common
 		/// <param name="parent">Parent object UI Object to be a child of. Should be a [grand]child of Canvas</param>
 		/// <param name="anchor"> Anchor of the UI Object in RectTransform space</param>
 		/// <param name="sizeDelta"> Size of the UI Object RectTransform</param>
-		/// <param name="pivot"> Pivot point of hte UI Object</param>
+		/// <param name="pivot"> Pivot point of the UI Object</param>
 		/// <param name="position"> Position of the UI Object in relation to the parent</param>
 		/// <returns></returns>
 		public static GameObject BuildEmptyUIObject(string name, GameObject parent, Vector2 anchor, Vector2 sizeDelta, Vector2 pivot, Vector2 position)

@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 using Engine;
 using UI.Common;
 using Workshop.Grid;
-using Ships.Components;
 using Workshop.Grid.Tiles;
 
 namespace UI.Inventory.Item
