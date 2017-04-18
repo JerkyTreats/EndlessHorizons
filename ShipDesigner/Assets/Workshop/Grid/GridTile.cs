@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-namespace Workshop.Grid.Tiles
+namespace Workshop.Grid
 {
 	/// <summary>
 	/// The tile board is not a collection of unique tile objects, but a single quad with multiple Vector3's denoting Tile locations.
 	/// </summary>
-	public class Tile
+	public class GridTile
 	{
 		public bool Occupied { get; set; }
 
@@ -20,7 +20,7 @@ namespace Workshop.Grid.Tiles
 		/// <param name="x">x axis origin of the tile</param>
 		/// <param name="y">y axis origin of the tile</param>
 		/// <param name="tileSize">X,Y axis of worldspace size of each tile</param>
-		public Tile(float x, float y, Vector2 tileSize)
+		public GridTile(float x, float y, Vector2 tileSize)
 		{
 			MinX = x;
 			MinY = y;

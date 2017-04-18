@@ -17,7 +17,7 @@ namespace Workshop.Grid
 			ZAxisItemPlacement = controller.StartLocation.z - 0.01f;
 		}
 
-		public Tile GetTileByVector3(Vector3 inputVector)
+		public GridTile GetTileByVector3(Vector3 inputVector)
 		{
 			return Controller.GetTileByVector3(inputVector);
 		}

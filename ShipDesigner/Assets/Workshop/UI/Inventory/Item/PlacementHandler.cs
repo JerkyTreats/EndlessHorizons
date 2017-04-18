@@ -8,7 +8,7 @@ using Workshop.Grid.Tiles;
 namespace UI.Inventory.Item
 {
 	/// <summary>
-	/// Controls a GameObject placement on the TileMap
+	/// Attaches to a InventoryItem GameObject to handle placement on the TileMap
 	/// </summary>
 	public class PlacementHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 	{
@@ -65,13 +65,12 @@ namespace UI.Inventory.Item
 
 			Destroy(TilePreview);
 			TilePreview = null;
-			//CurrentPosition = Vector3.zero;
 		}
 
 		//update CurrentPosition if the tile is unoccupied
 		private void UpdateCurrentPosition()
 		{
-			Tile tile = GetTileByPosition();
+			GridTile tile = GetTileByPosition();
 			if (tile.Occupied)
 				return;
 			else
@@ -84,13 +83,13 @@ namespace UI.Inventory.Item
 
 		private void OccupyTile()
 		{
-			Tile tile = GetTileByPosition();
+			GridTile tile = GetTileByPosition();
 			tile.Occupied = true;
 		}
 
 		//Convert the mouse point space from UI space to world space
 		//Then get the tile that is in that worldspace
-		private Tile GetTileByPosition()
+		private GridTile GetTileByPosition()
 		{
 			Vector3 vector = Camera.main.transform.position - Grid.transform.position;
 			vector = UIToWorldSpaceConverter.GetWorldPosition(vector);
