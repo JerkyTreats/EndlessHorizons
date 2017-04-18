@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 using Engine;
 using UI.Common;
 using Workshop.Grid;
-using Workshop.Grid.Tiles;
 
 namespace UI.Inventory.Item
 {
@@ -13,7 +12,7 @@ namespace UI.Inventory.Item
 	public class PlacementHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 	{
 		public Canvas Canvas;
-		public GridComponent Grid;
+		public Grid Grid;
 		public float ZAxis { get; set; }
 		public Quad Quad { get; set; }
 		public GameObject SpawnObject { get; set; }
@@ -23,7 +22,7 @@ namespace UI.Inventory.Item
 
 		void Start()
 		{
-			Grid = GameData.Instance.Grid.GetComponent<GridComponent>();
+			Grid = GameData.Instance.Grid.GetComponent<Grid>();
 			ZAxis = Grid.ZAxisItemPlacement;
 			Canvas = GameData.Instance.Canvas;
 		}

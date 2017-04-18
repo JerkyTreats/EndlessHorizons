@@ -1,11 +1,10 @@
-﻿using UnityEngine;
+﻿using Engine;
 using System.Collections.Generic;
-using Engine;
-using Workshop.Grid.Tiles;
+using UnityEngine;
 
 namespace Workshop.Grid
 {
-	public class GridController
+	public class Grid : MonoBehaviour
 	{
 		#region Private Variables
 
@@ -15,22 +14,18 @@ namespace Workshop.Grid
 		private Quad m_quad; // quad to render the grid
 		private Vector2 m_tileSize; // size of each time
 		private List<GridTile> m_tiles; // collection of tiles in the grid
+		private SpriteRenderer Renderer;
 
 		#endregion
 		#region Public Variables
 
 		public Vector3 StartLocation { get { return m_startLocation; } }
-		//public List<Tile> Tiles { get { return m_tiles; } }
 		public Quad Quad { get { return m_quad; } }
-		
-		#endregion
-		
-		#region Public Methods
+		public float ZAxisItemPlacement;
 
-		/// <summary>
-		/// Creates a GridController Object. A GridData object is created on the fly to map JSON values to object properties. 
-		/// </summary>
-		public GridController()
+		#endregion
+
+		public void Initialize()
 		{
 			GridData data = new GridData();
 
@@ -41,27 +36,28 @@ namespace Workshop.Grid
 			m_tileSize = data.TileSize;
 
 			GenerateTileList();
+
+			transform.position = StartLocation;
+			Quad.RenderQuad(gameObject);
+			ZAxisItemPlacement = StartLocation.z - 0.01f;
 		}
 
 		/// <summary>
 		/// Find the lowest left point of the nearest grid tile. 
 		/// </summary>
-		/// <param name="inputVector">Vector3 to compare to the tile locations</param>
+		/// <param name="input">Vector3 to compare to the tile locations</param>
 		/// <returns></returns>
 		public GridTile GetTileByVector3(Vector3 input)
 		{
 			for (int i = 0; i <= m_tiles.Count; i++)
 			{
-				if(m_tiles[i].Within(input))
+				if (m_tiles[i].Within(input))
 				{
 					return m_tiles[i];
 				}
 			}
 			return null;
 		}
-
-		#endregion
-		#region Private Methods
 
 		private void GenerateTileList()
 		{
@@ -81,7 +77,5 @@ namespace Workshop.Grid
 				}
 			}
 		}
-
-		#endregion
 	}
 }
