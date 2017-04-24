@@ -59,11 +59,11 @@ namespace UI.Common
 		/// </summary>
 		/// <param name="gameObject">GameObject to add the PlacementHandler to</param>
 		/// <param name="previewQuad">Quad object to appear during drag operations</param>
-		public static void AddPlacementHandler(GameObject gameObject, Quad previewQuad, GameObject spawnObject)
+		public static void AddPlacementHandler(GameObject gameObject, Quad previewQuad, iInventoryObjectSpawner spawner)
 		{
 			PlacementHandler placementHandler = gameObject.AddComponent<PlacementHandler>();
 			placementHandler.Quad = previewQuad;
-			placementHandler.SpawnObject = spawnObject;
+			placementHandler.ObjectSpawner = spawner;
 		}
 
 		private static void SetRectTransform(Vector2 anchor, Vector2 sizeDelta, Vector2 pivot, Vector2 position, RectTransform rect)

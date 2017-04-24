@@ -4,10 +4,12 @@ using Engine.Utility;
 using UnityEngine;
 using UI.Inventory.Item;
 using System.IO;
+using Ships.Components;
+using System;
 
 namespace Ships.Components
 {
-	public class TileData
+	public class TileData : iInventoryObjectSpawner
 	{
 		public static string TILE_DATA_PATH = Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Game", "Ships", "Components", "Tile", "Data", "Raw");
 
@@ -16,9 +18,9 @@ namespace Ships.Components
 		float m_weight;
 		float m_durability;
 		float m_cost;
-
 		ItemData m_itemData;
 		Quad m_spriteData;
+		ComponentType m_component;
 
 		public string Name { get { return m_name; } }
 		public float Weight { get { return m_weight; } }
@@ -26,47 +28,26 @@ namespace Ships.Components
 		public float Cost { get { return m_cost; } }
 		public Quad MainSpriteData { get { return m_spriteData; } }
 		public ItemData ItemData {  get { return m_itemData; } }
+		public ComponentType ComponentType { get { return m_component; } }
 
 		public TileData(string tileJsonPath)
 		{
 			JsonValues = JSONTools.GetJSONNode(tileJsonPath);
-			SetName();
-			SetWeight();
-			SetDurability();
-			SetCost();
-			SetMainSprite();
-			SetItemData();
-		}
-
-		private void SetCost()
-		{
 			m_cost = JsonValues["Cost"].AsFloat;
-		}
-
-		private void SetDurability()
-		{
 			m_durability = JsonValues["Durability"].AsFloat;
-		}
-
-		private void SetWeight()
-		{
 			m_weight = JsonValues["Weight"].AsFloat;
-		}
-
-		void SetName()
-		{
 			m_name = JsonValues["Name"].Value;
+			m_itemData = new ItemData(JsonValues["Inventory"]["Name"].Value, JsonValues["Inventory"]["Sprite"]["Texture"].Value);
+			m_spriteData = BuildQuad(JsonValues["Sprite"]);
+			m_component = (ComponentType)Enum.Parse(typeof(ComponentType), JsonValues["Component"]["Type"].Value);
 		}
 
-		private void SetItemData()
+		public void SpawnObject(Vector3 startPosition)
 		{
-			string path = JsonValues["Sprite"]["Inventory"]["Texture"].Value;
-			m_itemData = new ItemData(Name, path);
-		}
-
-		private void SetMainSprite()
-		{
-			m_spriteData = BuildQuad(JsonValues["Sprite"]["Main"]);
+			GameObject tile = TileFactory.BuildTile(this);
+			tile.transform.position = startPosition;
+			tile.name = Name;
+			GameData.Instance.Blueprint.Add(m_component, Name, startPosition);
 		}
 
 		private Quad BuildQuad(JSONNode node)

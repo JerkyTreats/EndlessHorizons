@@ -7,7 +7,7 @@ namespace Ships.Components
 	public class Room
 	{
 		public List<EquipmentComponent> Equipment { get; set; }
-		public List<TileComponent> Tiles { get; set;}
+		public List<Tile> Tiles { get; set;}
 		public List<DoorComponent> Doors { get; set; }
 		public Material Material { get; set; }
 		public float Weight { get; set; }

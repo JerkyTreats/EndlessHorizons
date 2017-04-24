@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using Engine;
 using UI.Common;
 using Workshop.Grid;
+using Ships.Components;
 
 namespace UI.Inventory.Item
 {
@@ -13,17 +14,15 @@ namespace UI.Inventory.Item
 	{
 		public Canvas Canvas;
 		public Grid Grid;
-		public float ZAxis { get; set; }
 		public Quad Quad { get; set; }
-		public GameObject SpawnObject { get; set; }
+		public iInventoryObjectSpawner ObjectSpawner { get; internal set; }
 
 		Vector3 CurrentPosition;
-		GameObject TilePreview;
+		GameObject ItemPreview;
 
 		void Start()
 		{
 			Grid = GameData.Instance.Grid.GetComponent<Grid>();
-			ZAxis = Grid.ZAxisItemPlacement;
 			Canvas = GameData.Instance.Canvas;
 		}
 
@@ -33,10 +32,10 @@ namespace UI.Inventory.Item
 		/// <param name="eventData"></param>
 		public void OnBeginDrag(PointerEventData eventData)
 		{
-			TilePreview = new GameObject("Item_Preview");
-			Quad.RenderQuad(TilePreview);
+			ItemPreview = new GameObject("Item_Preview");
+			Quad.RenderQuad(ItemPreview);
 			UpdateCurrentPosition();
-			TilePreview.transform.position = CurrentPosition;
+			ItemPreview.transform.position = CurrentPosition;
 		}
 		
 		/// <summary>
@@ -46,7 +45,7 @@ namespace UI.Inventory.Item
 		public void OnDrag(PointerEventData eventData)
 		{
 			UpdateCurrentPosition();
-			TilePreview.transform.position = CurrentPosition;
+			ItemPreview.transform.position = CurrentPosition;
 		}
 
 		/// <summary>
@@ -55,15 +54,12 @@ namespace UI.Inventory.Item
 		/// <param name="eventData"></param>
 		public void OnEndDrag(PointerEventData eventData)
 		{
-			GameObject instantiated = Instantiate(SpawnObject);
-			instantiated.name = SpawnObject.name;
 			UpdateCurrentPosition();
-			instantiated.transform.position = CurrentPosition;
-			instantiated.SetActive(true);
-			OccupyTile();
+			ObjectSpawner.SpawnObject(CurrentPosition);
 
-			Destroy(TilePreview);
-			TilePreview = null;
+			OccupyTile();
+			Destroy(ItemPreview);
+			ItemPreview = null;
 		}
 
 		//update CurrentPosition if the tile is unoccupied
@@ -76,7 +72,7 @@ namespace UI.Inventory.Item
 			{
 				CurrentPosition.x = tile.MinX;
 				CurrentPosition.y = tile.MinY;
-				CurrentPosition.z = ZAxis;
+				CurrentPosition.z = Grid.ZAxisItemPlacement;
 			}
 		}
 
