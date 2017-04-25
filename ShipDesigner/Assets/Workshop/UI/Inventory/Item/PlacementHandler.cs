@@ -4,6 +4,7 @@ using Engine;
 using UI.Common;
 using Workshop.Grid;
 using Ships.Components;
+using Ships.Blueprints;
 
 namespace UI.Inventory.Item
 {
@@ -16,6 +17,7 @@ namespace UI.Inventory.Item
 		public Grid Grid;
 		public Quad Quad { get; set; }
 		public iInventoryObjectSpawner ObjectSpawner { get; internal set; }
+		public iBlueprintOccupier BlueprintObject { get; internal set; }
 
 		Vector3 CurrentPosition;
 		GameObject ItemPreview;
@@ -55,9 +57,9 @@ namespace UI.Inventory.Item
 		public void OnEndDrag(PointerEventData eventData)
 		{
 			UpdateCurrentPosition();
-			ObjectSpawner.SpawnObject(CurrentPosition);
+			if(!BlueprintObject.IsOccupied(CurrentPosition))
+				ObjectSpawner.SpawnObject(CurrentPosition);
 
-			OccupyTile();
 			Destroy(ItemPreview);
 			ItemPreview = null;
 		}
@@ -66,20 +68,9 @@ namespace UI.Inventory.Item
 		private void UpdateCurrentPosition()
 		{
 			GridTile tile = GetTileByPosition();
-			if (tile.Occupied)
-				return;
-			else
-			{
-				CurrentPosition.x = tile.MinX;
-				CurrentPosition.y = tile.MinY;
-				CurrentPosition.z = Grid.ZAxisItemPlacement;
-			}
-		}
 
-		private void OccupyTile()
-		{
-			GridTile tile = GetTileByPosition();
-			tile.Occupied = true;
+			CurrentPosition = tile.Origin;
+			CurrentPosition.z = Grid.ZAxisItemPlacement;
 		}
 
 		//Convert the mouse point space from UI space to world space

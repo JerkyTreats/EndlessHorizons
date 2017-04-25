@@ -9,7 +9,7 @@ using Ships.Blueprints;
 
 namespace Ships.Components
 {
-	public class TileData : iInventoryObjectSpawner
+	public class TileData : iInventoryObjectSpawner, iBlueprintOccupier
 	{
 		public static string TILE_DATA_PATH = Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Game", "Ships", "Components", "Tile", "Data", "Raw");
 
@@ -64,6 +64,12 @@ namespace Ships.Components
 			BlueprintComponent component = new BlueprintComponent(gameObject.transform.position, gameObject.name);
 			blueprint.Tiles.Add(component);
 			gameObject.transform.parent = bp.transform;
+		}
+
+		public bool IsOccupied(Vector3 gridPosition)
+		{
+			Blueprint blueprint = GameData.Instance.Blueprint.GetComponent<Blueprint>();
+			return blueprint.isOccupied("tile", gridPosition);
 		}
 	}
 }

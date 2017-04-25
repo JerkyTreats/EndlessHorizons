@@ -48,7 +48,7 @@ namespace Ships.Components
 				data.ItemData.Pivot, 
 				position);
 			BuildUIObject.AddTextLabel(GetTextPanelSize(data), data.ItemData.TextData, inventoryItem.transform);
-			BuildUIObject.AddPlacementHandler(inventoryItem, data.ItemData.ItemPreview, data);
+			BuildUIObject.AddPlacementHandler(inventoryItem, data.ItemData.ItemPreview, data, data);
 			return inventoryItem;
 		}
 

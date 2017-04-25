@@ -7,12 +7,11 @@ namespace Workshop.Grid
 	/// </summary>
 	public class GridTile
 	{
-		public bool Occupied { get; set; }
-
 		public float MinX { get; set; }
 		public float MinY { get; set; }
 		public float MaxX { get; set; }
 		public float MaxY { get; set; }
+		public Vector3 Origin { get { return new Vector3(MinX, MinY); } }
 
 		/// <summary>
 		/// Construct a Tile Object. Origin assumed to be on lowest left point.
@@ -26,7 +25,6 @@ namespace Workshop.Grid
 			MinY = y;
 			MaxX = x + tileSize.x;
 			MaxY = y + tileSize.y;
-			Occupied = false;
 		}
 
 		/// <summary>
