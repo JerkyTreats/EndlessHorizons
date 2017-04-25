@@ -9,6 +9,9 @@ using Ships.Blueprints;
 
 namespace Ships.Components
 {
+	/// <summary>
+	/// Model for Tile Ship Component
+	/// </summary>
 	public class TileData : iInventoryObjectSpawner, iBlueprintOccupier
 	{
 		public static string TILE_DATA_PATH = Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Game", "Ships", "Components", "Tile", "Data", "Raw");
@@ -39,6 +42,10 @@ namespace Ships.Components
 			m_spriteData = BuildQuad(JsonValues["Sprite"]);
 		}
 
+		/// <summary>
+		/// Interface compliant method to spawn a Tile GameObject 
+		/// </summary>
+		/// <param name="startPosition"></param>
 		public void SpawnObject(Vector3 startPosition)
 		{
 			GameObject tile = TileFactory.BuildTile(this);

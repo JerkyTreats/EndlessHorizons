@@ -13,7 +13,7 @@ namespace Ships.Blueprints
 		/// <summary>
 		/// BlueprintComponent constructer. Name is used to retrieve an actual `ObjectData` object
 		/// </summary>
-		/// <param name="gridLocation">[Column, Row] of the Component on the Grid</param>
+		/// <param name="gridLocation">Vector3 GridTile.Origin the Component is placed in</param>
 		/// <param name="name">Name of the Component</param>
 		public BlueprintComponent(Vector3 gridLocation, string name)
 		{

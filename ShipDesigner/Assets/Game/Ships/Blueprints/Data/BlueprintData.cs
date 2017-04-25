@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Ships.Blueprints
 {
+	/// <summary>
+	/// Model for Blueprints. Contains 'components' that allows to save|load complex data to disk
+	/// </summary>
 	public class BlueprintData
 	{
 		public List<BlueprintComponent> Tiles { get; set; }
@@ -21,6 +24,9 @@ namespace Ships.Blueprints
 			Rooms = new List<BlueprintComponent>();
 		}
 
+		/// <summary>
+		/// Create and attach empty Blueprint object during Game Initalization
+		/// </summary>
 		public static void OnGameStart()
 		{
 			BlueprintData emptyModel = new BlueprintData();
