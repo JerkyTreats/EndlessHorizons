@@ -19,14 +19,9 @@ namespace Ships.Components
 		public static GameObject BuildTile(TileData data)
 		{
 			GameObject tile = new GameObject(data.Name);
-			//tile.SetActive(false);
 
 			var tileComponent = tile.AddComponent<Tile>();
-			tileComponent.Initialize(data.Name,
-				data.Weight,
-				data.Durability,
-				data.Cost,
-				data.MainSpriteData);
+			tileComponent.Initialize(data);
 
 			return tile;
 		}
@@ -48,7 +43,7 @@ namespace Ships.Components
 				data.ItemData.Pivot, 
 				position);
 			BuildUIObject.AddTextLabel(GetTextPanelSize(data), data.ItemData.TextData, inventoryItem.transform);
-			BuildUIObject.AddPlacementHandler(inventoryItem, data.ItemData.ItemPreview, data, data);
+			BuildUIObject.AddPlacementHandler(inventoryItem, data.ItemData.ItemPreview, data);
 			return inventoryItem;
 		}
 

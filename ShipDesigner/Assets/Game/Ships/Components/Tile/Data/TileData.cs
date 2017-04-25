@@ -12,7 +12,7 @@ namespace Ships.Components
 	/// <summary>
 	/// Model for Tile Ship Component
 	/// </summary>
-	public class TileData : iInventoryObjectSpawner, iBlueprintOccupier
+	public class TileData : iInventoryObjectSpawner
 	{
 		public static string TILE_DATA_PATH = Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Game", "Ships", "Components", "Tile", "Data", "Raw");
 
