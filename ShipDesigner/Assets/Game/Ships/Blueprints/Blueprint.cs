@@ -8,19 +8,13 @@ namespace Ships.Blueprints
 	{
 		private BlueprintData m_model;
 
-		public List<BlueprintComponent> Tiles;
-		public List<BlueprintComponent> Doors;
-		public List<BlueprintComponent> Equipment;
-		public List<BlueprintComponent> Rooms;
-
+		/// <summary>
+		/// Hook up the Blueprint Model (BlueprintData) to the Blueprint Game Object Component
+		/// </summary>
+		/// <param name="model">BlueprintData object to act as the Components Model</param>
 		public void Initialize(BlueprintData model)
 		{
 			m_model = model;
-
-			Tiles = m_model.Tiles;
-			Doors = m_model.Doors;
-			Equipment = m_model.Equipment;
-			Rooms = m_model.Rooms;
 		}
 
 		/// <summary>
@@ -34,12 +28,27 @@ namespace Ships.Blueprints
 			switch (type)
 			{
 				case "tile":
-					return MatchGridLocations(Tiles, gridPosition);
+					return MatchGridLocations(m_model.Tiles, gridPosition);
 				default:
-					throw new NotImplementedException("Type of [" + type + "] not implemented as blue.isOccupied object");
+					throw new NotImplementedException("Type of [" + type + "] not implemented as blueprint.isOccupied object");
 			}
 		}
 
+		/// <summary>
+		/// Add a BlueprintComponent representing a Tile to the Blueprint
+		/// </summary>
+		/// <param name="component">The BlueprintComponent to Add</param>
+		public void AddTile(BlueprintComponent component)
+		{
+			m_model.Tiles.Add(component);
+		}
+
+		/// <summary>
+		/// Given the list to loop through, find if a provided Vector3 matches the BlueprintComponents.GridLocation
+		/// </summary>
+		/// <param name="list">One of the Blueprints Models BlueprintComponent lists types</param>
+		/// <param name="gridPosition">This should match a GridTile.origin Vector3 position</param>
+		/// <returns></returns>
 		bool MatchGridLocations(List<BlueprintComponent> list, Vector3 gridPosition)
 		{
 			if (list.Count == 0) { return false; }

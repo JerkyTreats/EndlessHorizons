@@ -62,7 +62,7 @@ namespace Ships.Components
 			GameObject bp = GameData.Instance.Blueprint;
 			Blueprint blueprint = bp.GetComponent<Blueprint>();
 			BlueprintComponent component = new BlueprintComponent(gameObject.transform.position, gameObject.name);
-			blueprint.Tiles.Add(component);
+			blueprint.AddTile(component);
 			gameObject.transform.parent = bp.transform;
 		}
 
