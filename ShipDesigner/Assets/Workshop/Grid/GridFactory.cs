@@ -11,7 +11,7 @@ namespace Workshop.Grid
 		{
 			GameObject grid = new GameObject(GRID_OBJECT_NAME);
 			Grid component = grid.AddComponent<Grid>();
-			component.Initialize();
+			component.Initialize(new GridData());
 
 			GameData.Instance.SetGrid(grid);
 		}

@@ -22,6 +22,13 @@ namespace Workshop.Grid
 		Vector2 m_tileSize;
 		Vector2 m_occupiedTileSnappingDistance;
 
+		public Vector3 TileStartLocation { get { return m_tileStartLocation; } }
+		public int TileCountX { get { return m_gridCountX; } }
+		public int TileCountY { get { return m_gridCountY; } }
+		public Quad Quad { get { return m_quad; } }
+		public Vector2 TileSize { get { return m_tileSize; } }
+		public Vector2 OccupiedTileSnappingSize { get { return m_occupiedTileSnappingDistance; } }
+
 		public GridData()
 		{
 			JsonValues = JSONTools.GetJSONNode(Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Workshop", "Grid", FILE_NAME));
@@ -69,12 +76,5 @@ namespace Workshop.Grid
 				JsonValues[JSON_ROOT_NODE][occupied_node]["y"].AsFloat
 				);
 		}
-
-		public Vector3 TileStartLocation { get { return m_tileStartLocation; } }
-		public int TileCountX { get { return m_gridCountX; } }
-		public int TileCountY { get { return m_gridCountY; } }
-		public Quad Quad { get { return m_quad; } }
-		public Vector2 TileSize { get { return m_tileSize; } }
-		public Vector2 OccupiedTileSnappingSize { get { return m_occupiedTileSnappingDistance; } }
 	}
 }

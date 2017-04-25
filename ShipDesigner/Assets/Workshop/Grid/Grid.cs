@@ -6,40 +6,25 @@ namespace Workshop.Grid
 {
 	public class Grid : MonoBehaviour
 	{
-		#region Private Variables
+		private GridData m_model; 
 
-		private Vector3 m_startLocation = new Vector3(); //where in world space grid origin should be
-		private int m_tileCountX; //number of tiles x
-		private int m_tileCountY; //number of tiles y
-		private Quad m_quad; // quad to render the grid
-		private Vector2 m_tileSize; // size of each time
 		private List<GridTile> m_tiles; // collection of tiles in the grid
 		private SpriteRenderer Renderer;
 
-		#endregion
-		#region Public Variables
-
-		public Vector3 StartLocation { get { return m_startLocation; } }
-		public Quad Quad { get { return m_quad; } }
 		public float ZAxisItemPlacement;
 
-		#endregion
-
-		public void Initialize()
+		/// <summary>
+		/// Attach GridData Model to GameObject and run StartUp methods
+		/// </summary>
+		/// <param name="data"></param>
+		public void Initialize(GridData data)
 		{
-			GridData data = new GridData();
-
-			m_tileCountX = data.TileCountX;
-			m_tileCountY = data.TileCountY;
-			m_startLocation = data.TileStartLocation;
-			m_quad = data.Quad;
-			m_tileSize = data.TileSize;
-
+			m_model = data;
 			GenerateTileList();
 
-			transform.position = StartLocation;
-			Quad.RenderQuad(gameObject);
-			ZAxisItemPlacement = StartLocation.z - 0.01f;
+			transform.position = m_model.TileStartLocation;
+			m_model.Quad.RenderQuad(gameObject);
+			ZAxisItemPlacement = m_model.TileStartLocation.z - 0.01f;
 		}
 
 		/// <summary>
@@ -63,16 +48,16 @@ namespace Workshop.Grid
 		{
 			m_tiles = new List<GridTile>();
 
-			float width = m_quad.Vertices[2].x / m_quad.UVs[2].x;
-			float height = m_quad.Vertices[2].y / m_quad.UVs[2].y;
+			float width = m_model.Quad.Vertices[2].x / m_model.Quad.UVs[2].x;
+			float height = m_model.Quad.Vertices[2].y / m_model.Quad.UVs[2].y;
 
-			for (int x = 0; x < m_tileCountX; x++)
+			for (int x = 0; x < m_model.TileCountX; x++)
 			{
-				for (int y = 0; y < m_tileCountY; y++)
+				for (int y = 0; y < m_model.TileCountY; y++)
 				{
-					float pos_x = m_startLocation.x + (x * width);
-					float pos_y = m_startLocation.y + (y * height);
-					GridTile tile = new GridTile(pos_x, pos_y, m_tileSize);
+					float pos_x = m_model.TileStartLocation.x + (x * width);
+					float pos_y = m_model.TileStartLocation.y + (y * height);
+					GridTile tile = new GridTile(pos_x, pos_y, m_model.TileSize);
 					m_tiles.Add(tile);
 				}
 			}
