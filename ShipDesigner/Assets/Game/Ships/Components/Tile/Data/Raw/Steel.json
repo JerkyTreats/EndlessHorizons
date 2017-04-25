@@ -1,0 +1,23 @@
+{
+	"Name" : "Steel_Tile",
+	"Weight" : 10.0,
+	"Durability" : 3,
+	"Cost" : 3.75,
+	"Sprite" : {
+		"Texture" : "Sprites/Ship/Components/Tile/Steel_Main",
+		"MaxSize" : {
+			"x" : 1,
+			"y" : 1,
+			"z" : 0
+		}
+	},
+	"Inventory" : {
+		"Name" : "Steel",
+		"Sprite" : {
+			"Texture" : "Sprites/Ship/Components/Tile/Steel_Inventory"
+		}
+	},
+	"Component" : {
+		"Type" : "Tile"
+	}
+}

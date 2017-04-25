@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Ships.Components;
+using Ships.Blueprints;
 using System.Linq;
 using System.Text;
 
@@ -16,6 +17,7 @@ namespace Engine
 		public ComponentRepository Components;
 		public Canvas Canvas { get; set; }
 		public GameObject Grid { get; set; }
+		public GameObject Blueprint { get; set; }
 
 		GameData()
 		{
@@ -38,14 +40,14 @@ namespace Engine
 			}
 		}
 
-		public void SetGrid(GameObject Grid)
+		public void SetGrid(GameObject grid)
 		{
-			this.Grid = Grid;
+			Grid = grid;
 		}
 
-		public void SetCanvas(Canvas Canvas)
+		public void SetCanvas(Canvas canvas)
 		{
-			this.Canvas = Canvas;
+			Canvas = canvas;
 		}
 	}
 }

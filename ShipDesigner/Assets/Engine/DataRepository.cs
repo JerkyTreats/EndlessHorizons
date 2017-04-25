@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace Engine
 {
+	/// <summary>
+	/// Base class for data repositories, providing functions to instantiate data objects
+	/// </summary>
 	public class DataRepository
 	{
+		/// <summary>
+		/// Searches a folder for all instances of JSON files and creates objects the data therein
+		/// </summary>
+		/// <typeparam name="T">JSON Object?</typeparam>
+		/// <param name="filePath">Path to search through. Recursive not tested.</param>
+		/// <param name="itemTypes">String/Type dictionary to fill</param>
 		protected void BuildRepository <T> (string filePath, Dictionary<string, T> itemTypes)
 		{
 			string[] files = Directory.GetFiles(filePath);

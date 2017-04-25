@@ -10,9 +10,8 @@ namespace Workshop.Grid
 		public static void InitializeGrid()
 		{
 			GameObject grid = new GameObject(GRID_OBJECT_NAME);
-			GridComponent component = grid.AddComponent<GridComponent>();
-			GridController controller = new GridController();
-			component.SetController(controller);
+			Grid component = grid.AddComponent<Grid>();
+			component.Initialize(new GridData());
 
 			GameData.Instance.SetGrid(grid);
 		}
