@@ -4,8 +4,8 @@ using Engine.Utility;
 using UnityEngine;
 using UI.Inventory.Item;
 using System.IO;
-using Ships.Components;
 using System;
+using Ships.Blueprints;
 
 namespace Ships.Components
 {
@@ -20,7 +20,6 @@ namespace Ships.Components
 		float m_cost;
 		ItemData m_itemData;
 		Quad m_spriteData;
-		ComponentType m_component;
 
 		public string Name { get { return m_name; } }
 		public float Weight { get { return m_weight; } }
@@ -28,7 +27,6 @@ namespace Ships.Components
 		public float Cost { get { return m_cost; } }
 		public Quad MainSpriteData { get { return m_spriteData; } }
 		public ItemData ItemData {  get { return m_itemData; } }
-		public ComponentType ComponentType { get { return m_component; } }
 
 		public TileData(string tileJsonPath)
 		{
@@ -39,7 +37,6 @@ namespace Ships.Components
 			m_name = JsonValues["Name"].Value;
 			m_itemData = new ItemData(JsonValues["Inventory"]["Name"].Value, JsonValues["Inventory"]["Sprite"]["Texture"].Value);
 			m_spriteData = BuildQuad(JsonValues["Sprite"]);
-			m_component = (ComponentType)Enum.Parse(typeof(ComponentType), JsonValues["Component"]["Type"].Value);
 		}
 
 		public void SpawnObject(Vector3 startPosition)
@@ -47,7 +44,7 @@ namespace Ships.Components
 			GameObject tile = TileFactory.BuildTile(this);
 			tile.transform.position = startPosition;
 			tile.name = Name;
-			GameData.Instance.Blueprint.Add(m_component, Name, startPosition);
+			AddToBlueprint(tile);
 		}
 
 		private Quad BuildQuad(JSONNode node)
@@ -57,6 +54,16 @@ namespace Ships.Components
 			m_spriteData = new Quad(node["Texture"].Value);
 			m_spriteData.SetVertices(new Vector3(), new Vector3(node["MaxSize"]["x"].AsFloat, node["MaxSize"]["y"].AsFloat));
 			return quad;
+		}
+
+		// Add the component to the blueprint, and add the GameObject as a child of the blueprint Gameobject
+		void AddToBlueprint(GameObject gameObject)
+		{
+			GameObject bp = GameData.Instance.Blueprint;
+			Blueprint blueprint = bp.GetComponent<Blueprint>();
+			BlueprintComponent component = new BlueprintComponent(gameObject.transform.position, gameObject.name);
+			blueprint.Tiles.Add(component);
+			gameObject.transform.parent = bp.transform;
 		}
 	}
 }

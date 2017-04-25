@@ -12,7 +12,6 @@ namespace Ships.Components
 		public float Durability { get; set; }
 		public float Cost { get; set; }
 		public Quad Sprite { get { return m_spriteData; } }
-		public ComponentType Category { get { return ComponentType.Tile; } }
 
 		/// <summary>
 		/// Constructor to assign GameObject necessary variable values and call OnStart methods
@@ -31,13 +30,6 @@ namespace Ships.Components
 
 			m_spriteData = mainSprite;
 			Sprite.RenderQuad(gameObject);
-
-			AddToBlueprint();
-		}
-
-		void AddToBlueprint()
-		{
-			GameData.Instance.Blueprint.Add(Category, Name, transform.position);
 		}
 	}
 }

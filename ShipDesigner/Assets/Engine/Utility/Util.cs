@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.IO;
+﻿using System.IO;
 using System;
 
 namespace Engine.Utility
@@ -19,6 +18,16 @@ namespace Engine.Utility
 				path = Path.Combine(path, section);
 			}
 			return path;
+		}
+
+		/// <summary>
+		/// Convenience method to concat the project root dir with an array of folders to walk down.
+		/// </summary>
+		/// <param name="folders">string array of folders in order. 'Assets' will likely be first.</param>
+		/// <returns></returns>
+		public static string GetRelativePath(params string[] folders)
+		{
+			return CombinePath(Directory.GetCurrentDirectory(), folders);
 		}
 
 		/// <summary>
