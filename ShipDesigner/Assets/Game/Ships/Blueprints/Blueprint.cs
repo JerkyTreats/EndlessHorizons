@@ -23,7 +23,7 @@ namespace Ships.Blueprints
 		/// <summary>
 		/// Determines if a provided gridLocation already has an object of the same type
 		/// </summary>
-		/// <param name="key">The component type as a string</param>
+		/// <param name="key">The type of Component</param>
 		/// <param name="gridPosition">The gridPosition to match against</param>
 		/// <returns></returns>
 		public bool isOccupied(Blueprints.ComponentKey key, Vector3 gridPosition)
@@ -45,7 +45,8 @@ namespace Ships.Blueprints
 		/// <summary>
 		/// Add a BlueprintComponent representing a Tile to the Blueprint
 		/// </summary>
-		/// <param name="component">The BlueprintComponent to Add</param>
+		/// <param name="key">The type of Component</param>
+		/// <param name="component">The BlueprintComponent object to Add</param>
 		public void Add(Blueprints.ComponentKey key, BlueprintComponent component)
 		{
 			m_model.ContainerMap[key].Components.Add(component);
