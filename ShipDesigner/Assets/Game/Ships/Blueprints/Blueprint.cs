@@ -1,18 +1,21 @@
-﻿using System;
+﻿using Engine.Utility;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Ships.Blueprints
 {
 	public class Blueprint : MonoBehaviour
 	{
-		private BlueprintData m_model;
+		private Blueprints m_model;
 
 		/// <summary>
 		/// Hook up the Blueprint Model (BlueprintData) to the Blueprint Game Object Component
 		/// </summary>
 		/// <param name="model">BlueprintData object to act as the Components Model</param>
-		public void Initialize(BlueprintData model)
+		public void Initialize(Blueprints model)
 		{
 			m_model = model;
 		}
@@ -20,47 +23,54 @@ namespace Ships.Blueprints
 		/// <summary>
 		/// Determines if a provided gridLocation already has an object of the same type
 		/// </summary>
-		/// <param name="type">The component type as a string</param>
+		/// <param name="key">The component type as a string</param>
 		/// <param name="gridPosition">The gridPosition to match against</param>
 		/// <returns></returns>
-		public bool isOccupied(string type, Vector3 gridPosition)
+		public bool isOccupied(Blueprints.ComponentKey key, Vector3 gridPosition)
 		{
-			switch (type)
+			var componentList = m_model.ContainerMap[key];
+			if (componentList.Components.Count == 0) { return false; }
+
+			for (int i = componentList.Components.Count - 1; i >= 0; i--)
 			{
-				case "tile":
-					return MatchGridLocations(m_model.Tiles, gridPosition);
-				default:
-					throw new NotImplementedException("Type of [" + type + "] not implemented as blueprint.isOccupied object");
+				Vector2 blueprintPosition = componentList.Components[i].GetGridLocation();
+				if (gridPosition.x == blueprintPosition.x && gridPosition.y == blueprintPosition.y)
+				{
+					return true;
+				}
 			}
+			return false;
 		}
 
 		/// <summary>
 		/// Add a BlueprintComponent representing a Tile to the Blueprint
 		/// </summary>
 		/// <param name="component">The BlueprintComponent to Add</param>
-		public void AddTile(BlueprintComponent component)
+		public void Add(Blueprints.ComponentKey key, BlueprintComponent component)
 		{
-			m_model.Tiles.Add(component);
+			m_model.ContainerMap[key].Components.Add(component);
 		}
 
 		/// <summary>
-		/// Given the list to loop through, find if a provided Vector3 matches the BlueprintComponents.GridLocation
+		/// Converts the Blueprint to JSON, saves to disk 
 		/// </summary>
-		/// <param name="list">One of the Blueprints Models BlueprintComponent lists types</param>
-		/// <param name="gridPosition">This should match a GridTile.origin Vector3 position</param>
-		/// <returns></returns>
-		bool MatchGridLocations(List<BlueprintComponent> list, Vector3 gridPosition)
+		public void Save()
 		{
-			if (list.Count == 0) { return false; }
-
-			for (int i = list.Count - 1; i >= 0; i--)
+			if (string.IsNullOrEmpty(m_model.Name))
 			{
-				if (gridPosition.Equals(list[i].GridLocation))
-				{
-					return true;
-				}
+				m_model.Name = "Blueprint";
+				m_model.SetFileName();
 			}
-			return false;
+
+			string path = Path.Combine(BlueprintRepository.DIRECTORY_LOCATION, m_model.GetFileName());
+			JsonSerializer serializer = new JsonSerializer();
+
+			using (StreamWriter sw = new StreamWriter(path))
+				using(JsonWriter writer = new JsonTextWriter(sw))
+				{
+				    serializer.Serialize(writer, m_model.GetSaveObject());
+				}
+
 		}
 	}
 }

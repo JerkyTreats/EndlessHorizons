@@ -7,13 +7,13 @@ namespace Ships.Blueprints
 	public class BlueprintRepository : DataRepository
 	{
 		private static string[] relativePath = new string[] { "Assets", "Game", "Ships", "Blueprints", "Data" };
-		private static string DIRECTORY_LOCATION = Util.GetRelativePath(relativePath);
+		public static string DIRECTORY_LOCATION = Util.GetRelativePath(relativePath);
 
-		public Dictionary<string, BlueprintData> Blueprints;
+		public Dictionary<string, Blueprints> Blueprints;
 
 		public BlueprintRepository()
 		{
-			Blueprints = new Dictionary<string, BlueprintData>();
+			Blueprints = new Dictionary<string, Blueprints>();
 			BuildRepository(DIRECTORY_LOCATION, Blueprints);
 		}
 	}

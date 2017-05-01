@@ -10,7 +10,7 @@ namespace Engine
 	{
 		void Start()
 		{
-			BlueprintData.OnGameStart();
+			Blueprints.OnGameStart();
 			GridFactory.InitializeGrid();
 			CameraFactory.BuildCamera();
 			UIFactory.BuildUI();

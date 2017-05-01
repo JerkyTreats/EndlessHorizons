@@ -5,7 +5,16 @@ using SimpleJSON;
 namespace Engine.Utility
 {
 	public static class JSONTools
-	{		
+	{
+		public static string VECTOR_KEY_X = "x";
+		public static string VECTOR_KEY_Y = "y";
+		public static string VECTOR_KEY_Z = "z";
+
+		/// <summary>
+		/// Gets the contents of a JSON file parsed into a JSONNode
+		/// </summary>
+		/// <param name="jsonPath">The filepath of the JSON object to read</param>
+		/// <returns></returns>
 		public static JSONNode GetJSONNode(string jsonPath)
 		{
 			string path = @""+jsonPath;
@@ -17,7 +26,9 @@ namespace Engine.Utility
 				return JSON.Parse(jsonString);
 			}
 			else
-				return null;
+			{
+				return JSONNode.Parse("{}");
+			}
 		}	
 		
 		public static JSONArray GetJsonFileArray(string jsonPath, string identifier)
