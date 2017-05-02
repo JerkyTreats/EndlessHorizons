@@ -69,14 +69,14 @@ namespace Ships.Components
 			GameObject bp = GameData.Instance.Blueprint;
 			Blueprint blueprint = bp.GetComponent<Blueprint>();
 			BlueprintComponent component = new BlueprintComponent(gameObject.transform.position, gameObject.name);
-			blueprint.Add(Blueprints.Blueprints.ComponentKey.Tiles, component);
+			blueprint.Add(Blueprints.Component.Tiles, component);
 			gameObject.transform.parent = bp.transform;
 		}
 
 		public bool IsOccupied(Vector3 gridPosition)
 		{
 			Blueprint blueprint = GameData.Instance.Blueprint.GetComponent<Blueprint>();
-			return blueprint.isOccupied(Blueprints.Blueprints.ComponentKey.Tiles, gridPosition);
+			return blueprint.isOccupied(Blueprints.Component.Tiles, gridPosition);
 		}
 	}
 }

@@ -6,6 +6,14 @@ using System;
 namespace Ships.Blueprints
 {
 	/// <summary>
+	/// Integrated ship component types
+	/// </summary>
+	public enum Component
+	{
+		Tiles
+	}
+
+	/// <summary>
 	/// Model for Blueprints.
 	/// 
 	/// Has a somewhat complicated Container system. 
@@ -19,16 +27,11 @@ namespace Ships.Blueprints
 	/// </summary>
 	public class Blueprints
 	{
-		public enum ComponentKey
-		{
-			Tiles
-		}
-
 		private string m_fileName { get; set; }
 
 		public string Name { get; set; }
 		public List<BlueprintComponentContainer> Containers { get; set; } // A collection of Containers
-		public Dictionary<ComponentKey, BlueprintComponentContainer> ContainerMap { get; set; } // For fast lookup
+		public Dictionary<Component, BlueprintComponentContainer> ContainerMap { get; set; } // For fast lookup
 		
 		public Blueprints()
 		{
@@ -39,12 +42,12 @@ namespace Ships.Blueprints
 		void InitializeComponents()
 		{
 			Containers = new List<BlueprintComponentContainer>();
-			ContainerMap = new Dictionary<ComponentKey, BlueprintComponentContainer>();
+			ContainerMap = new Dictionary<Component, BlueprintComponentContainer>();
 
-			AddToComponentContainer(ComponentKey.Tiles);
+			AddToComponentContainer(Component.Tiles);
 		}
 
-		void AddToComponentContainer(ComponentKey key)
+		void AddToComponentContainer(Component key)
 		{
 			var container = new BlueprintComponentContainer(key);
 			Containers.Add(container);
@@ -83,10 +86,19 @@ namespace Ships.Blueprints
 		}
 
 		/// <summary>
-		/// Create and attach empty Blueprint object during Game Initalization
+		/// Actions to take on Game Initialization
 		/// </summary>
 		public static void OnGameStart()
 		{
+			BlueprintFactory();
+		}
+
+		/// <summary>
+		/// Create and attach empty Blueprint object during Game Initalization
+		/// </summary>
+		public static void BlueprintFactory()
+		{
+
 			Blueprints emptyModel = new Blueprints();
 			GameObject blueprint = new GameObject();
 

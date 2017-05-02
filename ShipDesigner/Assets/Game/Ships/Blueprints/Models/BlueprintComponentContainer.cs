@@ -10,14 +10,14 @@ namespace Ships.Blueprints
 	public class BlueprintComponentContainer
 	{
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Blueprints.ComponentKey Key { get; set; }
+		public Component Key { get; set; }
 		public List<BlueprintComponent> Components { get; set; }
 
 		/// <summary>
 		/// Constructs a new BlueprintComponent Container
 		/// </summary>
 		/// <param name="key">The type of Components that wil be contained</param>
-		public BlueprintComponentContainer(Blueprints.ComponentKey key)
+		public BlueprintComponentContainer(Component key)
 		{
 			Key = key;
 			Components = new List<BlueprintComponent>();

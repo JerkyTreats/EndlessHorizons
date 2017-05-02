@@ -26,7 +26,7 @@ namespace Ships.Blueprints
 		/// <param name="key">The type of Component</param>
 		/// <param name="gridPosition">The gridPosition to match against</param>
 		/// <returns></returns>
-		public bool isOccupied(Blueprints.ComponentKey key, Vector3 gridPosition)
+		public bool isOccupied(Component key, Vector3 gridPosition)
 		{
 			var componentList = m_model.ContainerMap[key];
 			if (componentList.Components.Count == 0) { return false; }
@@ -47,7 +47,7 @@ namespace Ships.Blueprints
 		/// </summary>
 		/// <param name="key">The type of Component</param>
 		/// <param name="component">The BlueprintComponent object to Add</param>
-		public void Add(Blueprints.ComponentKey key, BlueprintComponent component)
+		public void Add(Component key, BlueprintComponent component)
 		{
 			m_model.ContainerMap[key].Components.Add(component);
 		}
