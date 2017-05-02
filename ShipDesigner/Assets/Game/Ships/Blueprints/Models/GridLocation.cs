@@ -5,6 +5,11 @@ using System.Text;
 
 namespace Ships.Blueprints
 {
+	/// <summary>
+	/// Vector2 stripped to only include x/y settings. 
+	/// Primarily used for JSON serialization
+	/// Normal Vector2/3 will serialize unncessary data, such as normals(?)
+	/// </summary>
 	public struct GridLocation
 	{
 		public float x;
