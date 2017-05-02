@@ -2,6 +2,9 @@
 
 namespace Ships.Blueprints
 {
+	/// <summary>
+	/// Data that is saved/loaded from disk
+	/// </summary>
 	public class BlueprintSaveObject
 	{
 		public List<BlueprintComponentContainer> Containers;
