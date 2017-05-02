@@ -5,7 +5,7 @@ using SimpleJSON;
 namespace Engine.Utility
 {
 	public static class JSONTools
-	{		
+	{
 		public static JSONNode GetJSONNode(string jsonPath)
 		{
 			string path = @""+jsonPath;
