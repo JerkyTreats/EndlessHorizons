@@ -35,23 +35,45 @@ namespace Ships.Blueprints
 		
 		public Blueprints()
 		{
-			InitializeComponents();
+			InitializeComponents(null);
 			SetFileName();
 		}
 
-		void InitializeComponents()
+		public Blueprints(BlueprintSaveObject data, string fileName)
 		{
-			Containers = new List<BlueprintComponentContainer>();
-			ContainerMap = new Dictionary<Component, BlueprintComponentContainer>();
+			if (!string.IsNullOrEmpty(fileName))
+				m_fileName = fileName;
 
-			AddToComponentContainer(Component.Tiles);
+			Name = data.Name;
+			InitializeComponents(data.Containers);
 		}
 
-		void AddToComponentContainer(Component key)
+		void InitializeComponents(List<BlueprintComponentContainer> containers)
 		{
-			var container = new BlueprintComponentContainer(key);
+			if (containers != null)
+			{
+				// We don't just replace the List so that entries can be added to the map
+				for (int i = containers.Count -1; i>= 0; i--)
+				{
+					AddToComponentContainer(containers[i]);
+				}
+			} else // Create new container with each component type
+			{
+				AddToComponentContainer(new BlueprintComponentContainer(Component.Tiles));
+			}
+		}
+
+		void AddToComponentContainer(BlueprintComponentContainer container)
+		{
+			if (Containers == null)
+				Containers = new List<BlueprintComponentContainer>();
+			if (ContainerMap == null)
+				ContainerMap = new Dictionary<Component, BlueprintComponentContainer>();
+			if (container == null)
+				return;
+
 			Containers.Add(container);
-			ContainerMap.Add(key, container);
+			ContainerMap.Add(container.Key, container);
 		}
 
 		/// <summary>

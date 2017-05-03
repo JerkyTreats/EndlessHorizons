@@ -71,7 +71,22 @@ namespace Ships.Blueprints
 				{
 				    serializer.Serialize(writer, m_model.GetSaveObject());
 				}
+		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		public void Load()
+		{
+			string fileName = "Blueprint_Test.json";
+			string path = Path.Combine(BlueprintRepository.DIRECTORY_LOCATION, fileName);
+
+			if (File.Exists(path))
+			{
+				BlueprintSaveObject data = JsonConvert.DeserializeObject<BlueprintSaveObject>(File.ReadAllText(path));
+
+				Blueprints model = new Blueprints(data, fileName);
+			}
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Ships.Blueprints
 {
@@ -18,6 +19,7 @@ namespace Ships.Blueprints
 		/// </summary>
 		/// <param name="gridLocation">GridLocation object representing the GridTile.Origin the Component is placed in</param>
 		/// <param name="name">Name of the Component</param>
+		[JsonConstructor]
 		public BlueprintComponent(GridLocation gridLocation, string name)
 		{
 			GridLocation = gridLocation;
