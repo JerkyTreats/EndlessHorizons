@@ -31,7 +31,7 @@ namespace Workshop.Grid
 
 		public GridData()
 		{
-			JsonValues = JSONTools.GetJSONNode(Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Workshop", "Grid", FILE_NAME));
+			JsonValues = JSONTools.GetJSONNode(Util.CombinePath(Application.streamingAssetsPath, "Grid", FILE_NAME));
 			SetStartLocation();
 			SetTileCount();
 			SetTileSize();

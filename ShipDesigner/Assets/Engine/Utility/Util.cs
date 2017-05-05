@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System;
+using UnityEngine;
 
 namespace Engine.Utility
 {
@@ -27,7 +28,7 @@ namespace Engine.Utility
 		/// <returns></returns>
 		public static string GetRelativePath(params string[] folders)
 		{
-			return CombinePath(Directory.GetCurrentDirectory(), folders);
+			return CombinePath(Application.streamingAssetsPath, folders);
 		}
 
 		/// <summary>

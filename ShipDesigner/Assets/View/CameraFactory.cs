@@ -51,7 +51,7 @@ namespace View
 
 		private string GetGridInformation()
 		{
-			return Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "View", FILE_NAME);
+			return Util.CombinePath(Application.streamingAssetsPath, "View", FILE_NAME);
 		}
 
 		private Vector3 GetStartPosition()
