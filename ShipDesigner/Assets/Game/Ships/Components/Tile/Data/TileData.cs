@@ -14,7 +14,7 @@ namespace Ships.Components
 	/// </summary>
 	public class TileData : iInventoryObjectSpawner
 	{
-		public static string TILE_DATA_PATH = Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Game", "Ships", "Components", "Tile", "Data", "Raw");
+		public static string TILE_DATA_PATH = Util.CombinePath(Application.streamingAssetsPath, "Ships", "Components", "Tiles");
 
 		JSONNode JsonValues;
 		string m_name;

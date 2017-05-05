@@ -1,13 +1,13 @@
-﻿using Engine.Utility;
+﻿using UnityEngine;
 using Engine;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Ships.Blueprints
 {
 	public class BlueprintRepository : DataRepository
 	{
-		private static string[] relativePath = new string[] { "Assets", "Game", "Ships", "Blueprints", "Data" };
-		public static string DIRECTORY_LOCATION = Util.GetRelativePath(relativePath);
+		public static string DIRECTORY_LOCATION = Path.Combine(Application.streamingAssetsPath, "Blueprints");
 
 		public Dictionary<string, Blueprints> Blueprints;
 
