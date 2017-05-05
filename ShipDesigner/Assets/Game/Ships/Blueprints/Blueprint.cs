@@ -1,4 +1,4 @@
-﻿using Engine.Utility;
+﻿using Engine;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -34,12 +34,13 @@ namespace Ships.Blueprints
 			for (int i = componentList.Components.Count - 1; i >= 0; i--)
 			{
 				Vector2 blueprintPosition = componentList.Components[i].GetGridLocation();
-				if (gridPosition.x == blueprintPosition.x && gridPosition.y == blueprintPosition.y)
-				{
+
+                // Find approx values as floats are rarely exactly equal
+				if (Mathf.Approximately(gridPosition.x, blueprintPosition.x) && (Mathf.Approximately(gridPosition.y, blueprintPosition.y)))
 					return true;
-				}
 			}
-			return false;
+
+            return false;
 		}
 
 		/// <summary>
@@ -74,19 +75,16 @@ namespace Ships.Blueprints
 		}
 
 		/// <summary>
-		/// 
+        /// - Deserialize JSON
+        /// - Create Model
+        /// - Create GameObject/Controller
+        /// - Destroy old Blueprint reference
+        /// - Add new Blueprint Reference
+        /// - Spawn all blueprint component objects
 		/// </summary>
-		public void Load()
+		public void Load(string fileName)
 		{
-			string fileName = "Blueprint_Test.json";
-			string path = Path.Combine(BlueprintRepository.DIRECTORY_LOCATION, fileName);
-
-			if (File.Exists(path))
-			{
-				BlueprintSaveObject data = JsonConvert.DeserializeObject<BlueprintSaveObject>(File.ReadAllText(path));
-
-				Blueprints model = new Blueprints(data, fileName);
-			}
+            GameObject newBlueprint = BlueprintFactory.CreateBlueprint(fileName);
 		}
 	}
 }
