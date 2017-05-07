@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
+using Engine;
 
 namespace Ships.Blueprints
 {
@@ -13,17 +14,42 @@ namespace Ships.Blueprints
 		/// <param name="fileName">Filename as it appears in the Blueprint Folder</param>
         public static GameObject CreateBlueprint(string fileName)
         {
-			string path = Path.Combine(BlueprintRepository.DIRECTORY_LOCATION, fileName);
-            if (!File.Exists(path))
-                return null;
-			
-			BlueprintSaveObject data = JsonConvert.DeserializeObject<BlueprintSaveObject>(File.ReadAllText(path));
-			Blueprints model = new Blueprints(data, fileName);
-            GameObject blueprint = new GameObject();
+			Blueprints model;
+			if (string.IsNullOrEmpty(fileName))
+				model = new Blueprints();
+			else
+			{
+				string path = Path.Combine(BlueprintRepository.DIRECTORY_LOCATION, fileName);
+				if (File.Exists(path))
+				{
+					BlueprintSaveObject data = JsonConvert.DeserializeObject<BlueprintSaveObject>(File.ReadAllText(path));
+					model = new Blueprints(data, fileName);
+				}
+				else
+				{
+					model = new Blueprints();
+				}
+			}
 
-            Blueprint controller = blueprint.AddComponent<Blueprint>();
+			GameObject blueprint = new GameObject();
+			blueprint.name = model.Name;
+			Blueprint controller = blueprint.AddComponent<Blueprint>();
             controller.Initialize(model);
             return blueprint;
         }
+
+		/// <summary>
+		/// Creates a new Blueprint Game Object, updates the GameData instance, and spawns all blueprint components
+		/// </summary>
+		public static void ReplaceActiveBlueprint(string fileName)
+		{
+			GameObject newBlueprint = CreateBlueprint(fileName);
+
+			Engine.Utility.Util.DestroyGameObjectFamily(GameData.Instance.Blueprint);
+			GameData.Instance.Blueprint = newBlueprint;
+
+			Blueprint controller = newBlueprint.GetComponent<Blueprint>();
+			controller.SpawnChildren();
+		}
     }
 }

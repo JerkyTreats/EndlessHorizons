@@ -23,6 +23,7 @@ namespace Ships.Components
 		float m_cost;
 		ItemData m_itemData;
 		Quad m_spriteData;
+		string m_fileName;
 
 		public string Name { get { return m_name; } }
 		public float Weight { get { return m_weight; } }
@@ -30,6 +31,7 @@ namespace Ships.Components
 		public float Cost { get { return m_cost; } }
 		public Quad MainSpriteData { get { return m_spriteData; } }
 		public ItemData ItemData {  get { return m_itemData; } }
+		public string FileName {  get { return m_fileName; } }
 
 		public TileData(string tileJsonPath)
 		{
@@ -40,6 +42,7 @@ namespace Ships.Components
 			m_name = JsonValues["Name"].Value;
 			m_itemData = new ItemData(JsonValues["Inventory"]["Name"].Value, JsonValues["Inventory"]["Sprite"]["Texture"].Value);
 			m_spriteData = BuildQuad(JsonValues["Sprite"]);
+			m_fileName = Path.GetFileName(tileJsonPath);
 		}
 
 		/// <summary>
@@ -54,7 +57,18 @@ namespace Ships.Components
 			AddToBlueprint(tile);
 		}
 
-		private Quad BuildQuad(JSONNode node)
+		/// <summary>
+		/// Compare the gridPosition to the currently active blueprint
+		/// </summary>
+		/// <param name="gridPosition"></param>
+		/// <returns></returns>
+		public bool IsOccupied(Vector3 gridPosition)
+		{
+			Blueprint blueprint = GameData.Instance.Blueprint.GetComponent<Blueprint>();
+			return blueprint.isOccupied(Blueprints.Component.Tiles, gridPosition);
+		}
+
+		Quad BuildQuad(JSONNode node)
 		{
 			Quad quad = new Quad(node["Texture"]);
 
@@ -68,15 +82,9 @@ namespace Ships.Components
 		{
 			GameObject bp = GameData.Instance.Blueprint;
 			Blueprint blueprint = bp.GetComponent<Blueprint>();
-			BlueprintComponent component = new BlueprintComponent(gameObject.transform.position, gameObject.name);
+			BlueprintComponent component = new BlueprintComponent(gameObject.transform.position, FileName);
 			blueprint.Add(Blueprints.Component.Tiles, component);
 			gameObject.transform.parent = bp.transform;
-		}
-
-		public bool IsOccupied(Vector3 gridPosition)
-		{
-			Blueprint blueprint = GameData.Instance.Blueprint.GetComponent<Blueprint>();
-			return blueprint.isOccupied(Blueprints.Component.Tiles, gridPosition);
 		}
 	}
 }

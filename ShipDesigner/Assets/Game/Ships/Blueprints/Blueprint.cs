@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Newtonsoft.Json;
+using Ships.Components;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -74,17 +75,26 @@ namespace Ships.Blueprints
 				}
 		}
 
-		/// <summary>
-        /// - Deserialize JSON
-        /// - Create Model
-        /// - Create GameObject/Controller
-        /// - Destroy old Blueprint reference
-        /// - Add new Blueprint Reference
-        /// - Spawn all blueprint component objects
-		/// </summary>
 		public void Load(string fileName)
 		{
-            GameObject newBlueprint = BlueprintFactory.CreateBlueprint(fileName);
+			BlueprintFactory.ReplaceActiveBlueprint(fileName);
+		}
+
+		/// <summary>
+		/// Create and Initialize all Ship Components saved in the Blueprint
+		/// </summary>
+		public void SpawnChildren()
+		{
+			// For each type of container (Tiles, Doors, etc)
+			for (int z = m_model.Containers.Count - 1; z >= 0; z--)
+			{
+				// For each component saved in the container
+				for (int y = container.Count -1; y >= 0; y--)
+				{
+					ComponentFactory.CreateComponent(m_model.Containers[z].Key, m_model.Containers[z].Components[y]);
+				}
+			}
+
 		}
 	}
 }

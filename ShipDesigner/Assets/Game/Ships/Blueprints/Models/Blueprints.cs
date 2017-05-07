@@ -28,8 +28,13 @@ namespace Ships.Blueprints
 	public class Blueprints
 	{
 		private string m_fileName { get; set; }
+		private string m_name;
 
-		public string Name { get; set; }
+		public string Name
+		{
+			get { return string.IsNullOrEmpty(m_name) ? "Blueprint" : m_name; }
+			set { m_name = value; }
+		}
 		public List<BlueprintComponentContainer> Containers { get; set; } // A collection of Containers
 		public Dictionary<Component, BlueprintComponentContainer> ContainerMap { get; set; } // For fast lookup
 		
@@ -112,22 +117,7 @@ namespace Ships.Blueprints
 		/// </summary>
 		public static void OnGameStart()
 		{
-			BlueprintFactory();
-		}
-
-		/// <summary>
-		/// Create and attach empty Blueprint object during Game Initalization
-		/// </summary>
-		public static void BlueprintFactory()
-		{
-
-			Blueprints emptyModel = new Blueprints();
-			GameObject blueprint = new GameObject();
-
-			blueprint.name = "Blueprint";
-			Blueprint component = blueprint.AddComponent<Blueprint>();
-			component.Initialize(emptyModel);
-			GameData.Instance.Blueprint = blueprint;
+			GameData.Instance.Blueprint = BlueprintFactory.CreateBlueprint(null);
 		}
 	}
 }

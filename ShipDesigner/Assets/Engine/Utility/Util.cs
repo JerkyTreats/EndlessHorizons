@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System;
+using UnityEngine;
 
 namespace Engine.Utility
 {
@@ -41,5 +42,17 @@ namespace Engine.Utility
 			return (T)Enum.Parse(typeof(T), value, true);
 		}
 
+		/// <summary>
+		/// Where UnityEngine.Object.Destroy would kill only a parent object, this kills all children and parent
+		/// </summary>
+		/// <param name="parent">The object to destroy</param>
+		public static void DestroyGameObjectFamily(GameObject parent)
+		{
+			foreach(Transform child in parent.transform)
+			{
+				UnityEngine.Object.Destroy(child.gameObject);
+			}
+			UnityEngine.Object.Destroy(parent);
+		}
 	}
 }
