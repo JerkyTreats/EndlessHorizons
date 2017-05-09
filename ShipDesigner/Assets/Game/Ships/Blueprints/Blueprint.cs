@@ -84,6 +84,10 @@ namespace Ships.Blueprints
 				}
 		}
 
+		/// <summary>
+		/// Load a blueprint from JSON file saved in the Blueprint save location. Replaces existing blueprint.
+		/// </summary>
+		/// <param name="fileName">The non-path name of the file</param>
 		public void Load(string fileName)
 		{
 			GameData.Instance.Blueprint = BlueprintFactory.CreateBlueprint(fileName);

@@ -43,12 +43,10 @@ namespace Ships.Blueprints
 			InitializeComponents(null);
 			SetFileName();
 		}
-
+		
 		public Blueprints(BlueprintSaveObject data, string fileName)
 		{
-			if (!string.IsNullOrEmpty(fileName))
-				m_fileName = fileName;
-
+			m_fileName = fileName;
 			Name = data.Name;
 			InitializeComponents(data.Containers);
 		}
