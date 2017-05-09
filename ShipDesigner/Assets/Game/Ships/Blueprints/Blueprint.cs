@@ -89,7 +89,7 @@ namespace Ships.Blueprints
 			for (int z = m_model.Containers.Count - 1; z >= 0; z--)
 			{
 				// For each component saved in the container
-				for (int y = container.Count -1; y >= 0; y--)
+				for (int y = m_model.Containers[z].Components.Count -1; y >= 0; y--)
 				{
 					ComponentFactory.CreateComponent(m_model.Containers[z].Key, m_model.Containers[z].Components[y]);
 				}

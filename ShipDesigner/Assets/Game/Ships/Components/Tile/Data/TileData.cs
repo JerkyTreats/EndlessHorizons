@@ -12,7 +12,7 @@ namespace Ships.Components
 	/// <summary>
 	/// Model for Tile Ship Component
 	/// </summary>
-	public class TileData : iInventoryObjectSpawner
+	public class TileData : iComponentSpawner
 	{
 		public static string TILE_DATA_PATH = Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "Game", "Ships", "Components", "Tile", "Data", "Raw");
 
@@ -49,12 +49,12 @@ namespace Ships.Components
 		/// Interface compliant method to spawn a Tile GameObject 
 		/// </summary>
 		/// <param name="startPosition"></param>
-		public void SpawnObject(Vector3 startPosition)
+		public GameObject SpawnObject(Vector3 startPosition)
 		{
 			GameObject tile = TileFactory.BuildTile(this);
 			tile.transform.position = startPosition;
 			tile.name = Name;
-			AddToBlueprint(tile);
+			return tile;
 		}
 
 		/// <summary>
@@ -68,6 +68,16 @@ namespace Ships.Components
 			return blueprint.isOccupied(Blueprints.Component.Tiles, gridPosition);
 		}
 
+		// Add the component to the blueprint, and add the GameObject as a child of the blueprint Gameobject
+		public void AddToBlueprint(GameObject gameObject)
+		{
+			GameObject bp = GameData.Instance.Blueprint;
+			Blueprint blueprint = bp.GetComponent<Blueprint>();
+			BlueprintComponent component = new BlueprintComponent(gameObject.transform.position, FileName);
+			blueprint.Add(Blueprints.Component.Tiles, component);
+			gameObject.transform.parent = bp.transform;
+		}
+
 		Quad BuildQuad(JSONNode node)
 		{
 			Quad quad = new Quad(node["Texture"]);
@@ -77,14 +87,6 @@ namespace Ships.Components
 			return quad;
 		}
 
-		// Add the component to the blueprint, and add the GameObject as a child of the blueprint Gameobject
-		void AddToBlueprint(GameObject gameObject)
-		{
-			GameObject bp = GameData.Instance.Blueprint;
-			Blueprint blueprint = bp.GetComponent<Blueprint>();
-			BlueprintComponent component = new BlueprintComponent(gameObject.transform.position, FileName);
-			blueprint.Add(Blueprints.Component.Tiles, component);
-			gameObject.transform.parent = bp.transform;
-		}
+		
 	}
 }
