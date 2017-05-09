@@ -28,30 +28,55 @@ namespace Ships.Blueprints
 	public class Blueprints
 	{
 		private string m_fileName { get; set; }
+		private string m_name;
 
-		public string Name { get; set; }
+		public string Name
+		{
+			get { return string.IsNullOrEmpty(m_name) ? "Blueprint" : m_name; }
+			set { m_name = value; }
+		}
 		public List<BlueprintComponentContainer> Containers { get; set; } // A collection of Containers
 		public Dictionary<Component, BlueprintComponentContainer> ContainerMap { get; set; } // For fast lookup
 		
 		public Blueprints()
 		{
-			InitializeComponents();
+			InitializeComponents(null);
 			SetFileName();
 		}
-
-		void InitializeComponents()
+		
+		public Blueprints(BlueprintSaveObject data, string fileName)
 		{
-			Containers = new List<BlueprintComponentContainer>();
-			ContainerMap = new Dictionary<Component, BlueprintComponentContainer>();
-
-			AddToComponentContainer(Component.Tiles);
+			m_fileName = fileName;
+			Name = data.Name;
+			InitializeComponents(data.Containers);
 		}
 
-		void AddToComponentContainer(Component key)
+		void InitializeComponents(List<BlueprintComponentContainer> containers)
 		{
-			var container = new BlueprintComponentContainer(key);
+			if (containers != null)
+			{
+				// We don't just replace the List so that entries can be added to the map
+				for (int i = containers.Count -1; i>= 0; i--)
+				{
+					AddToComponentContainer(containers[i]);
+				}
+			} else // Create new container with each component type
+			{
+				AddToComponentContainer(new BlueprintComponentContainer(Component.Tiles));
+			}
+		}
+
+		void AddToComponentContainer(BlueprintComponentContainer container)
+		{
+			if (Containers == null)
+				Containers = new List<BlueprintComponentContainer>();
+			if (ContainerMap == null)
+				ContainerMap = new Dictionary<Component, BlueprintComponentContainer>();
+			if (container == null)
+				return;
+
 			Containers.Add(container);
-			ContainerMap.Add(key, container);
+			ContainerMap.Add(container.Key, container);
 		}
 
 		/// <summary>
@@ -90,22 +115,7 @@ namespace Ships.Blueprints
 		/// </summary>
 		public static void OnGameStart()
 		{
-			BlueprintFactory();
-		}
-
-		/// <summary>
-		/// Create and attach empty Blueprint object during Game Initalization
-		/// </summary>
-		public static void BlueprintFactory()
-		{
-
-			Blueprints emptyModel = new Blueprints();
-			GameObject blueprint = new GameObject();
-
-			blueprint.name = "Blueprint";
-			Blueprint component = blueprint.AddComponent<Blueprint>();
-			component.Initialize(emptyModel);
-			GameData.Instance.Blueprint = blueprint;
+			GameData.Instance.Blueprint = BlueprintFactory.CreateBlueprint();
 		}
 	}
 }

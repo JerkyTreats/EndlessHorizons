@@ -11,6 +11,8 @@ namespace Ships.Blueprints
 	{
 		[JsonConverter(typeof(StringEnumConverter))]
 		public Component Key { get; set; }
+
+		[JsonProperty(PropertyName = "Components")]
 		public List<BlueprintComponent> Components { get; set; }
 
 		/// <summary>

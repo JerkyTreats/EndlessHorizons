@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System;
+using UnityEngine;
 
 namespace Engine.Utility
 {
@@ -31,6 +32,19 @@ namespace Engine.Utility
 		}
 
 		/// <summary>
+		/// Ensures an inputted file name has .json at the end
+		/// </summary>
+		/// <param name="fileName">A string that may or may not have .json at the end</param>
+		/// <returns>A string that has .json at the end</returns>
+		public static string EnsureIsJSONFile(string fileName)
+		{
+			if (fileName.Contains(".json"))
+				return fileName;
+
+			return fileName + ".json";
+		}
+
+		/// <summary>
 		/// Converts string into Enum
 		/// </summary>
 		/// <typeparam name="T">Enum to look for value</typeparam>
@@ -41,5 +55,17 @@ namespace Engine.Utility
 			return (T)Enum.Parse(typeof(T), value, true);
 		}
 
+		/// <summary>
+		/// Where UnityEngine.Object.Destroy would kill only a parent object, this kills all children and parent
+		/// </summary>
+		/// <param name="parent">The object to destroy</param>
+		public static void DestroyGameObjectFamily(GameObject parent)
+		{
+			foreach(Transform child in parent.transform)
+			{
+				UnityEngine.Object.Destroy(child.gameObject);
+			}
+			UnityEngine.Object.Destroy(parent);
+		}
 	}
 }

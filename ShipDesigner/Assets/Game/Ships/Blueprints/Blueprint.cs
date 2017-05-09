@@ -1,5 +1,6 @@
-﻿using Engine.Utility;
+﻿using Engine;
 using Newtonsoft.Json;
+using Ships.Components;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,12 +35,13 @@ namespace Ships.Blueprints
 			for (int i = componentList.Components.Count - 1; i >= 0; i--)
 			{
 				Vector2 blueprintPosition = componentList.Components[i].GetGridLocation();
-				if (gridPosition.x == blueprintPosition.x && gridPosition.y == blueprintPosition.y)
-				{
+
+                // Find approx values as floats are rarely exactly equal
+				if (Mathf.Approximately(gridPosition.x, blueprintPosition.x) && (Mathf.Approximately(gridPosition.y, blueprintPosition.y)))
 					return true;
-				}
 			}
-			return false;
+
+            return false;
 		}
 
 		/// <summary>
@@ -50,6 +52,15 @@ namespace Ships.Blueprints
 		public void Add(Component key, BlueprintComponent component)
 		{
 			m_model.ContainerMap[key].Components.Add(component);
+		}
+
+		/// <summary>
+		/// Sets the blueprint Game Object as a parent of a child game object
+		/// </summary>
+		/// <param name="child">The Game Object to make a child of Blueprint</param>
+		public void MakeParent(GameObject child)
+		{
+			child.transform.parent = gameObject.transform;
 		}
 
 		/// <summary>
@@ -71,6 +82,31 @@ namespace Ships.Blueprints
 				{
 				    serializer.Serialize(writer, m_model.GetSaveObject());
 				}
+		}
+
+		/// <summary>
+		/// Load a blueprint from JSON file saved in the Blueprint save location. Replaces existing blueprint.
+		/// </summary>
+		/// <param name="fileName">The non-path name of the file</param>
+		public void Load(string fileName)
+		{
+			GameData.Instance.Blueprint = BlueprintFactory.CreateBlueprint(fileName);
+		}
+
+		/// <summary>
+		/// Create and Initialize all Ship Components saved in the Blueprint
+		/// </summary>
+		public void SpawnChildren()
+		{
+			// For each type of container (Tiles, Doors, etc)
+			for (int z = m_model.Containers.Count - 1; z >= 0; z--)
+			{
+				// For each component saved in the container
+				for (int y = m_model.Containers[z].Components.Count -1; y >= 0; y--)
+				{
+					ComponentFactory.CreateComponent(m_model.Containers[z].Key, m_model.Containers[z].Components[y]);
+				}
+			}
 
 		}
 	}
