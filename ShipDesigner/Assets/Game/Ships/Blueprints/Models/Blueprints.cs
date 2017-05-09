@@ -117,7 +117,7 @@ namespace Ships.Blueprints
 		/// </summary>
 		public static void OnGameStart()
 		{
-			GameData.Instance.Blueprint = BlueprintFactory.CreateBlueprint(null);
+			GameData.Instance.Blueprint = BlueprintFactory.CreateBlueprint();
 		}
 	}
 }

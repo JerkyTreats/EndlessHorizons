@@ -32,6 +32,19 @@ namespace Engine.Utility
 		}
 
 		/// <summary>
+		/// Ensures an inputted file name has .json at the end
+		/// </summary>
+		/// <param name="fileName">A string that may or may not have .json at the end</param>
+		/// <returns>A string that has .json at the end</returns>
+		public static string EnsureIsJSONFile(string fileName)
+		{
+			if (fileName.Contains(".json"))
+				return fileName;
+
+			return fileName + ".json";
+		}
+
+		/// <summary>
 		/// Converts string into Enum
 		/// </summary>
 		/// <typeparam name="T">Enum to look for value</typeparam>

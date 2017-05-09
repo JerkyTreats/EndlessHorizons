@@ -55,6 +55,15 @@ namespace Ships.Blueprints
 		}
 
 		/// <summary>
+		/// Sets the blueprint Game Object as a parent of a child game object
+		/// </summary>
+		/// <param name="child">The Game Object to make a child of Blueprint</param>
+		public void MakeParent(GameObject child)
+		{
+			child.transform.parent = gameObject.transform;
+		}
+
+		/// <summary>
 		/// Converts the Blueprint to JSON, saves to disk 
 		/// </summary>
 		public void Save()
@@ -77,7 +86,7 @@ namespace Ships.Blueprints
 
 		public void Load(string fileName)
 		{
-			BlueprintFactory.ReplaceActiveBlueprint(fileName);
+			GameData.Instance.Blueprint = BlueprintFactory.CreateBlueprint(fileName);
 		}
 
 		/// <summary>
