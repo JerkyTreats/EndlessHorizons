@@ -75,7 +75,7 @@ namespace Ships.Components
 			Blueprint blueprint = bp.GetComponent<Blueprint>();
 			BlueprintComponent component = new BlueprintComponent(gameObject.transform.position, FileName);
 			blueprint.Add(Blueprints.Component.Tiles, component);
-			gameObject.transform.parent = bp.transform;
+			blueprint.MakeParent(gameObject);
 		}
 
 		Quad BuildQuad(JSONNode node)

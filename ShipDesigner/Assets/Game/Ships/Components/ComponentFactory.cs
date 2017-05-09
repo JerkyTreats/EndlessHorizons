@@ -15,22 +15,19 @@ namespace Ships.Components
 		/// <param name="component">BlueprintComponent containing component information</param>
 		public static void CreateComponent(Blueprints.Component Type, BlueprintComponent component)
 		{
-			GameObject gameObject;
+			iComponentSpawner spawner;
 			switch (Type)
 			{
 				case Blueprints.Component.Tiles:
-					TileData model = GameData.Instance.Components.TileData.TileTypes[component.Name];
-					gameObject = TileFactory.BuildTile(model);
-					break;
+					spawner = GameData.Instance.Components.TileData.TileTypes[component.Name];
+					GameObject spawned = spawner.SpawnObject(new Vector3(component.GridLocation.x, component.GridLocation.y, GameData.Instance.ZAxisItemPlacement));
+					GameData.Instance.Blueprint.GetComponent<Blueprint>().MakeParent(spawned);
+					return;
 
 				default:
 					Debug.LogError(new ArgumentException(string.Format("Cannot create component: [{0}]", Type)));
-					gameObject = new GameObject();
-					break;
+					return;
 			}
-			float z = GameData.Instance.Grid.GetComponent<Grid>().ZAxisItemPlacement;
-			gameObject.transform.position = new Vector3(component.GridLocation.x, component.GridLocation.y, z);
-			gameObject.transform.parent = GameData.Instance.Blueprint.transform;
 		}
 	}
 }
