@@ -11,20 +11,25 @@ namespace Workshop.Grid
 		public float MinY { get; set; }
 		public float MaxX { get; set; }
 		public float MaxY { get; set; }
-		public Vector3 Origin { get { return new Vector3(MinX, MinY); } }
+		public float MinZ { get; set; }
+		public float MaxZ { get; set; }
+		public Vector3 Origin { get { return new Vector3(MinX, MinY, MinZ); } }
 
 		/// <summary>
 		/// Construct a Tile Object. Origin assumed to be on lowest left point.
 		/// </summary>
 		/// <param name="x">x axis origin of the tile</param>
 		/// <param name="y">y axis origin of the tile</param>
-		/// <param name="tileSize">X,Y axis of worldspace size of each tile</param>
-		public GridTile(float x, float y, Vector2 tileSize)
+		/// <param name="z">y axis origin of the tile</param>
+		/// <param name="tileSize">Vector3 worldspace size of each tile</param>
+		public GridTile(Vector3 origin, Vector3 tileSize)
 		{
-			MinX = x;
-			MinY = y;
-			MaxX = x + tileSize.x;
-			MaxY = y + tileSize.y;
+			MinX = origin.x;
+			MinY = origin.y;
+			MinZ = origin.z;
+			MaxX = origin.x + tileSize.x;
+			MaxY = origin.y + tileSize.y;
+			MaxZ = origin.z + tileSize.z;
 		}
 
 		/// <summary>

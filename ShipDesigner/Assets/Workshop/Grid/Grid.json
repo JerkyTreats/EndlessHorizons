@@ -1,0 +1,25 @@
+{
+	"PixelsPerUnit" : 128,
+	"TileStartLocation" : {
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"TileSize" : {
+		"x" : 1,
+		"y" : 1,
+		"z" : 1
+	},
+	"TileCount" : {
+		"x" : 30,
+		"y" : 30,
+		"z" : 30
+	},
+	"OccupiedTiles": {
+		"SnappingDistance": {
+			"x" :  1,
+			"y" :  1,
+			"z" :  1
+		}
+	}
+}
