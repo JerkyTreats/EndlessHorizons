@@ -1,32 +1,36 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Workshop.Grid;
 using UnityEngine;
 using System.IO;
+using Engine;
 
 namespace ShipDesignerUnitTests
 {
 	[TestClass]
 	public class Grid_Test
 	{
+		private Mock<Grids> test;
+
 		[TestMethod]
 		public void GridInformation_TileStartLocationRetrievedByJsonFile()
 		{
-			GridData gi = new GridData();
+			Grids gi = new Grids();
 			Assert.AreEqual(new Vector3(1.0f, 1.0f, 1.0f), gi.TileStartLocation);
 		}
 
 		[TestMethod]
 		public void GridInformation_TileCountXRetrievedByJsonFile()
 		{
-			GridData gi = new GridData();
+			Grids gi = new Grids();
 			Assert.AreEqual(10, gi.TileCountX);
 		}
 
 		[TestMethod]
 		public void GridInformation_TileCountYRetrievedByJsonFile()
 		{
-			GridData gi = new GridData();
+			Grids gi = new Grids();
 			Assert.AreEqual(10, gi.TileCountY);
 		}
 
