@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipDesigner.Plugins", "ShipDesigner.Plugins.csproj", "{093D3C4D-C560-09C7-6DDB-533F97B3EBC8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipDesigner", "ShipDesigner.csproj", "{975B3BA9-A54C-49F8-FB15-38B6C0D49E62}"
