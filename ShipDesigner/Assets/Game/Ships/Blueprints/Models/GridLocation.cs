@@ -14,17 +14,20 @@ namespace Ships.Blueprints
 	{
 		public float x;
 		public float y;
+		public float z;
 
-		public GridLocation(float x, float y)
+		public GridLocation(float x, float y, float z)
 		{
 			this.x = x;
 			this.y = y;
+			this.z = z;
 		}
 
-		public GridLocation(double x, double y)
+		public GridLocation(double x, double y, double z)
 		{
 			this.x = (float)x;
 			this.y = (float)y;
+			this.z = (float)z;
 		}
 	}
 }

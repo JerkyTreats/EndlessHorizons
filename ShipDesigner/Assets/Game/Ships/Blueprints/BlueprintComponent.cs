@@ -31,24 +31,13 @@ namespace Ships.Blueprints
 		/// <param name="name">Name of the Component</param>
 		public BlueprintComponent(Vector3 gridLocation, string name)
 		{
-			GridLocation = new GridLocation(gridLocation.x, gridLocation.y);
+			GridLocation = new GridLocation(gridLocation.x, gridLocation.y, gridLocation.z);
 			Name = name;
 		}
 
-		/// <summary>
-		/// BlueprintComponent constructer. Name is used to retrieve an actual `ObjectData` object
-		/// </summary>
-		/// <param name="gridLocation">Vector2 GridTile.Origin the Component is placed in</param>
-		/// <param name="name">Name of the Component</param>
-		public BlueprintComponent(Vector2 gridLocation, string name)
+		public Vector3 GetGridLocation()
 		{
-			GridLocation = new GridLocation(gridLocation.x, gridLocation.y);
-			Name = name;
-		}
-
-		public Vector2 GetGridLocation()
-		{
-			return new Vector2(GridLocation.x, GridLocation.y);
+			return new Vector3(GridLocation.x, GridLocation.y, GridLocation.z);
 		}
 	}
 }

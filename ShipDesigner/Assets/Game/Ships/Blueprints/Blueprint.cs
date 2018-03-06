@@ -33,8 +33,8 @@ namespace Ships.Blueprints
 
 			for (int i = componentList.Components.Count - 1; i >= 0; i--)
 			{
-				Vector2 blueprintPosition = componentList.Components[i].GetGridLocation();
-				if (gridPosition.x == blueprintPosition.x && gridPosition.y == blueprintPosition.y)
+				Vector3 blueprintPosition = componentList.Components[i].GetGridLocation();
+				if (gridPosition.x == blueprintPosition.x && gridPosition.y == blueprintPosition.y && gridPosition.z == blueprintPosition.z)
 				{
 					return true;
 				}
