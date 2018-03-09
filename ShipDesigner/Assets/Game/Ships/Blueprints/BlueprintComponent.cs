@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Engine.Utility;
 
 namespace Ships.Blueprints
 {
@@ -10,7 +11,7 @@ namespace Ships.Blueprints
 		public static string GRID_LOCATION_KEY = "GridLocation";
 		public static string NAME_KEY = "Name";
 
-		public GridLocation GridLocation { get; set; }
+		public SimpleVector3 GridLocation { get; set; }
 		public string Name { get; set; }
 
 		/// <summary>
@@ -18,7 +19,7 @@ namespace Ships.Blueprints
 		/// </summary>
 		/// <param name="gridLocation">GridLocation object representing the GridTile.Origin the Component is placed in</param>
 		/// <param name="name">Name of the Component</param>
-		public BlueprintComponent(GridLocation gridLocation, string name)
+		public BlueprintComponent(SimpleVector3 gridLocation, string name)
 		{
 			GridLocation = gridLocation;
 			Name = name;
@@ -31,7 +32,7 @@ namespace Ships.Blueprints
 		/// <param name="name">Name of the Component</param>
 		public BlueprintComponent(Vector3 gridLocation, string name)
 		{
-			GridLocation = new GridLocation(gridLocation.x, gridLocation.y, gridLocation.z);
+			GridLocation = new SimpleVector3(gridLocation.x, gridLocation.y, gridLocation.z);
 			Name = name;
 		}
 
