@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WebGL:20</UnityBuildTarget>
     <UnityVersion>5.6.3p2</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -116,7 +118,7 @@
     <Compile Include="Assets\Game\Ships\Blueprints\Models\BlueprintComponentContainer.cs" />
     <Compile Include="Assets\Game\Ships\Blueprints\Models\BlueprintSaveObject.cs" />
     <Compile Include="Assets\Game\Ships\Blueprints\Models\Blueprints.cs" />
-    <Compile Include="Assets\Game\Ships\Blueprints\Models\GridLocation.cs" />
+    <Compile Include="Assets\Engine\Utility\SimpleVector3.cs" />
     <Compile Include="Assets\Game\Ships\Components\ComponentRepository.cs" />
     <Compile Include="Assets\Game\Ships\Components\Door\Data\DoorComponent.cs" />
     <Compile Include="Assets\Game\Ships\Components\Door\Data\DoorData.cs" />
@@ -135,10 +137,9 @@
     <Compile Include="Assets\Game\Ships\Components\Tile\TileFactory.cs" />
     <Compile Include="Assets\Game\Ships\Ship.cs" />
     <Compile Include="Assets\Game\Ships\ShipCategory.cs" />
-    <Compile Include="Assets\View\Boundary.cs" />
-    <Compile Include="Assets\View\CameraComponent.cs" />
-    <Compile Include="Assets\View\CameraController.cs" />
+    <Compile Include="Assets\View\Camera.cs" />
     <Compile Include="Assets\View\CameraFactory.cs" />
+    <Compile Include="Assets\View\Models\Cameras.cs" />
     <Compile Include="Assets\View\IMovementController.cs" />
     <Compile Include="Assets\Workshop\Grid\Grid.cs" />
     <Compile Include="Assets\Workshop\Grid\GridFactory.cs" />
