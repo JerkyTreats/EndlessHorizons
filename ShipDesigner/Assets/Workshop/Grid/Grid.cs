@@ -56,7 +56,7 @@ namespace Workshop.Grid
 						float pos_x = m_model.TileStartLocation.x + (x * m_model.TileSize.x);
 						float pos_y = m_model.TileStartLocation.y + (y * m_model.TileSize.y);
 						float pos_z = m_model.TileStartLocation.z + (z * m_model.TileSize.z);
-						GridTile tile = new GridTile(new Vector3(x, y, z), m_model.TileSize);
+						GridTile tile = new GridTile(new Vector3(pos_x, pos_y, pos_z), m_model.TileSize);
 						m_tiles.Add(tile);
 					}
 				}

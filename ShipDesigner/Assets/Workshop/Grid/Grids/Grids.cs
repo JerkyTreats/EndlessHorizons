@@ -18,7 +18,6 @@ namespace Workshop.Grid
 		int m_gridCountX;
 		int m_gridCountY;
 		int m_gridCountZ;
-		Quad m_quad;
 		Vector3 m_tileSize;
 		Vector3 m_occupiedTileSnappingDistance;
 
@@ -26,7 +25,6 @@ namespace Workshop.Grid
 		public int TileCountX { get { return m_gridCountX; } }
 		public int TileCountY { get { return m_gridCountY; } }
 		public int TileCountZ { get { return m_gridCountZ; } }
-		public Quad Quad { get { return m_quad; } }
 		public Vector3 TileSize { get { return m_tileSize; } }
 		public Vector3 OccupiedTileSnappingSize { get { return m_occupiedTileSnappingDistance; } }
 
