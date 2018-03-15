@@ -7,29 +7,35 @@ using Newtonsoft.Json;
 
 namespace View
 {
+	/// <summary>
+	/// Creates the Camera objects
+	/// </summary>
 	public class CameraFactory
 	{
+		/// <summary>
+		/// Create the main camera for the staging area
+		/// </summary>
 		public static void BuildCamera()
 		{
+			StangingCameras model = BuildModel();
+
 			GameObject cameraObject = new GameObject("MainCamera");
 			cameraObject.SetActive(false);
 
-			cameraObject.AddComponent<UnityEngine.Camera>();
-			cameraObject.tag = "MainCamera"; // sets Camera.main property
-			var camComponent = cameraObject.AddComponent<Camera>();
-			camComponent.Initialize(BuildModel());
+			var camComponent = cameraObject.AddComponent<StagingCamera>();
+			camComponent.Initialize(model);
 			cameraObject.SetActive(true);
 		}
 		
-
-		public static Cameras BuildModel()
+		// Deserialize camera.json data and return model object
+		static StangingCameras BuildModel()
 		{
 			JsonSerializer serializer = new JsonSerializer();
 
 			using (StreamReader sw = new StreamReader(Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "View", "Camera.json")))
 			using (JsonReader reader = new JsonTextReader(sw))
 			{
-				return serializer.Deserialize<Cameras>(reader);
+				return serializer.Deserialize<StangingCameras>(reader);
 			}
 		}
 	}

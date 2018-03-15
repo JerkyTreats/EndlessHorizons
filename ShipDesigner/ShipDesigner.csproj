@@ -137,10 +137,9 @@
     <Compile Include="Assets\Game\Ships\Components\Tile\TileFactory.cs" />
     <Compile Include="Assets\Game\Ships\Ship.cs" />
     <Compile Include="Assets\Game\Ships\ShipCategory.cs" />
-    <Compile Include="Assets\View\Camera.cs" />
+    <Compile Include="Assets\View\StagingCamera.cs" />
     <Compile Include="Assets\View\CameraFactory.cs" />
-    <Compile Include="Assets\View\Models\Cameras.cs" />
-    <Compile Include="Assets\View\IMovementController.cs" />
+    <Compile Include="Assets\View\Models\StagingCameras.cs" />
     <Compile Include="Assets\Workshop\Grid\Grid.cs" />
     <Compile Include="Assets\Workshop\Grid\GridFactory.cs" />
     <Compile Include="Assets\Workshop\Grid\GridTile.cs" />
