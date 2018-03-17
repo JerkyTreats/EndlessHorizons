@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WebGL:20</UnityBuildTarget>
     <UnityVersion>5.6.3p2</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -95,6 +93,7 @@
     <Compile Include="Assets\Engine\GameInitializer.cs" />
     <Compile Include="Assets\Engine\Quad.cs" />
     <Compile Include="Assets\Engine\Utility\JSONTools.cs" />
+    <Compile Include="Assets\Engine\Utility\SimpleVector3.cs" />
     <Compile Include="Assets\Engine\Utility\StringTools\Markov\Input\MarkovInput.cs" />
     <Compile Include="Assets\Engine\Utility\StringTools\Markov\Input\PatternResult.cs" />
     <Compile Include="Assets\Engine\Utility\StringTools\Markov\MarkovGenerator.cs" />
@@ -116,10 +115,12 @@
     <Compile Include="Assets\Game\Ships\Blueprints\BlueprintComponent.cs" />
     <Compile Include="Assets\Game\Ships\Blueprints\BlueprintRepository.cs" />
     <Compile Include="Assets\Game\Ships\Blueprints\Models\BlueprintComponentContainer.cs" />
+    <Compile Include="Assets\Game\Ships\Blueprints\Models\BlueprintFactory.cs" />
     <Compile Include="Assets\Game\Ships\Blueprints\Models\BlueprintSaveObject.cs" />
     <Compile Include="Assets\Game\Ships\Blueprints\Models\Blueprints.cs" />
-    <Compile Include="Assets\Engine\Utility\SimpleVector3.cs" />
+    <Compile Include="Assets\Game\Ships\Components\ComponentFactory.cs" />
     <Compile Include="Assets\Game\Ships\Components\ComponentRepository.cs" />
+    <Compile Include="Assets\Game\Ships\Components\ComponentSpawner_Interface.cs" />
     <Compile Include="Assets\Game\Ships\Components\Door\Data\DoorComponent.cs" />
     <Compile Include="Assets\Game\Ships\Components\Door\Data\DoorData.cs" />
     <Compile Include="Assets\Game\Ships\Components\Door\Data\DoorDataRepository.cs" />
@@ -137,9 +138,9 @@
     <Compile Include="Assets\Game\Ships\Components\Tile\TileFactory.cs" />
     <Compile Include="Assets\Game\Ships\Ship.cs" />
     <Compile Include="Assets\Game\Ships\ShipCategory.cs" />
-    <Compile Include="Assets\View\StagingCamera.cs" />
     <Compile Include="Assets\View\CameraFactory.cs" />
     <Compile Include="Assets\View\Models\StagingCameras.cs" />
+    <Compile Include="Assets\View\StagingCamera.cs" />
     <Compile Include="Assets\Workshop\Grid\Grid.cs" />
     <Compile Include="Assets\Workshop\Grid\GridFactory.cs" />
     <Compile Include="Assets\Workshop\Grid\GridTile.cs" />
@@ -151,7 +152,6 @@
     <Compile Include="Assets\Workshop\UI\Inventory\InventoryComponent.cs" />
     <Compile Include="Assets\Workshop\UI\Inventory\InventoryController.cs" />
     <Compile Include="Assets\Workshop\UI\Inventory\InventoryFactory.cs" />
-    <Compile Include="Assets\Workshop\UI\Inventory\Item\InventoryItemInterface.cs" />
     <Compile Include="Assets\Workshop\UI\Inventory\Item\ItemData.cs" />
     <Compile Include="Assets\Workshop\UI\Inventory\Item\PlacementHandler.cs" />
     <Compile Include="Assets\Workshop\UI\Text\TextData.cs" />

@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using Engine.Utility;
+﻿using Engine.Utility;
+using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Ships.Blueprints
 {
@@ -19,23 +20,17 @@ namespace Ships.Blueprints
 		/// </summary>
 		/// <param name="gridLocation">GridLocation object representing the GridTile.Origin the Component is placed in</param>
 		/// <param name="name">Name of the Component</param>
-		public BlueprintComponent(SimpleVector3 gridLocation, string name)
-		{
-			GridLocation = gridLocation;
-			Name = name;
-		}
-
-		/// <summary>
-		/// BlueprintComponent constructer. Name is used to retrieve an actual `ObjectData` object
-		/// </summary>
-		/// <param name="gridLocation">Vector3 GridTile.Origin the Component is placed in</param>
-		/// <param name="name">Name of the Component</param>
+		[JsonConstructor]
 		public BlueprintComponent(Vector3 gridLocation, string name)
 		{
 			GridLocation = new SimpleVector3(gridLocation.x, gridLocation.y, gridLocation.z);
 			Name = name;
 		}
 
+		/// <summary>
+		/// Get GridLocation as Vector3
+		/// </summary>
+		/// <returns>Vector3 of GridLocation</returns>
 		public Vector3 GetGridLocation()
 		{
 			return new Vector3(GridLocation.x, GridLocation.y, GridLocation.z);

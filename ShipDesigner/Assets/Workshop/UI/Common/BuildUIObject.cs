@@ -1,4 +1,5 @@
 ﻿using Engine;
+using Ships.Components;
 using System;
 using UI.Inventory.Item;
 using UnityEngine;
@@ -59,11 +60,11 @@ namespace UI.Common
 		/// </summary>
 		/// <param name="gameObject">GameObject to add the PlacementHandler to</param>
 		/// <param name="previewQuad">Quad object to appear during drag operations</param>
-		public static void AddPlacementHandler(GameObject gameObject, Quad previewQuad, iInventoryObjectSpawner spawner)
+		public static void AddPlacementHandler(GameObject gameObject, Quad previewQuad, iComponentSpawner spawner)
 		{
 			PlacementHandler placementHandler = gameObject.AddComponent<PlacementHandler>();
 			placementHandler.Quad = previewQuad;
-			placementHandler.ObjectSpawner = spawner;
+			placementHandler.ComponentSpawner = spawner;
 		}
 
 		private static void SetRectTransform(Vector2 anchor, Vector2 sizeDelta, Vector2 pivot, Vector2 position, RectTransform rect)

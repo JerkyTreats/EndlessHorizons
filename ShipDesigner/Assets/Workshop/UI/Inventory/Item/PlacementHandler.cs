@@ -16,7 +16,7 @@ namespace UI.Inventory.Item
 		public Canvas Canvas;
 		public Grid Grid;
 		public Quad Quad { get; set; }
-		public iInventoryObjectSpawner ObjectSpawner { get; internal set; }
+		public iComponentSpawner ComponentSpawner { get; internal set; }
 
 		Vector3 CurrentPosition;
 		GameObject ItemPreview;
@@ -56,8 +56,11 @@ namespace UI.Inventory.Item
 		public void OnEndDrag(PointerEventData eventData)
 		{
 			UpdateCurrentPosition();
-			if(!ObjectSpawner.IsOccupied(CurrentPosition))
-				ObjectSpawner.SpawnObject(CurrentPosition);
+			if(!ComponentSpawner.IsOccupied(CurrentPosition))
+			{
+				GameObject spawned = ComponentSpawner.SpawnObject(CurrentPosition);
+				ComponentSpawner.AddToBlueprint(spawned);
+			}
 
 			Destroy(ItemPreview);
 			ItemPreview = null;

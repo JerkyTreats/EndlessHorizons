@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Ships.Blueprints
 {
@@ -7,6 +8,7 @@ namespace Ships.Blueprints
 	/// </summary>
 	public class BlueprintSaveObject
 	{
+		[JsonProperty(PropertyName = "Containers")]
 		public List<BlueprintComponentContainer> Containers;
 		public string Name;
 
