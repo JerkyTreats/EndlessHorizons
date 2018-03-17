@@ -3,79 +3,40 @@ using Engine.Utility;
 using UnityEngine;
 using SimpleJSON;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace View
 {
+	/// <summary>
+	/// Creates the Camera objects
+	/// </summary>
 	public class CameraFactory
 	{
-		private static string FILE_NAME = "Camera.json";
-		private JSONNode JsonValues;
-
-		private float m_translateSpeed;
-		private float m_scrollSpeed;
-		private Vector3 m_position;
-		private Boundary m_boundary;
-
-		public float TranslateSpeed { get { return m_translateSpeed; } }
-		public float ScrollSpeed { get { return m_scrollSpeed; } }
-		public Vector3 Position { get { return m_position; } }
-		public Boundary Boundary { get { return m_boundary; } }
-
-
+		/// <summary>
+		/// Create the main camera for the staging area
+		/// </summary>
 		public static void BuildCamera()
 		{
+			StangingCameras model = BuildModel();
+
 			GameObject cameraObject = new GameObject("MainCamera");
 			cameraObject.SetActive(false);
 
-			cameraObject.AddComponent<Camera>();
-			cameraObject.tag = "MainCamera"; // sets Camera.main property
-			var camComponent = cameraObject.AddComponent<CameraComponent>();
-			camComponent.SetController(GetCameraController());
+			var camComponent = cameraObject.AddComponent<StagingCamera>();
+			camComponent.Initialize(model);
 			cameraObject.SetActive(true);
 		}
-
-		public static CameraController GetCameraController()
+		
+		// Deserialize camera.json data and return model object
+		static StangingCameras BuildModel()
 		{
-			CameraFactory cf = new CameraFactory();
-			return new CameraController(cf.TranslateSpeed, cf.ScrollSpeed, cf.Position, cf.Boundary);
-		}
+			JsonSerializer serializer = new JsonSerializer();
 
-		public CameraFactory()
-		{
-			JsonValues = JSONTools.GetJSONNode(GetGridInformation());
-			m_translateSpeed = JsonValues["TranslateSpeed"].AsFloat;
-			m_scrollSpeed = JsonValues["ScrollSpeed"].AsFloat;
-			m_position = GetStartPosition();
-			m_boundary = GetBoundary();
-		}
-
-		private string GetGridInformation()
-		{
-			return Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "View", FILE_NAME);
-		}
-
-		private Vector3 GetStartPosition()
-		{
-			string key = "StartLocation";
-			return new Vector3(
-				JsonValues[key]["x"].AsFloat,
-				JsonValues[key]["y"].AsFloat,
-				JsonValues[key]["z"].AsFloat);
-		}
-
-		private Boundary GetBoundary()
-		{
-			string key = "Boundaries";
-			return new Boundary(
-				JsonValues[key]["x"]["min"].AsFloat,
-				JsonValues[key]["x"]["max"].AsFloat,
-
-				JsonValues[key]["y"]["min"].AsFloat,
-				JsonValues[key]["y"]["max"].AsFloat,
-				
-				JsonValues[key]["z"]["min"].AsFloat,
-				JsonValues[key]["z"]["max"].AsFloat
-				);
+			using (StreamReader sw = new StreamReader(Util.CombinePath(Directory.GetCurrentDirectory(), "Assets", "View", "Camera.json")))
+			using (JsonReader reader = new JsonTextReader(sw))
+			{
+				return serializer.Deserialize<StangingCameras>(reader);
+			}
 		}
 	}
 }

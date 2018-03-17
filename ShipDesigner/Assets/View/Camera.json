@@ -1,23 +1,16 @@
 {
 	"TranslateSpeed" : 10.0,
 	"ScrollSpeed" : 100.0,
+	"RotateSpeed" : 2500.0,
 	"StartLocation" : {
-		"x": 14.0,
-		"y": 10.0,
-		"z": -5.0
+		"x": 9.5,
+		"y": 10.5,
+		"z": -2.0
 	},
-	"Boundaries" : {
-		"x" : { 
-			"min" : 8.35, 
-			"max": 18.4 
-		},
-		"y" : { 
-			"min" : 4.45, 
-			"max": 14.5
-		},
-		"z" : { 
-			"min" : -4.5, 
-			"max": -5.5 
-		}
-	}
+	"StartRotation" : {
+		"x" : 25,
+		"y" : 40,
+		"z": 0
+	},
+	"BoundaryRadius" : 25.0
 }

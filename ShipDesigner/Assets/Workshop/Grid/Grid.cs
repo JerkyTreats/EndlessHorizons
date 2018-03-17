@@ -6,9 +6,9 @@ namespace Workshop.Grid
 {
 	public class Grid : MonoBehaviour
 	{
-		private GridData m_model; 
+		private Grids m_model; 
 
-		private List<GridTile> m_tiles; // collection of tiles in the grid
+		private List<GridTile> m_tiles; 
 		private SpriteRenderer Renderer;
 
 		public float ZAxisItemPlacement;
@@ -17,13 +17,12 @@ namespace Workshop.Grid
 		/// Attach GridData Model to GameObject and run StartUp methods
 		/// </summary>
 		/// <param name="data"></param>
-		public void Initialize(GridData data)
+		public void Initialize(Grids data)
 		{
 			m_model = data;
 			GenerateTileList();
 
 			transform.position = m_model.TileStartLocation;
-			m_model.Quad.RenderQuad(gameObject);
 			ZAxisItemPlacement = m_model.TileStartLocation.z - 0.01f;
 		}
 
@@ -48,17 +47,18 @@ namespace Workshop.Grid
 		{
 			m_tiles = new List<GridTile>();
 
-			float width = m_model.Quad.Vertices[2].x / m_model.Quad.UVs[2].x;
-			float height = m_model.Quad.Vertices[2].y / m_model.Quad.UVs[2].y;
-
 			for (int x = 0; x < m_model.TileCountX; x++)
 			{
 				for (int y = 0; y < m_model.TileCountY; y++)
 				{
-					float pos_x = m_model.TileStartLocation.x + (x * width);
-					float pos_y = m_model.TileStartLocation.y + (y * height);
-					GridTile tile = new GridTile(pos_x, pos_y, m_model.TileSize);
-					m_tiles.Add(tile);
+					for (int z = 0; z < m_model.TileCountZ; z++)
+					{
+						float pos_x = m_model.TileStartLocation.x + (x * m_model.TileSize.x);
+						float pos_y = m_model.TileStartLocation.y + (y * m_model.TileSize.y);
+						float pos_z = m_model.TileStartLocation.z + (z * m_model.TileSize.z);
+						GridTile tile = new GridTile(new Vector3(pos_x, pos_y, pos_z), m_model.TileSize);
+						m_tiles.Add(tile);
+					}
 				}
 			}
 		}
