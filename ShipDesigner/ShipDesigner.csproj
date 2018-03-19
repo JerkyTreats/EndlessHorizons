@@ -91,6 +91,8 @@
     <Compile Include="Assets\Engine\DataRepository.cs" />
     <Compile Include="Assets\Engine\GameData.cs" />
     <Compile Include="Assets\Engine\GameInitializer.cs" />
+    <Compile Include="Assets\Engine\Log\Log.cs" />
+    <Compile Include="Assets\Engine\Log\Logger.cs" />
     <Compile Include="Assets\Engine\Quad.cs" />
     <Compile Include="Assets\Engine\Utility\JSONTools.cs" />
     <Compile Include="Assets\Engine\Utility\SimpleVector3.cs" />

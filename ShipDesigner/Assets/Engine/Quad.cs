@@ -11,6 +11,7 @@ namespace Engine
 		Vector3[] m_normals;
 		Vector2[] m_uvs;
 		int[] m_tris;
+		Log m_logger = new Log(GameAreas.Camera);
 
 		public Quad(string resourcePath)
 		{
@@ -23,10 +24,12 @@ namespace Engine
 
 		public Quad(int verts)
 		{
+			m_logger.Header("Creating New Quad");
 			m_vertices = GetDefaultVertices(verts);
 			m_uvs = GetDefaultUVs();
 			m_normals = GetDefaultNormals();
 			m_tris = GetDefaultTriangles();
+			m_logger.Header("Finished Creating Quad");
 		}
 
 		public Quad(string resourcePath, Vector3[] vertices, Vector3[] normals, Vector2[] uvs, int[] tris)
@@ -108,8 +111,10 @@ namespace Engine
 
 		int[] GetDefaultTriangles()
 		{
+			m_logger.Header("Creating Triangles");
 			int verts = m_vertices.Length - 1;
 			int[] tris = new int[verts * 3];
+			m_logger.Write(string.Format("Creating triangles:\nVerts: [{0}]\ntris: [{1}]", verts, tris.Length));
 
 			int index = 1;
 			for (int i = 0; i <= (3 * (verts - 1)); i+=3)
@@ -130,15 +135,19 @@ namespace Engine
 		//Verts per side should be divisible by 4
 		Vector3[] GetDefaultVertices(int vertices)
 		{
+			m_logger.Header("Creating Quad Vertices");
+			m_logger.Write(string.Format("Input vertices: [{0}]", vertices));
 			Vector3[] verts = new Vector3[vertices + 1]; // +1 to include the center vertex
 
 			int vertsPerSide = (vertices - 4) / 4; //number of vertices per side not including corners
 			float vertIncrement = 1f / (vertsPerSide + 1); // Each side vertex evenly divided
+			m_logger.Write(string.Format("vertsPerSide: [{0}]\nvertIncrement: [{1}]", vertsPerSide, vertIncrement));
 			verts[0] = new Vector3(0.5f, 0.5f); // Center vert first
 
 			Vector3 currentVert = new Vector3();
 			for (int i = 1; i < vertices + 1; i++) //-1 because we add the last vert manually
 			{
+				m_logger.Write(string.Format("Vertex[{1}]: [{0}]", currentVert, i), 2);
 				verts[i] = currentVert;
 	
 				currentVert = incrementVert(i <= (vertices / 2), currentVert, vertIncrement);
