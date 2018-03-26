@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipDesigner.Plugins", "Shi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipDesigner", "ShipDesigner.csproj", "{975B3BA9-A54C-49F8-FB15-38B6C0D49E62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipDesigner.Editor", "ShipDesigner.Editor.csproj", "{ECD972EF-AA2B-C933-E702-9320C78E55F6}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipDesignerUnitTests", "..\ShipDesignerUnitTests\ShipDesignerUnitTests.csproj", "{C56FB149-A5E3-4516-97CC-EA5D091D3E3E}"
 EndProject
 Global
@@ -21,6 +23,10 @@ Global
 		{975B3BA9-A54C-49F8-FB15-38B6C0D49E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{975B3BA9-A54C-49F8-FB15-38B6C0D49E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{975B3BA9-A54C-49F8-FB15-38B6C0D49E62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECD972EF-AA2B-C933-E702-9320C78E55F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECD972EF-AA2B-C933-E702-9320C78E55F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECD972EF-AA2B-C933-E702-9320C78E55F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECD972EF-AA2B-C933-E702-9320C78E55F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C56FB149-A5E3-4516-97CC-EA5D091D3E3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C56FB149-A5E3-4516-97CC-EA5D091D3E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C56FB149-A5E3-4516-97CC-EA5D091D3E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
