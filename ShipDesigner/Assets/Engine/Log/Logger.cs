@@ -4,7 +4,11 @@ using UnityEngine;
 
 namespace Engine
 {
-	public enum GameAreas { Camera }
+	public enum GameAreas {
+		Camera,
+		Temporary,
+		Mesh
+	}
 
 	public class Logger
 	{

@@ -54,15 +54,22 @@ namespace Engine
 
 			renderer.material = material;
 
+			Mesh mesh = GetMesh();
+
+			var meshFilter = gameObject.AddComponent<MeshFilter>();
+			meshFilter.mesh = mesh;
+			mesh.RecalculateNormals();
+		}
+
+		public Mesh GetMesh()
+		{
 			Mesh mesh = new Mesh();
 			mesh.vertices = m_vertices;
 			mesh.normals = m_normals;
 			mesh.uv = m_uvs;
 			mesh.triangles = m_tris;
 
-			var meshFilter = gameObject.AddComponent<MeshFilter>();
-			meshFilter.mesh = mesh;
-			mesh.RecalculateNormals();
+			return mesh;
 		}
 
 		/// <summary>
@@ -145,7 +152,7 @@ namespace Engine
 			verts[0] = new Vector3(0.5f, 0.5f); // Center vert first
 
 			Vector3 currentVert = new Vector3();
-			for (int i = 1; i < vertices + 1; i++) //-1 because we add the last vert manually
+			for (int i = 1; i < vertices + 1; i++) 
 			{
 				m_logger.Write(string.Format("Vertex[{1}]: [{0}]", currentVert, i), 2);
 				verts[i] = currentVert;
