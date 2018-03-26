@@ -94,8 +94,8 @@
     <None Include="Assets\Planet\planet_input.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Assets\Workshop\Grid\GridInformation.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="Assets\Workshop\Grid\Grid.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Util\planet_input.json">
