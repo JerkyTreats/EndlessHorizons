@@ -65,7 +65,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Assets\Planet\Planet_Test.cs" />
-    <Compile Include="Assets\MeshBoundary_Test.cs" />
+    <Compile Include="Assets\Ships\Mesh\MeshBoundary_Test.cs" />
+    <Compile Include="Assets\Ships\MeshPart_Test.cs" />
     <Compile Include="Assets\Workshop\Grid\Grid_Test.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

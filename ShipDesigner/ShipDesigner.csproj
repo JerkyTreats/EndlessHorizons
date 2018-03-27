@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WebGL:20</UnityBuildTarget>
     <UnityVersion>5.6.3p2</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -88,11 +90,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Engine\Common.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\ComponentManager.cs" />
     <Compile Include="Assets\Engine\DataRepository.cs" />
     <Compile Include="Assets\Engine\GameData.cs" />
     <Compile Include="Assets\Engine\GameInitializer.cs" />
     <Compile Include="Assets\Engine\Log\Log.cs" />
     <Compile Include="Assets\Engine\Log\Logger.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\MeshUtils.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Edge.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\MeshCombiner.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\MeshPart.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Origin.cs" />
     <Compile Include="Assets\Engine\Quad.cs" />
     <Compile Include="Assets\Engine\Utility\JSONTools.cs" />
     <Compile Include="Assets\Engine\Utility\SimpleVector3.cs" />
@@ -138,12 +146,8 @@
     <Compile Include="Assets\Game\Ships\Components\Tile\Data\TileDataRepository.cs" />
     <Compile Include="Assets\Game\Ships\Components\Tile\Tile.cs" />
     <Compile Include="Assets\Game\Ships\Components\Tile\TileFactory.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\ComponentManager.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\Edge.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\MeshCombiner.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\MeshPart.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\Origin.cs" />
     <Compile Include="Assets\Game\Ships\Mesh\Room.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Triangle.cs" />
     <Compile Include="Assets\Game\Ships\Ship.cs" />
     <Compile Include="Assets\Game\Ships\ShipCategory.cs" />
     <Compile Include="Assets\View\CameraFactory.cs" />
