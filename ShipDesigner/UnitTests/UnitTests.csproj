@@ -43,6 +43,7 @@
     <Compile Include="Util\Markov\MarkovInput_Test.cs" />
     <Compile Include="Util\Markov\Probability_Test.cs" />
     <Compile Include="Util\StringTools\NameGenerator_Test.cs" />
+    <Compile Include="Assets\Mesh\MeshPart_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
