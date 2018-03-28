@@ -21,7 +21,7 @@ namespace Planet
 		private static string GetPlanetNameInputFile()
 		{
 			string currentDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-			return Path.Combine(currentDir, @"Assets\Planet\planet_input.json");
+			return Util.CombinePath(currentDir, "Assets", "Planet","planet_input.json");
 		}
 	}
 }
