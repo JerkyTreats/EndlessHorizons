@@ -6,31 +6,29 @@ using UnityEngine;
 
 namespace Ships
 {
-	public enum RoomPart
-	{
-		Wall,
-		Floor,
-		Ceiling
-	}
-
 	public class Room
 	{
-		MeshCombiner m_combiner;
+		MeshCombiner m_floors;
 
 		public Room()
 		{
-			RoomParts = new List<MeshPart>();
-			m_combiner = new MeshCombiner();
+			m_floors = new MeshCombiner();
+
 		}
 
 		public void Add(MeshPart meshPart)
 		{
-			m_combiner.Add(meshPart);
-			RoomParts.Add(meshPart);
+			m_floors.Add(meshPart);
 		}
 
-		public List<MeshPart> RoomParts;
-		public Vector3 RoomCenter { get { return m_combiner.Origin.Center; } }
+		public List<Edge> FloorEdge
+		{
+			get
+			{
+				return m_floors.Boundary;
+			}
+		}
+		public Vector3 RoomCenter { get { return m_floors.Origin.Center; } }
 
 	}
 }

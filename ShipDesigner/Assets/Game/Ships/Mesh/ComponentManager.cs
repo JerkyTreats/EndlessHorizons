@@ -26,8 +26,6 @@ namespace Engine
 			room = new Room();
 
 			originMesh = new MeshPart(go.GetComponent<MeshFilter>().mesh);
-			originMesh.RoomPart = RoomPart.Floor;
-			room.RoomParts.Add(originMesh);
 		}
 
 		public void Extend()
@@ -38,9 +36,6 @@ namespace Engine
 			
 			originMesh.Origin.SetOrigin(Length.Short, Height.Bottom, Depth.Shallow);
 			toExtend.transform.position = go.transform.position + originMesh.Origin.Origin;
-			room.RoomParts.Add(meshPart);
-
-			meshPart.RoomPart = RoomPart.Wall;
 
 			quad.RenderQuad(toExtend);
 
