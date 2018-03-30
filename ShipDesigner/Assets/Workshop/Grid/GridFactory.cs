@@ -10,7 +10,7 @@ namespace Workshop.Grid
 		public static void InitializeGrid()
 		{
 			GameObject grid = new GameObject(GRID_OBJECT_NAME);
-			Grid component = grid.AddComponent<Grid>();
+			CustomGrid component = grid.AddComponent<CustomGrid>();
 			component.Initialize(new Grids());
 
 			GameData.Instance.SetGrid(grid);
