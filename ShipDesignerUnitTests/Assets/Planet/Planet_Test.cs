@@ -1,28 +1,34 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Planet;
-using System.Diagnostics;
+using NUnit.Framework;
+using System.IO;
 
 namespace ShipDesignerUnitTests
 {
-	[TestClass]
+	[TestFixture]
 	public class Planet_Test
 	{
-		[TestMethod]
+		[OneTimeSetUp]
+		public void Init()
+		{
+			Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
+		}
+
+		[Test]
 		public void PlanetFactory_FactoryReturnsPlanetObject()
 		{
 			Planet.Planet p = PlanetFactory.GenerateRandomPlanet(new Random());
 			Assert.IsNotNull(p);
 		}
 
-		[TestMethod]
+		[Test]
 		public void PlanetFactory_ReturnedPlanetNameIsNotNull()
 		{
 			Planet.Planet p = PlanetFactory.GenerateRandomPlanet(new Random());
 			Assert.IsNotNull(p.Name);
 		}
 
-		[TestMethod]
+		[Test]
 		public void PlanetFactory_ReturnedPlanetResourceLevelsNotAboveBounds()
 		{
 			Planet.Planet p = PlanetFactory.GenerateRandomPlanet(new Random());
@@ -34,7 +40,7 @@ namespace ShipDesignerUnitTests
 			Assert.IsTrue(withinBounds);
 		}
 
-		[TestMethod]
+		[Test]
 		public void PlanetFactory_ReturnedPlanetShipDealershipNotNull()
 		{
 			Planet.Planet p = PlanetFactory.GenerateRandomPlanet(new Random());

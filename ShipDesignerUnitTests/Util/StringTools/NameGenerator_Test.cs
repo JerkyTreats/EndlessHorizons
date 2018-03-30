@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 using Engine.Utility;
 using System.Threading;
@@ -8,16 +8,22 @@ using System.Collections.Generic;
 
 namespace ShipDesignerUnitTests
 {
-	[TestClass]
+	[TestFixture]
 	public class NameGenerator_Test
 	{
-		[TestMethod]
+		[OneTimeSetUp]
+		public void Init()
+		{
+			Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
+		}
+
+		[Test]
 		public void NameGenerator_TestInputFileExists()
 		{
 			Assert.IsTrue(File.Exists(Helpers.GetInputFile()));
 		}
 
-		[TestMethod]
+		[Test]
 		public void NameGenerator_ReturnsNotNullForWellFormedData()
 		{
 			string generatedName = NameGenerator.GenerateRandomName(Helpers.GetInputFile(),"Name");
@@ -25,7 +31,7 @@ namespace ShipDesignerUnitTests
 			Assert.IsNotNull(generatedName);
 		}
 
-		[TestMethod]
+		[Test]
 		public void NameGenerator_ReturnStringDifferentFromInputString()
 		{
 			string inputName = "Azeby"; //Found in TestNameInputFile.json
@@ -33,7 +39,7 @@ namespace ShipDesignerUnitTests
 			Assert.AreNotEqual(inputName, generatedName);
 		}
 
-		[TestMethod]
+		[Test]
 		public void NameGenerator_Meta_GenerateFileOfRandomNames()
 		{
 			string path = GetPath("random_names");
@@ -49,7 +55,7 @@ namespace ShipDesignerUnitTests
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void NameGenerator_Meta_GenerateFileOfMarkovNames()
 		{
 			Random rnd = new Random();
@@ -69,7 +75,7 @@ namespace ShipDesignerUnitTests
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void NameGenerator_ReturnedNameIsCapitalizedCorrectly()
 		{
 			Random rnd = new Random();

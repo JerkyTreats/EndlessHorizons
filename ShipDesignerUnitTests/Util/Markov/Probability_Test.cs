@@ -1,15 +1,15 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Markov;
 using System.Diagnostics;
 using System.Collections.Generic;
 
 namespace ShipDesignerUnitTests
 {
-	[TestClass]
+	[TestFixture]
 	public class Probability_Test
 	{
-		[TestMethod]
+		[Test]
 		public void Probability_ExpectedWeightSet()
 		{
 			int total = 9;
@@ -25,7 +25,7 @@ namespace ShipDesignerUnitTests
 			Assert.AreEqual(decimal.ToInt32(probability), lp.GetWeight(wholeNumberMultiplier, total));
 		}
 
-		[TestMethod]
+		[Test]
 		public void ProbabilityManager_AddedProbabilityUpdatesTotal()
 		{
 			ProbabilityManager<char> pm = new ProbabilityManager<char>(1000);
@@ -35,7 +35,7 @@ namespace ShipDesignerUnitTests
 			Assert.AreEqual(2, pm.Total);
 		}
 
-		//[TestMethod]
+		//[Test]
 		//public void Probability_CorrectTotalReturned()
 		//{
 
