@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
+
 namespace Ships
 {
 	public struct Edge
@@ -12,5 +13,18 @@ namespace Ships
 			else
 				Vertices = new int[2] { v1, v2 };
 		}
+	}
+
+	public struct SharedEdge
+	{
+		public int SharedIndex;
+		public List<Edge> Edges;
+
+		public SharedEdge(int sharedIndex, Edge edge)
+		{
+			SharedIndex = sharedIndex;
+			Edges = new List<Edge>();
+			Edges.Add(edge);
+		} 
 	}
 }

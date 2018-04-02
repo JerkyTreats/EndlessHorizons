@@ -17,6 +17,7 @@ namespace Ships
 				new Edge( vertex2, vertex3 ),
 				new Edge( vertex1, vertex3 )
 			};
+
 			Vertices = new int[3]
 			{
 				vertex1,
@@ -33,6 +34,23 @@ namespace Ships
 			{
 				tris.Add(new Triangle(triangles[i], triangles[i + 1], triangles[i + 2], i));
 			}
+			return tris;
+		}
+
+		public static int[] GetTriangleArray(List<Triangle> triangles)
+		{
+			int[] tris = new int[triangles.Count * 3];
+
+			for (int i = 0; i < triangles.Count; i++)
+			{
+				Triangle thisTri = triangles[i];
+				int index = thisTri.Index;
+
+				tris[index] = thisTri.Vertices[0];
+				tris[index + 1] = thisTri.Vertices[1];
+				tris[index + 2] = thisTri.Vertices[2];
+			}
+
 			return tris;
 		}
 	}

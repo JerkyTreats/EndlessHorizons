@@ -67,9 +67,13 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Assets\Planet\Planet_Test.cs" />
+    <Compile Include="Assets\Ships\Mesh\MeshCombiner_Test.cs" />
+    <Compile Include="Assets\Ships\Mesh\MeshUtils_Test.cs" />
+    <Compile Include="Assets\Ships\Mesh\Triangle_Test.cs" />
     <Compile Include="Assets\Ships\Mesh\MeshBoundary_Test.cs" />
     <Compile Include="Assets\Ships\Mesh\MeshPart_Test.cs" />
     <Compile Include="Assets\Workshop\Grid\Grid_Test.cs" />
+    <Compile Include="Assets\Ships\Mesh\CustomMesh.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

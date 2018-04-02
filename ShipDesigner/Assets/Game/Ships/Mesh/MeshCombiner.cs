@@ -31,6 +31,7 @@ namespace Ships
 			m_vertices.AddRange(meshPart.Vertices);
 			m_normals.AddRange(meshPart.Normals);
 			m_uvs.AddRange(meshPart.UVs);
+			m_triangles.AddRange(meshPart.Triangles);
 
 			m_origin = new Origins(m_vertices);
 		}
@@ -60,10 +61,13 @@ namespace Ships
 				return MeshUtils.GetBoundaryEdges(m_triangles);
 			}
 		}
+
 		public List<MeshPart> MeshParts { get { return m_meshParts; } }
 		public List<Vector3> Vertices { get { return m_vertices; } }
 		public List<Vector3> Normals { get { return m_normals; } }
 		public List<Vector2> UV { get { return m_uvs; } }
+		public List<Triangle> Triangles{ get { return m_triangles; } }
+
 		public Origins Origin { get { return m_origin; } }
 	}
 }
