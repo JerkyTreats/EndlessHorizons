@@ -27,4 +27,14 @@ namespace Ships
 			Edges.Add(edge);
 		} 
 	}
+
+	public struct BoundaryEdge
+	{
+		public List<int> Vertices;
+
+		public BoundaryEdge(Edge edge)
+		{
+			Vertices = new List<int>(edge.Vertices);
+		}
+	}
 }

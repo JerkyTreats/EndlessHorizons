@@ -49,6 +49,11 @@ namespace Engine
 				WriteToLog(msg);
 		}
 
+		public static void Error(string msg)
+		{
+			WriteToLog(string.Format("\nERROR : \n		{0}\n", msg));
+		}
+
 		private static void WriteToLog(string msg)
 		{
 			Debug.Log(msg);

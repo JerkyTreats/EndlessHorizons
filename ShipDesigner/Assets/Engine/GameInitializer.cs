@@ -17,10 +17,10 @@ namespace Engine
 
 			//THIS IS TEST PLZ DELETE
 
-			GameObject go = new GameObject("Quad");
-			ComponentManager manager = new ComponentManager(go);
-			manager.Start();
-			manager.Extend();
+			// GameObject go = new GameObject("Quad");
+			// ComponentManager manager = new ComponentManager(go);
+			// manager.Start();
+			// manager.Extend();
 
 
 			//Vector3 vertex = go.GetComponent<MeshFilter>().mesh.vertices[2];
