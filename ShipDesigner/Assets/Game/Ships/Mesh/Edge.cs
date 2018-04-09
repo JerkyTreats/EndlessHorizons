@@ -15,26 +15,17 @@ namespace Ships
 		}
 	}
 
-	public struct SharedEdge
+	public class SharedEdge
 	{
-		public int SharedIndex;
-		public List<Edge> Edges;
+		public List<int> VerticeIndex { get; set; }
+		public int First { get { return VerticeIndex[0]; } }
+		public int Last {  get { return VerticeIndex[VerticeIndex.Count - 1]; } }
 
-		public SharedEdge(int sharedIndex, Edge edge)
+		public SharedEdge() { }
+
+		public SharedEdge(Edge edge)
 		{
-			SharedIndex = sharedIndex;
-			Edges = new List<Edge>();
-			Edges.Add(edge);
-		} 
-	}
-
-	public struct BoundaryEdge
-	{
-		public List<int> Vertices;
-
-		public BoundaryEdge(Edge edge)
-		{
-			Vertices = new List<int>(edge.Vertices);
+			VerticeIndex = new List<int>(edge.Vertices);
 		}
 	}
 }

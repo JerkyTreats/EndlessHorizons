@@ -57,11 +57,11 @@ namespace Ships
 		public List<Vector3> GetCorners()
 		{
 			List<Vector3> corners = new List<Vector3>();
-			List<SharedEdge> edges = MeshUtils.GetSharedEdges(Boundary);
+			List<_SharedEdge> edges = MeshUtils.GetSharedEdges(Boundary, m_vertices);
 
 			for (int i = 0; i < edges.Count; i++)
 			{
-				SharedEdge se = edges[i];
+				_SharedEdge se = edges[i];
 
 				Vector3 index = m_vertices[se.SharedIndex];
 				bool xAxisIterating = true;
