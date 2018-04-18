@@ -54,40 +54,40 @@ namespace Ships
 			}
 		}
 
-		public List<Vector3> GetCorners()
-		{
-			List<Vector3> corners = new List<Vector3>();
-			List<SharedEdge> edges = MeshUtils.GetSharedEdges(Boundary);
+		//public List<Vector3> GetCorners()
+		//{
+		//	List<Vector3> corners = new List<Vector3>();
+		//	List<SharedEdge> edges = MeshUtils.GetSharedEdges(Boundary, m_vertices);
 
-			for (int i = 0; i < edges.Count; i++)
-			{
-				SharedEdge se = edges[i];
+		//	for (int i = 0; i < edges.Count; i++)
+		//	{
+		//		SharedEdge se = edges[i];
 
-				Vector3 index = m_vertices[se.SharedIndex];
-				bool xAxisIterating = true;
-				bool yAxisIterating = true;
+		//		Vector3 index = m_vertices[se.SharedIndex];
+		//		bool xAxisIterating = true;
+		//		bool yAxisIterating = true;
 
-				for (int n = 0; n < se.Edges.Count; n++)
-				{
-					int connectedVertice;
-					if (se.SharedIndex == se.Edges[n].Vertices[0])
-						connectedVertice = se.Edges[n].Vertices[1];
-					else
-						connectedVertice = se.Edges[n].Vertices[0];
+		//		for (int n = 0; n < se.Edges.Count; n++)
+		//		{
+		//			int connectedVertice;
+		//			if (se.SharedIndex == se.Edges[n].Vertices[0])
+		//				connectedVertice = se.Edges[n].Vertices[1];
+		//			else
+		//				connectedVertice = se.Edges[n].Vertices[0];
 
-					Vector3 edge = m_vertices[connectedVertice];
-					if (edge.x != index.x)
-						xAxisIterating = false;
-					if (edge.y != index.y)
-						yAxisIterating = false;
-				}
+		//			Vector3 edge = m_vertices[connectedVertice];
+		//			if (edge.x != index.x)
+		//				xAxisIterating = false;
+		//			if (edge.y != index.y)
+		//				yAxisIterating = false;
+		//		}
 
-				if (!xAxisIterating && !yAxisIterating)
-					corners.Add(index);
-			}
+		//		if (!xAxisIterating && !yAxisIterating)
+		//			corners.Add(index);
+		//	}
 
-			return corners;
-		}
+		//	return corners;
+		//}
 
 		public List<Edge> Boundary
 		{

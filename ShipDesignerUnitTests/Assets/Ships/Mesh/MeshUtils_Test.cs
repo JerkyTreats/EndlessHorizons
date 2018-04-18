@@ -34,22 +34,5 @@ namespace ShipDesignerUnitTests
 			}
 			Assert.True(passed, msg);
 		}
-
-		[Test]
-		public void MeshUtils_GetSharedEdgesReturnsExpectedResult()
-		{
-			List<Edge> uniqueEdges = MeshUtils.GetBoundaryEdges(Mesh.MeshPart.Triangles);
-			List<SharedEdge> sharedEdges = MeshUtils.GetSharedEdges(uniqueEdges);
-
-			for (int i = 0; i < sharedEdges.Count; i++)
-			{
-				for (int n = 0; n < sharedEdges[i].Edges.Count; n++)
-				{
-					int[] verts = sharedEdges[i].Edges[n].Vertices;
-					if (verts[0] != sharedEdges[i].SharedIndex && verts[1] != sharedEdges[i].SharedIndex)
-						Assert.IsTrue(false, string.Format("Edge [{0}][{1}] did not contain SharedIndex[{2}]", verts[0], verts[1], sharedEdges[i].SharedIndex));
-				}
-			}
-		}
 	}
 }
