@@ -16,11 +16,6 @@ namespace Ships
 		public int First { get { return m_verticeIndex[0]; } }
 		public int Last { get { return m_verticeIndex[m_verticeIndex.Count - 1]; } }
 
-		public SharedEdge()
-		{
-			m_edges = new List<Edge>();
-		}
-
 		public SharedEdge(Edge edge)
 		{
 			m_edges = new List<Edge>();
@@ -28,16 +23,16 @@ namespace Ships
 			SetVerticeIndex();
 		}
 
-		public void Add(SharedEdge sharedEdge)
+		public bool Merge(SharedEdge toMerge)
 		{
-			m_edges.AddRange(sharedEdge.Edges);
+			if (First == toMerge.Last)
+				m_edges.InsertRange(0, toMerge.m_edges);
+			else if (Last == toMerge.First)
+				m_edges.AddRange(toMerge.m_edges);
+			else
+				return false;
 			SetVerticeIndex();
-		}
-
-		public void Insert(SharedEdge sharedEdge)
-		{
-			m_edges.InsertRange(0, sharedEdge.Edges);
-			SetVerticeIndex();
+			return true;
 		}
 
 		void SetVerticeIndex()
@@ -64,16 +59,8 @@ namespace Ships
 				{
 					if (TwoEdgesAreOnSameLine(vertices, SharedEdges[s], inputEdges[i]))
 					{
-						if (SharedEdges[s].First == inputEdges[i].Vertices[1])
-						{
-							newEdge.Add(SharedEdges[s]);
+						if (newEdge.Merge(SharedEdges[s]))
 							markedForRemoval.Add(SharedEdges[s]);
-						}
-						else if (SharedEdges[s].Last == inputEdges[i].Vertices[0])
-						{
-							newEdge.Insert(SharedEdges[s]);
-							markedForRemoval.Add(SharedEdges[s]);
-						}
 					}
 				}
 
