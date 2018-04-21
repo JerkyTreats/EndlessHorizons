@@ -69,7 +69,7 @@
     <Compile Include="Assets\Planet\Planet_Test.cs" />
     <Compile Include="Assets\Ships\Mesh\MeshCombiner_Test.cs" />
     <Compile Include="Assets\Ships\Mesh\MeshUtils_Test.cs" />
-    <Compile Include="Assets\Ships\Mesh\SharedEdgeFactory_Test.cs" />
+    <Compile Include="Assets\Ships\Mesh\SharedEdge_Test.cs" />
     <Compile Include="Assets\Ships\Mesh\Triangle_Test.cs" />
     <Compile Include="Assets\Ships\Mesh\MeshBoundary_Test.cs" />
     <Compile Include="Assets\Ships\Mesh\MeshPart_Test.cs" />
