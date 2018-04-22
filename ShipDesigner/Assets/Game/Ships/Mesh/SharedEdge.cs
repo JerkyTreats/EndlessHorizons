@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Text;
 using Engine.Utility;
 
 namespace Ships
 {
 	public class SharedEdge
 	{
-		private List<int> m_verticeIndex;
+		private List<Vertex> m_verticeIndex;
 		private List<Edge> m_edges;
 
 		public List<Edge> Edges { get { return m_edges; } }
-		public List<int> VerticeIndex { get { return m_verticeIndex; } }
-		public int First { get { return m_verticeIndex[0]; } }
-		public int Last { get { return m_verticeIndex[m_verticeIndex.Count - 1]; } }
+		public List<Vertex> Vertices { get { return m_verticeIndex; } }
+		public Vertex First { get { return m_verticeIndex[0]; } }
+		public Vertex Last { get { return m_verticeIndex[m_verticeIndex.Count - 1]; } }
 
 		public SharedEdge(Edge edge)
 		{
@@ -25,9 +23,9 @@ namespace Ships
 
 		public bool Merge(SharedEdge toMerge)
 		{
-			if (First == toMerge.Last)
+			if (First.MeshIndex == toMerge.Last.MeshIndex)
 				m_edges.InsertRange(0, toMerge.m_edges);
-			else if (Last == toMerge.First)
+			else if (Last.MeshIndex == toMerge.First.MeshIndex)
 				m_edges.AddRange(toMerge.m_edges);
 			else
 				return false;
@@ -37,17 +35,17 @@ namespace Ships
 
 		void SetVerticeIndex()
 		{
-			HashSet<int> vertices = new HashSet<int>();
+			HashSet<Vertex> vertices = new HashSet<Vertex>();
 			for (int i = 0; i < m_edges.Count; i++)
 			{
 				vertices.Add(m_edges[i].Vertices[0]);
 				vertices.Add(m_edges[i].Vertices[1]);
 			}
-			m_verticeIndex = new List<int>(vertices);
+			m_verticeIndex = new List<Vertex>(vertices);
 		}
 
 
-		public static List<SharedEdge> SharedEdgeFactory(List<Edge> inputEdges, List<Vector3> vertices)
+		public static List<SharedEdge> SharedEdgeFactory(List<Edge> inputEdges)
 		{
 			List<SharedEdge> SharedEdges = new List<SharedEdge>();
 			for (int i = 0; i < inputEdges.Count; i++)
@@ -57,7 +55,7 @@ namespace Ships
 
 				for (int s = 0; s < SharedEdges.Count; s++)
 				{
-					if (TwoEdgesAreOnSameLine(vertices, SharedEdges[s], inputEdges[i]))
+					if (TwoEdgesAreOnSameLine(SharedEdges[s], inputEdges[i]))
 					{
 						if (newEdge.Merge(SharedEdges[s]))
 							markedForRemoval.Add(SharedEdges[s]);
@@ -74,15 +72,13 @@ namespace Ships
 			return SharedEdges;
 		}
 
-		static bool TwoEdgesAreOnSameLine(List<Vector3> vertices, SharedEdge toCheckAgainst, Edge toCheck)
+		static bool TwoEdgesAreOnSameLine(SharedEdge toCheckAgainst, Edge toCheck)
 		{
-			Vector3 edge1First = vertices[toCheckAgainst.First];
-			Vector3 edge1Last = vertices[toCheckAgainst.Last];
-			Vector3 edge2First = vertices[toCheck.Vertices[0]];
-			Vector3 edge2Last = vertices[toCheck.Vertices[1]];
+			Vector3 edge1First = toCheckAgainst.First.Position;
+			Vector3 edge1Last = toCheckAgainst.Last.Position;
 
-			if (MathUtils.DistanceLineSegmentPoint(edge1First, edge1Last, edge2First) == 0 &&
-				MathUtils.DistanceLineSegmentPoint(edge1First, edge1Last, edge2Last) == 0)
+			if (MathUtils.DistanceLineSegmentPoint(edge1First, edge1Last, toCheck.Vertices[0].Position) == 0 &&
+				MathUtils.DistanceLineSegmentPoint(edge1First, edge1Last, toCheck.Vertices[1].Position) == 0)
 				return true;
 			return false;
 		}

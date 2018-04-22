@@ -25,13 +25,13 @@ namespace Ships
 		float m_shallow = 0;
 		float m_deep = 0;
 
-		public Origins(List<Vector3> vertices)
+		public Origins(List<Vertex> vertices)
 		{
 			for (int i = 0; i < vertices.Count; i++)
 			{
-				float x = vertices[i].x;
-				float y = vertices[i].y;
-				float z = vertices[i].z;
+				float x = vertices[i].Position.x;
+				float y = vertices[i].Position.y;
+				float z = vertices[i].Position.z;
 
 				if (x < m_short)
 					m_short = x;

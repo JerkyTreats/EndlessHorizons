@@ -10,41 +10,46 @@ namespace ShipDesignerUnitTests
 	[TestFixture]
 	public class MeshBoundaryTest
 	{
-		Quad Quad;
-		List<Triangle> Triangles;
+		CustomMesh CustomMesh;
 
 		[SetUp()]
 		public void MyTestInitialize()
 		{
-			Quad = new Quad(16);
-			Triangles = Triangle.GetTriangleList(Quad.Triangles);
+			CustomMesh = new CustomMesh();
 		}
 
 		[Test]
 		public void MeshBoundary_ConstructorCreatesCorrectNumberOfBoundaryEdges()
 		{
-			List<Edge> mb = MeshUtils.GetBoundaryEdges(Triangles);
+			List<Edge> mb = MeshUtils.GetBoundaryEdges(CustomMesh.MeshPart.Triangles);
 			List<Edge> correct = new List<Edge>();
-			for (int i = 1; i < mb.Count; i++)
+			for (int i = 0; i < 15; i++)
 			{
-				correct.Add(new Edge(i, i + 1));
+				Vertex one = new Vertex(), two = new Vertex();
+				one.MeshIndex = i;
+				two.MeshIndex = i + 1;
+				correct.Add(new Edge(one, two));
 			}
-			correct.Add(new Edge(1, mb.Count));
+			Vertex first = new Vertex(), second = new Vertex();
+			first.MeshIndex = 0;
+			second.MeshIndex = 15; 
+			correct.Add(new Edge(first, second));
 
 			Assert.AreEqual(correct.Count, mb.Count);
 
-			int foundEdges = 0;
-			foreach(Edge correctEdge in correct)
+			for (int i = 0; i < correct.Count; i++)
 			{
-				foreach(Edge mbEdge in mb)
-				{
-					if (mbEdge.Vertices[0] == correctEdge.Vertices[0] &&
-						mbEdge.Vertices[1] == correctEdge.Vertices[1])
-						foundEdges++;
-				}
+				bool foundEdge = false;
+				int[] correctEdge = new int[2] { correct[i].Vertices[0].MeshIndex, correct[i].Vertices[1].MeshIndex };
 
+				for (int n = 0; n < mb.Count; n++)
+				{
+					int [] builtEdge = new int[2] { mb[n].Vertices[0].MeshIndex, mb[n].Vertices[1].MeshIndex };
+					if (builtEdge[0] == correctEdge[0] && builtEdge[1] == correctEdge[1])
+						foundEdge = true;
+				}
+				Assert.True(foundEdge);
 			}
-				Assert.AreEqual(correct.Count, foundEdges, string.Format("Expected [{0}] to be found. Amount actually found: [{1}]", correct.Count, foundEdges));
 		}
 	}
 }

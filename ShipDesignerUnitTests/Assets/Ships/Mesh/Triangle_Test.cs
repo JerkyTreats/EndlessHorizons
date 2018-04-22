@@ -15,12 +15,24 @@ namespace ShipDesignerUnitTests
 		};
 
 		List<Triangle> TriangleList = new List<Triangle>();
+		List<Vertex> Vertices = new List<Vertex>();
 
 		[OneTimeSetUp]
 		public void Init()
 		{
-			TriangleList.Add(new Triangle(0, 1, 2, 0));
-			TriangleList.Add(new Triangle(0, 1, 3, 3));
+			Vertex zero = new Vertex(), one = new Vertex(), two = new Vertex(), three = new Vertex();
+			zero.MeshIndex = 0;
+			one.MeshIndex = 1;
+			two.MeshIndex = 2;
+			three.MeshIndex = 3;
+
+			Vertices.Add(zero);
+			Vertices.Add(one);
+			Vertices.Add(two);
+			Vertices.Add(three);
+
+			TriangleList.Add(new Triangle(zero, one, two, 0));
+			TriangleList.Add(new Triangle(zero, one, three, 3));
 		}
 
 		[Test]
@@ -37,7 +49,7 @@ namespace ShipDesignerUnitTests
 		[Test]
 		public void Triangle_GetListContentsCorrect()
 		{
-			List<Triangle> transformed = Triangle.GetTriangleList(TriangleArray);
+			List<Triangle> transformed = Triangle.GetTriangleList(TriangleArray, Vertices);
 
 			Assert.AreEqual(TriangleList.Count, transformed.Count);
 

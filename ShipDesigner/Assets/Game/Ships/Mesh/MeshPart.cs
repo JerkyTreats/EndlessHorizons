@@ -12,48 +12,32 @@ namespace Ships
 	{
 		Log m_logger = new Log(GameAreas.Mesh);
 
-		List<Vector3> m_vertices;
-		List<Vector3> m_normals;
-		List<Vector2> m_uvs;
+		List<Vertex> m_vertices; 
 		List<Triangle> m_tris;
 
 		public MeshPart()
 		{
-			m_vertices = new List<Vector3>();
-			m_normals = new List<Vector3>();
-			m_uvs = new List<Vector2>();
+			m_vertices = new List<Vertex>();
 			m_tris = new List<Triangle>();
 		}
 
 		public MeshPart(Mesh mesh)
 		{
-			m_vertices = new List<Vector3>(mesh.vertices);
-			m_normals = new List<Vector3>(mesh.normals);
-			m_uvs = new List<Vector2>(mesh.uv);
-			m_tris = Triangle.GetTriangleList(mesh.triangles);
-
+			m_vertices = VertexFactory.GetVertexList(mesh.vertices, mesh.normals, mesh.uv);
+			m_tris = Triangle.GetTriangleList(mesh.triangles, m_vertices);
 			Origin = new Origins(m_vertices);
 		}
 
-		public MeshPart(Vector3[] vertices, Vector3[] normals, Vector2[] uvs, int[] triangles)
+		public MeshPart(Vector3[] vertices, Vector3[] normals, Vector2[] uvs, int[] tris)
 		{
-			m_vertices = new List<Vector3>(vertices);
-			m_normals = new List<Vector3>(normals);
-			m_uvs = new List<Vector2>(uvs);
-			m_tris = Triangle.GetTriangleList(triangles);
-
-			Origin = new Origins(m_vertices);
+			m_vertices = VertexFactory.GetVertexList(vertices, normals, uvs);
+			m_tris = Triangle.GetTriangleList(tris, m_vertices);
 		}
-
-
-
+		
 		#region public variables
 
-		public List<Vector3> Vertices { get { return m_vertices; } }
-		public List<Vector3> Normals { get { return m_normals; } }
-		public List<Vector2> UVs { get { return m_uvs; } }
+		public List<Vertex> Vertices { get { return m_vertices; } }
 		public List<Triangle> Triangles { get { return m_tris; } }
-
 		public Origins Origin { get; set; }
 		
 		#endregion
