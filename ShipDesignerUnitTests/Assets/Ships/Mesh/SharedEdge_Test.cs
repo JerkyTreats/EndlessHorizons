@@ -32,17 +32,23 @@ namespace ShipDesignerUnitTests
 			CustomMesh cm = new CustomMesh();
 
 			List<Edge> boundaryEdges = MeshUtils.GetBoundaryEdges(cm.MeshPart.Triangles);
-			var sharedEdges = SharedEdge.SharedEdgeFactory(boundaryEdges, cm.MeshPart.Vertices);
+			var sharedEdges = SharedEdge.SharedEdgeFactory(boundaryEdges);
 
 			Assert.AreEqual(12, sharedEdges.Count);
 			
 			for (int i = 0; i < sharedEdges.Count; i++)
 			{
-				SharedEdge actual = sharedEdges[i];
+				List<int> actual = new List<int>();
+
+				for (int v = 0; v < sharedEdges[i].Vertices.Count; v++)
+				{
+					actual.Add(sharedEdges[i].Vertices[v].MeshIndex);
+				}
+
 				bool intersect = false;
 				for (int n = 0; n < expectedVerticeIndices.Length; n++)
 				{
-					if (actual.VerticeIndex.Intersect(expectedVerticeIndices[n]).Any())
+					if (actual.Intersect(expectedVerticeIndices[n]).Any())
 						intersect = true;
 				}
 				Assert.True(intersect);
@@ -52,34 +58,42 @@ namespace ShipDesignerUnitTests
 		[Test]
 		public void SharedEdge_MergeUpdatesVerticeIndexCorrectly()
 		{
-			SharedEdge se = new SharedEdge(new Edge(1, 2));
-			SharedEdge mergeAtBeginning = new SharedEdge(new Edge(0, 1));
-			SharedEdge mergeAtEnd = new SharedEdge(new Edge(2, 3));
+			Vertex zero = new Vertex(), one = new Vertex(), two = new Vertex(), three = new Vertex();
+			zero.MeshIndex = 0;
+			one.MeshIndex = 1;
+			two.MeshIndex = 2;
+			three.MeshIndex = 3;
 
-			Assert.AreEqual(1, se.First);
-			Assert.AreEqual(2, se.Last);
-			Assert.True(se.VerticeIndex.Contains(1));
-			Assert.True(se.VerticeIndex.Contains(2));
-			Assert.AreEqual(2, se.VerticeIndex.Count);
+			SharedEdge se = new SharedEdge(new Edge(one, two));
+			SharedEdge mergeAtBeginning = new SharedEdge(new Edge(zero, one));
+			SharedEdge mergeAtEnd = new SharedEdge(new Edge(two, three));
+
+			Assert.AreEqual(1, se.First.MeshIndex);
+			Assert.AreEqual(2, se.Last.MeshIndex);
+			Assert.True(se.Vertices.Contains(one));
+			Assert.True(se.Vertices.Contains(two));
+			Assert.AreEqual(2, se.Vertices.Count);
 
 			se.Merge(mergeAtBeginning);
 
-			Assert.AreEqual(0, se.First);
-			Assert.AreEqual(2, se.Last);
-			Assert.AreEqual(3, se.VerticeIndex.Count);
-			for (int i = 0; i < 3; i++)
+			Assert.AreEqual(0, se.First.MeshIndex);
+			Assert.AreEqual(2, se.Last.MeshIndex);
+			Assert.AreEqual(3, se.Vertices.Count);
+			int[] required = new int[] { 0, 1, 2 };
+			for (int i = 0; i < se.Vertices.Count; i++)
 			{
-				Assert.True(se.VerticeIndex.Contains(i));
+				Assert.True(required.Contains(se.Vertices[i].MeshIndex));
 			}
 
 			se.Merge(mergeAtEnd);
 
-			Assert.AreEqual(0, se.First);
-			Assert.AreEqual(3, se.Last);
-			Assert.AreEqual(4, se.VerticeIndex.Count);
-			for (int i = 0; i < 4; i++)
+			Assert.AreEqual(0, se.First.MeshIndex);
+			Assert.AreEqual(3, se.Last.MeshIndex);
+			Assert.AreEqual(4, se.Vertices.Count);
+			required = new int[] { 0, 1, 2, 3 };
+			for (int i = 0; i < se.Vertices.Count; i++)
 			{
-				Assert.True(se.VerticeIndex.Contains(i));
+				Assert.True(required.Contains(se.Vertices[i].MeshIndex));
 			}
 		}
 	}

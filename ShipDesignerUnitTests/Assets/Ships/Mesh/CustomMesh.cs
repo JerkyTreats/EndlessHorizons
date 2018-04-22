@@ -77,7 +77,7 @@ namespace ShipDesignerUnitTests
 				Normals[i] = Vector3.forward;
 				UVs[i] = Vector2.zero;
 			}
-
+			
 			MeshPart = new MeshPart(Vertices, Normals, UVs, Triangles);
 		}
 	}

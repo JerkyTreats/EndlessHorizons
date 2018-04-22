@@ -26,7 +26,7 @@ namespace ShipDesignerUnitTests
 			for (int i = 0; i < edges.Count; i++)
 			{
 				// The CustomMesh object is constructed so indexs 0-15 are the only boundary edge indices
-				if (edges[i].Vertices[0] > 15 || edges[i].Vertices[1] > 15)
+				if (edges[i].Vertices[0].MeshIndex > 15 || edges[i].Vertices[1].MeshIndex > 15)
 				{
 					msg = string.Format("Edges with verts [{0}][{1}] not a boundary edge", edges[i].Vertices[0], edges[i].Vertices[1]);
 					passed = false;

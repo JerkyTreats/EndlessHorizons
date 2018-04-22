@@ -4,14 +4,14 @@ namespace Ships
 {
 	public struct Edge
 	{
-		public int[] Vertices;
+		public Vertex[] Vertices;
 
-		public Edge(int v1, int v2)
+		public Edge(Vertex v1, Vertex v2)
 		{
-			if (v1 > v2)
-				Vertices = new int[2] { v2, v1 };
+			if (v1.MeshIndex > v2.MeshIndex)
+				Vertices = new Vertex[2] { v2, v1 };
 			else
-				Vertices = new int[2] { v1, v2 };
+				Vertices = new Vertex[2] { v1, v2 };
 		}
 	}
 }
