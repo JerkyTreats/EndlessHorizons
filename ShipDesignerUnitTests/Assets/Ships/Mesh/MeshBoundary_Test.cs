@@ -26,13 +26,13 @@ namespace ShipDesignerUnitTests
 			for (int i = 0; i < 15; i++)
 			{
 				Vertex one = new Vertex(), two = new Vertex();
-				one.MeshIndex = i;
-				two.MeshIndex = i + 1;
+				one.Index = i;
+				two.Index = i + 1;
 				correct.Add(new Edge(one, two));
 			}
 			Vertex first = new Vertex(), second = new Vertex();
-			first.MeshIndex = 0;
-			second.MeshIndex = 15; 
+			first.Index = 0;
+			second.Index = 15; 
 			correct.Add(new Edge(first, second));
 
 			Assert.AreEqual(correct.Count, mb.Count);
@@ -40,11 +40,11 @@ namespace ShipDesignerUnitTests
 			for (int i = 0; i < correct.Count; i++)
 			{
 				bool foundEdge = false;
-				int[] correctEdge = new int[2] { correct[i].Vertices[0].MeshIndex, correct[i].Vertices[1].MeshIndex };
+				int[] correctEdge = new int[2] { correct[i].Vertices[0].Index, correct[i].Vertices[1].Index };
 
 				for (int n = 0; n < mb.Count; n++)
 				{
-					int [] builtEdge = new int[2] { mb[n].Vertices[0].MeshIndex, mb[n].Vertices[1].MeshIndex };
+					int [] builtEdge = new int[2] { mb[n].Vertices[0].Index, mb[n].Vertices[1].Index };
 					if (builtEdge[0] == correctEdge[0] && builtEdge[1] == correctEdge[1])
 						foundEdge = true;
 				}

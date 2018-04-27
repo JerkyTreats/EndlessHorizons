@@ -51,9 +51,9 @@ namespace Ships
 				Triangle thisTri = triangles[i];
 				int index = thisTri.Index;
 
-				tris[index] = thisTri.Vertices[0].MeshIndex;
-				tris[index + 1] = thisTri.Vertices[1].MeshIndex;
-				tris[index + 2] = thisTri.Vertices[2].MeshIndex;
+				tris[index] = thisTri.Vertices[0].Index;
+				tris[index + 1] = thisTri.Vertices[1].Index;
+				tris[index + 2] = thisTri.Vertices[2].Index;
 			}
 
 			return tris;

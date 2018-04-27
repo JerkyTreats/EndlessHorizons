@@ -21,10 +21,10 @@ namespace ShipDesignerUnitTests
 		public void Init()
 		{
 			Vertex zero = new Vertex(), one = new Vertex(), two = new Vertex(), three = new Vertex();
-			zero.MeshIndex = 0;
-			one.MeshIndex = 1;
-			two.MeshIndex = 2;
-			three.MeshIndex = 3;
+			zero.Index = 0;
+			one.Index = 1;
+			two.Index = 2;
+			three.Index = 3;
 
 			Vertices.Add(zero);
 			Vertices.Add(one);

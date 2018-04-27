@@ -6,14 +6,14 @@ namespace Ships
 {
 	public struct Vertex
 	{
-		public int MeshIndex;
+		public int Index;
 		public Vector3 Position;
 		public Vector3 Normal;
 		public Vector2 UV;
 
 		public Vertex(int index, Vector3 position, Vector3 normal, Vector2 uv)
 		{
-			MeshIndex = index;
+			Index = index;
 			Position = position;
 			Normal = normal;
 			UV = uv;

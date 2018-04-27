@@ -18,7 +18,7 @@ namespace Ships
 				// For the three edges in the triangle, Add or increment the number of times this edge occurs
 				for (int n = 0; n < tris[i].Edges.Length; n++)
 				{
-					string key = "" +  tris[i].Edges[n].Vertices[0].MeshIndex + '|' + tris[i].Edges[n].Vertices[1].MeshIndex;
+					string key = "" +  tris[i].Edges[n].Vertices[0].Index + '|' + tris[i].Edges[n].Vertices[1].Index;
 					if (edgeFinder.ContainsKey(key))
 					{
 						EdgeFinder toModify = edgeFinder[key];

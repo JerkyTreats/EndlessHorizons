@@ -350,10 +350,10 @@
     <Compile Include="Assets\Game\Ships\Mesh\MeshPart.cs" />
     <Compile Include="Assets\Game\Ships\Mesh\MeshUtils.cs" />
     <Compile Include="Assets\Game\Ships\Mesh\Origin.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Room.cs" />
     <Compile Include="Assets\Game\Ships\Mesh\SharedEdge.cs" />
     <Compile Include="Assets\Game\Ships\Mesh\Triangle.cs" />
     <Compile Include="Assets\Game\Ships\Mesh\Vertex.cs" />
-    <Compile Include="Assets\Game\Ships\Room.cs" />
     <Compile Include="Assets\Game\Ships\Ship.cs" />
     <Compile Include="Assets\Game\Ships\ShipCategory.cs" />
     <Compile Include="Assets\View\CameraFactory.cs" />

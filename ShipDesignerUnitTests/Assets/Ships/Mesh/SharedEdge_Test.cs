@@ -42,7 +42,7 @@ namespace ShipDesignerUnitTests
 
 				for (int v = 0; v < sharedEdges[i].Vertices.Count; v++)
 				{
-					actual.Add(sharedEdges[i].Vertices[v].MeshIndex);
+					actual.Add(sharedEdges[i].Vertices[v].Index);
 				}
 
 				bool intersect = false;
@@ -59,41 +59,41 @@ namespace ShipDesignerUnitTests
 		public void SharedEdge_MergeUpdatesVerticeIndexCorrectly()
 		{
 			Vertex zero = new Vertex(), one = new Vertex(), two = new Vertex(), three = new Vertex();
-			zero.MeshIndex = 0;
-			one.MeshIndex = 1;
-			two.MeshIndex = 2;
-			three.MeshIndex = 3;
+			zero.Index = 0;
+			one.Index = 1;
+			two.Index = 2;
+			three.Index = 3;
 
 			SharedEdge se = new SharedEdge(new Edge(one, two));
 			SharedEdge mergeAtBeginning = new SharedEdge(new Edge(zero, one));
 			SharedEdge mergeAtEnd = new SharedEdge(new Edge(two, three));
 
-			Assert.AreEqual(1, se.First.MeshIndex);
-			Assert.AreEqual(2, se.Last.MeshIndex);
+			Assert.AreEqual(1, se.First.Index);
+			Assert.AreEqual(2, se.Last.Index);
 			Assert.True(se.Vertices.Contains(one));
 			Assert.True(se.Vertices.Contains(two));
 			Assert.AreEqual(2, se.Vertices.Count);
 
 			se.Merge(mergeAtBeginning);
 
-			Assert.AreEqual(0, se.First.MeshIndex);
-			Assert.AreEqual(2, se.Last.MeshIndex);
+			Assert.AreEqual(0, se.First.Index);
+			Assert.AreEqual(2, se.Last.Index);
 			Assert.AreEqual(3, se.Vertices.Count);
 			int[] required = new int[] { 0, 1, 2 };
 			for (int i = 0; i < se.Vertices.Count; i++)
 			{
-				Assert.True(required.Contains(se.Vertices[i].MeshIndex));
+				Assert.True(required.Contains(se.Vertices[i].Index));
 			}
 
 			se.Merge(mergeAtEnd);
 
-			Assert.AreEqual(0, se.First.MeshIndex);
-			Assert.AreEqual(3, se.Last.MeshIndex);
+			Assert.AreEqual(0, se.First.Index);
+			Assert.AreEqual(3, se.Last.Index);
 			Assert.AreEqual(4, se.Vertices.Count);
 			required = new int[] { 0, 1, 2, 3 };
 			for (int i = 0; i < se.Vertices.Count; i++)
 			{
-				Assert.True(required.Contains(se.Vertices[i].MeshIndex));
+				Assert.True(required.Contains(se.Vertices[i].Index));
 			}
 		}
 	}

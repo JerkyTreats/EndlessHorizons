@@ -23,9 +23,9 @@ namespace Ships
 
 		public bool Merge(SharedEdge toMerge)
 		{
-			if (First.MeshIndex == toMerge.Last.MeshIndex)
+			if (First.Index == toMerge.Last.Index)
 				m_edges.InsertRange(0, toMerge.m_edges);
-			else if (Last.MeshIndex == toMerge.First.MeshIndex)
+			else if (Last.Index == toMerge.First.Index)
 				m_edges.AddRange(toMerge.m_edges);
 			else
 				return false;
