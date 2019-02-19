@@ -12,12 +12,15 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -345,15 +348,16 @@
     <Compile Include="Assets\Game\Ships\Components\Tile\Tile.cs" />
     <Compile Include="Assets\Game\Ships\Components\Tile\TileFactory.cs" />
     <Compile Include="Assets\Game\Ships\Mesh\ComponentManager.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\Edge.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\MeshCombiner.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\MeshPart.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\MeshUtils.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\Origin.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\Room.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\SharedEdge.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\Triangle.cs" />
-    <Compile Include="Assets\Game\Ships\Mesh\Vertex.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Models\Edge.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Floorplan.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Models\MeshCombiner.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Models\MeshPart.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Models\MeshUtils.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Models\Origins.cs" />
+    <Compile Include="Assets\Game\Ships\Room.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Models\SharedEdge.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Models\Triangle.cs" />
+    <Compile Include="Assets\Game\Ships\Mesh\Models\Vertex.cs" />
     <Compile Include="Assets\Game\Ships\Ship.cs" />
     <Compile Include="Assets\Game\Ships\ShipCategory.cs" />
     <Compile Include="Assets\View\CameraFactory.cs" />
@@ -375,6 +379,9 @@
     <Compile Include="Assets\Workshop\UI\Text\TextData.cs" />
     <Compile Include="Assets\Workshop\UI\Text\TextLabel.cs" />
     <Compile Include="Assets\Workshop\UI\UIFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Game\Ships\Mesh\Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

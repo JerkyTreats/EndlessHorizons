@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using Ships;
 using System.Collections.Generic;
+using UnityEngine;
+using System.Linq;
 
 namespace ShipDesignerUnitTests
 {
@@ -59,6 +61,30 @@ namespace ShipDesignerUnitTests
 				Assert.AreEqual(TriangleList[i].Vertices[0], transformed[i].Vertices[0]);
 				Assert.AreEqual(TriangleList[i].Vertices[1], transformed[i].Vertices[1]);
 				Assert.AreEqual(TriangleList[i].Vertices[2], transformed[i].Vertices[2]);
+			}
+		}
+
+		[Test]
+		public void Triangle_SimpleConstructorPopulatesValuesCorrectly()
+		{
+			Vector3[] positions = new Vector3[3];
+			for (int i = 0; i < 3; i++)
+			{
+				positions[i] = new Vector3(i, i, i);
+			}
+
+			Triangle tri = new Triangle(positions, Vector3.up, Vector2.zero);
+			Assert.IsNotNull(tri);			
+			Assert.IsNotNull(tri.Edges);
+			Assert.IsNotNull(tri.Vertices);
+			Assert.IsNotNull(tri.Index);
+
+			Assert.AreEqual(0, tri.Index);
+
+			foreach (Edge edge in tri.Edges)
+			{
+				Assert.True(positions.Contains(edge.Vertices[0].Position));
+				Assert.True(positions.Contains(edge.Vertices[1].Position));
 			}
 		}
 	}
