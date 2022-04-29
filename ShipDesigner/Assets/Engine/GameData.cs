@@ -68,7 +68,7 @@ namespace Engine
 		public void SetGrid(GameObject grid)
 		{
 			Grid = grid;
-			m_zAxisItemPlacement = Grid.GetComponent<Grid>().ZAxisItemPlacement;
+			m_zAxisItemPlacement = Grid.GetComponent<CustomGrid>().ZAxisItemPlacement;
 		}
 
 		/// <summary>

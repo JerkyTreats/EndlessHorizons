@@ -1,15 +1,22 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Markov;
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace ShipDesignerUnitTests
 {
-	[TestClass]
+	[TestFixture]
 	public class MarkovInput_Test
 	{
-		[TestMethod]
+		[OneTimeSetUp]
+		public void Init()
+		{
+			Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
+		}
+
+		[Test]
 		public void MarkovInput_TestCountProperty()
 		{
 			List<string> list = new List<string>() { "Test", "Test2", "Test3" };
@@ -18,7 +25,7 @@ namespace ShipDesignerUnitTests
 			Assert.IsTrue(mi.Count == list.Count);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_TestAddProperty()
 		{
 			string add = "Test2";
@@ -29,7 +36,7 @@ namespace ShipDesignerUnitTests
 			Assert.IsTrue(mi.Values[1].Equals(add.ToLower()));
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_CorrectLetterFrequencyReturned()
 		{
 			char letterToFind = 'm';
@@ -39,7 +46,7 @@ namespace ShipDesignerUnitTests
 			Assert.AreEqual(2, mi.GetLetterFrequencyByPosition(0, letterToFind));
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_CorrectWordLengthDistributionReturned()
 		{
 			List<string> input = new List<string>() { "cat", "dog", "duck", "horse" };
@@ -53,7 +60,7 @@ namespace ShipDesignerUnitTests
 			Assert.AreEqual(word5chars, mi.WordLengthDistribution[5]);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_CorrectWordLengthOccurencesReturned()
 		{
 			List<string> input = new List<string>() { "cat", "dog", "duck", "horse" };
@@ -63,7 +70,7 @@ namespace ShipDesignerUnitTests
 			Assert.AreEqual(1, mi.WordLengths[5]);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_CorrectNumberOfWordsReturned()
 		{
 			List<string> list = new List<string>() { "man", "cat", "man cat", "man cat cat man" };
@@ -74,7 +81,7 @@ namespace ShipDesignerUnitTests
 			Assert.AreEqual(1, mi.NumberOfWords[4]);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_CapitalizedInputsSanitized()
 		{
 			string lower = "map";
@@ -82,7 +89,7 @@ namespace ShipDesignerUnitTests
 			Assert.AreEqual(lower, mi.Values[0]);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_CapitalizedInputsSanitizedBeforeAdded()
 		{
 			string test = "TEST";
@@ -91,7 +98,7 @@ namespace ShipDesignerUnitTests
 			Assert.AreEqual(test.ToLower(), mi.Values[0]);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_CorrectLetterFrequenciesReturnedByStringPattern()
 		{
 			List<string> input = new List<string>() { "map", "man", "tap", "woman" };
@@ -105,7 +112,7 @@ namespace ShipDesignerUnitTests
 			Assert.IsTrue(toCompare[n] == 2);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_LetterFrequenciesByStringPatternObserveFrequencyThreshold()
 		{
 			MarkovInput mi = new MarkovInput(new List<string>() { "map" });
@@ -113,7 +120,7 @@ namespace ShipDesignerUnitTests
 			Assert.IsTrue(occurances['p'] == 1);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_FullPatternMatchReturnsNonNullResult()
 		{
 			string fullPattern = "test";
@@ -125,7 +132,7 @@ namespace ShipDesignerUnitTests
 			Assert.IsNotNull(occurances);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_StringPatternMatchToleranceBasedOnOccurances()
 		{
 			List<string> inputs = new List<string>() { "man", "mana", "ana" };
@@ -139,7 +146,7 @@ namespace ShipDesignerUnitTests
 
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovInput_WordLengthsDontIncludeWhitespaces()
 		{
 			MarkovInput mi = new MarkovInput(new List<string>() { "bads word","bads","word"});

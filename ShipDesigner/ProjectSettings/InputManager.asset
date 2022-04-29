@@ -295,12 +295,12 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Rotate
-    descriptiveName: 
+    descriptiveName: Rotate
     descriptiveNegativeName: 
     negativeButton: e
     positiveButton: q
-    altNegativeButton: 
-    altPositiveButton: 
+    altNegativeButton: e
+    altPositiveButton: q
     gravity: 1000
     dead: 0.001
     sensitivity: 1000

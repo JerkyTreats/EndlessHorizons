@@ -1,15 +1,21 @@
 ﻿using System.IO;
 using SimpleJSON;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Engine.Utility;
 using System.Collections.Generic;
 
 namespace Util
 {
-	[TestClass]
+	[TestFixture]
 	public class GetJSONNode_Test
 	{
-		[TestMethod]
+		[OneTimeSetUp]
+		public void Init()
+		{
+			Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
+		}	
+
+		[Test]
 		public void JSONTools_NullValueForNullInput()
 		{
 			string emptyString = null;
@@ -17,7 +23,7 @@ namespace Util
 			Assert.IsNull(node);
 		}
 
-		[TestMethod]
+		[Test]
 		public void JSONTools_NullValueForBadFilePathInput()
 		{
 			string badFilePath = "This is a bad file path";
@@ -25,7 +31,7 @@ namespace Util
 			Assert.IsNull(node);
 		}
 
-		[TestMethod]
+		[Test]
 		public void JSONTools_NotNullValueForWellFormedJSON()
 		{
 			string inputFile = Path.Combine(Directory.GetCurrentDirectory(), "Util", "TestNameInputFile.json");
@@ -35,7 +41,7 @@ namespace Util
 			Assert.IsNotNull(node);
 		}
 
-		[TestMethod]
+		[Test]
 		public void JSONTools_JSONArrayReturnsNotNullList()
 		{
 			string inputFile = Path.Combine(Directory.GetCurrentDirectory(), "Util", "TestNameInputFile.json");
@@ -45,7 +51,7 @@ namespace Util
 			Assert.IsNotNull(list);
 		}
 
-		[TestMethod]
+		[Test]
 		public void JSONTools_JSONArrayReturnsNonEmptyStringsInList()
 		{
 			string inputFile = Path.Combine(Directory.GetCurrentDirectory(), "Util", "TestNameInputFile.json");

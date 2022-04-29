@@ -1,14 +1,21 @@
 ﻿using System;
 using Markov;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ShipDesignerUnitTests
 {
-	[TestClass]
+	[TestFixture]
 	public class MarkovGenerator_Test
 	{
-		[TestMethod]
+		[OneTimeSetUp]
+		public void Init()
+		{
+			Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
+		}
+
+		[Test]
 		public void MarkovGenerator_GeneratedNameIsNotNull()
 		{
 			List<string> inputList = new List<string>() { "Man" };
@@ -19,7 +26,7 @@ namespace ShipDesignerUnitTests
 			Assert.IsNotNull(generatedName);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MarkovGenerator_GeneratedNameLengthNotLessMinimumInputLength()
 		{
 			List<string> inputList = new List<string>() { "Man", "Taps", "Pants"};

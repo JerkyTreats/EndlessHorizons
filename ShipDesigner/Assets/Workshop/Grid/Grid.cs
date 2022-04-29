@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Workshop.Grid
 {
-	public class Grid : MonoBehaviour
+	public class CustomGrid : MonoBehaviour
 	{
 		private Grids m_model; 
 

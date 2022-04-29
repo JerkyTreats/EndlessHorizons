@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engine;
+using System;
 using UnityEngine;
 
 namespace Engine
@@ -10,14 +11,25 @@ namespace Engine
 		Vector3[] m_normals;
 		Vector2[] m_uvs;
 		int[] m_tris;
- 
+		Log m_logger = new Log(GameAreas.Camera);
+
 		public Quad(string resourcePath)
 		{
 			m_texture = Common.LoadTexture(resourcePath);
-			m_vertices = GetDefaultVertices();
+			m_vertices = GetDefaultVertices(4);
 			m_uvs = GetDefaultUVs();
 			m_normals = GetDefaultNormals();
 			m_tris = GetDefaultTriangles();
+		}
+
+		public Quad(int verts)
+		{
+			m_logger.Header("Creating New Quad");
+			m_vertices = GetDefaultVertices(verts);
+			m_uvs = GetDefaultUVs();
+			m_normals = GetDefaultNormals();
+			m_tris = GetDefaultTriangles();
+			m_logger.Header("Finished Creating Quad");
 		}
 
 		public Quad(string resourcePath, Vector3[] vertices, Vector3[] normals, Vector2[] uvs, int[] tris)
@@ -42,15 +54,22 @@ namespace Engine
 
 			renderer.material = material;
 
+			Mesh mesh = GetMesh();
+
+			var meshFilter = gameObject.AddComponent<MeshFilter>();
+			meshFilter.mesh = mesh;
+			mesh.RecalculateNormals();
+		}
+
+		public Mesh GetMesh()
+		{
 			Mesh mesh = new Mesh();
 			mesh.vertices = m_vertices;
 			mesh.normals = m_normals;
 			mesh.uv = m_uvs;
 			mesh.triangles = m_tris;
 
-			var meshFilter = gameObject.AddComponent<MeshFilter>();
-			meshFilter.mesh = mesh;
-			mesh.RecalculateNormals();
+			return mesh;
 		}
 
 		/// <summary>
@@ -87,42 +106,84 @@ namespace Engine
 
 		Vector3[] GetDefaultNormals()
 		{
-			Vector3[] normals = new Vector3[4];
+			Vector3[] normals = new Vector3[m_vertices.Length];
 
-			normals[0] = -Vector3.forward;
-			normals[1] = -Vector3.forward;
-			normals[2] = -Vector3.forward;
-			normals[3] = -Vector3.forward;
+			for (int i = 0; i < normals.Length; i++)
+			{
+				normals[i] = -Vector3.forward;
+			}
 
 			return normals;
 		}
+
 		int[] GetDefaultTriangles()
 		{
-			return new int[]
+			m_logger.Header("Creating Triangles");
+			int verts = m_vertices.Length - 1;
+			int[] tris = new int[verts * 3];
+			m_logger.Write(string.Format("Creating triangles:\nVerts: [{0}]\ntris: [{1}]", verts, tris.Length));
+
+			int index = 1;
+			for (int i = 0; i <= (3 * (verts - 1)); i+=3)
 			{
-				0, 1, 2,
-				0, 2, 3
-			};
+				tris[i] = 0;
+				tris[i + 1] = index;
+				tris[i + 2] = index + 1;
+				index += 1;
+			}
+
+			tris[tris.Length - 1] = 1;
+			tris[tris.Length - 2] = verts;
+			tris[tris.Length - 3] = 0;
+			
+			return tris;
 		}
-		Vector3[] GetDefaultVertices()
+
+		//Verts per side should be divisible by 4
+		Vector3[] GetDefaultVertices(int vertices)
 		{
-			return new Vector3[4]
+			m_logger.Header("Creating Quad Vertices");
+			m_logger.Write(string.Format("Input vertices: [{0}]", vertices));
+			Vector3[] verts = new Vector3[vertices + 1]; // +1 to include the center vertex
+
+			int vertsPerSide = (vertices - 4) / 4; //number of vertices per side not including corners
+			float vertIncrement = 1f / (vertsPerSide + 1); // Each side vertex evenly divided
+			m_logger.Write(string.Format("vertsPerSide: [{0}]\nvertIncrement: [{1}]", vertsPerSide, vertIncrement));
+			verts[0] = new Vector3(0.5f, 0.5f); // Center vert first
+
+			Vector3 currentVert = new Vector3();
+			for (int i = 1; i < vertices + 1; i++) 
 			{
-				new Vector3(),
-				new Vector3(0,1),
-				new Vector3(1,1),
-				new Vector3(1,0)
-			};
+				m_logger.Write(string.Format("Vertex[{1}]: [{0}]", currentVert, i), 2);
+				verts[i] = currentVert;
+	
+				currentVert = incrementVert(i <= (vertices / 2), currentVert, vertIncrement);
+			}
+
+			return verts;
 		}
+
+		Vector3 incrementVert(bool isAscending, Vector3 vert, float increment)
+		{
+			if (!isAscending)
+				increment *= -1;
+
+			if ((vert.y == 1 && isAscending) || (vert.y == 0 && !isAscending))
+				vert.x += increment;
+			else
+				vert.y += increment;
+			return vert;
+		}
+
 		Vector2[] GetDefaultUVs()
 		{
-			return new Vector2[4]
+			Vector2[] uvs = new Vector2[m_vertices.Length];
+			for (int i = 0; i < m_vertices.Length; i++)
 			{
-				new Vector2(),
-				new Vector2(0,1),
-				new Vector2(1,1),
-				new Vector2(1,0)
-			};
+				uvs[i] = new Vector2(m_vertices[i].x, m_vertices[i].y);
+			}
+
+			return uvs;
 		}
 
 		public Texture Texture { get { return m_texture; } }

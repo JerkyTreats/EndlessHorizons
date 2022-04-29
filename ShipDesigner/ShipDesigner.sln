@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipDesigner.Plugins", "ShipDesigner.Plugins.csproj", "{093D3C4D-C560-09C7-6DDB-533F97B3EBC8}"
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{0800BE54-8FDF-922D-B783-49A4B4BE275A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipDesigner", "ShipDesigner.csproj", "{975B3BA9-A54C-49F8-FB15-38B6C0D49E62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{B24BFE46-C163-063C-DC44-C04FE62B28C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipDesignerUnitTests", "..\ShipDesignerUnitTests\ShipDesignerUnitTests.csproj", "{C56FB149-A5E3-4516-97CC-EA5D091D3E3E}"
 EndProject
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{093D3C4D-C560-09C7-6DDB-533F97B3EBC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{093D3C4D-C560-09C7-6DDB-533F97B3EBC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{093D3C4D-C560-09C7-6DDB-533F97B3EBC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{093D3C4D-C560-09C7-6DDB-533F97B3EBC8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{975B3BA9-A54C-49F8-FB15-38B6C0D49E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{975B3BA9-A54C-49F8-FB15-38B6C0D49E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{975B3BA9-A54C-49F8-FB15-38B6C0D49E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{975B3BA9-A54C-49F8-FB15-38B6C0D49E62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0800BE54-8FDF-922D-B783-49A4B4BE275A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0800BE54-8FDF-922D-B783-49A4B4BE275A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0800BE54-8FDF-922D-B783-49A4B4BE275A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0800BE54-8FDF-922D-B783-49A4B4BE275A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B24BFE46-C163-063C-DC44-C04FE62B28C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B24BFE46-C163-063C-DC44-C04FE62B28C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B24BFE46-C163-063C-DC44-C04FE62B28C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B24BFE46-C163-063C-DC44-C04FE62B28C7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C56FB149-A5E3-4516-97CC-EA5D091D3E3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C56FB149-A5E3-4516-97CC-EA5D091D3E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C56FB149-A5E3-4516-97CC-EA5D091D3E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU

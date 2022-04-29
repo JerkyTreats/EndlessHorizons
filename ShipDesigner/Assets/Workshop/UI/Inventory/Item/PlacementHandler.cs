@@ -14,7 +14,7 @@ namespace UI.Inventory.Item
 	public class PlacementHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 	{
 		public Canvas Canvas;
-		public Grid Grid;
+		public CustomGrid Grid;
 		public Quad Quad { get; set; }
 		public iComponentSpawner ComponentSpawner { get; internal set; }
 
@@ -23,7 +23,7 @@ namespace UI.Inventory.Item
 
 		void Start()
 		{
-			Grid = GameData.Instance.Grid.GetComponent<Grid>();
+			Grid = GameData.Instance.Grid.GetComponent<CustomGrid>();
 			Canvas = GameData.Instance.Canvas;
 		}
 
